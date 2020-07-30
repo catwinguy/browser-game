@@ -7,13 +7,13 @@ Drexel University, Summer 2019-2020
 Our project will be a 2D multiplayer platformer game (exact game type is still up for debate) that allows users to make accounts to keep track of their game data. Our intended audience ranges from kids to young adolescents.
 
 ### __Team Covid Coders__
-Amanda Warkow 
+Amanda W.
 
-Catherine Nguyen 
+Catherine N. 
 
-Jessica Wilson 
+Jessica W.
 
-Phil Huddy 
+Phil H. 
 
 ## Running the Program
 
