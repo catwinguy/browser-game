@@ -1,0 +1,8 @@
+{
+    "ground": {"image": "ground", "x": 400, "y": 568},
+    "platforms": [
+        {"image": "ground", "x": 600, "y": 400},
+        {"image": "ground", "x": 50, "y": 250},
+        {"image": "ground", "x": 750, "y": 220}
+    ]
+}

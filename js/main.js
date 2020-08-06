@@ -1,4 +1,4 @@
-
+const currentLevel = 'easy-level';
 
 let phaserConfig = {
     type: Phaser.AUTO,
@@ -35,6 +35,8 @@ function preload() {
 
     // Levels
     this.load.json('easy-level', 'assets/story_level_easy.json')
+    this.load.json('medium-level', 'assets/story_level_medium.json')
+    this.load.json('hard-level', 'assets/story_level_hard.json')
 
     // Dynamic Objects
     this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})
@@ -47,7 +49,7 @@ function create() {
     // Platforms group is a grouping for all ground objects
     platforms = this.physics.add.staticGroup();  // static object never moves
 
-    let data = this.cache.json.get('easy-level');
+    let data = this.cache.json.get(currentLevel);
     let groundData = data.ground;
     let platformData = data.platforms;
 
