@@ -33,6 +33,9 @@ function preload() {
     this.load.image('star', 'assets/star.png')
     this.load.image('bomb', 'assets/bomb.png')
 
+    // Levels
+    this.load.json('easy-level', 'assets/story_level_easy.json')
+
     // Dynamic Objects
     this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})
 }
@@ -44,10 +47,14 @@ function create() {
     // Platforms group is a grouping for all ground objects
     platforms = this.physics.add.staticGroup();  // static object never moves
 
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();  // setScale scales the size of this object
-    platforms.create(600, 400, 'ground');
-    platforms.create(50, 250, 'ground');
-    platforms.create(750, 220, 'ground');
+    let data = this.cache.json.get('easy-level');
+    let groundData = data.ground;
+    let platformData = data.platforms;
+
+    platforms.create(groundData.x, groundData.y, groundData.image).setScale(2).refreshBody();  // setScale scales the size of this object
+    platformData.forEach(function(platform){
+        platforms.create(platform.x, platform.y, platform.image);
+    })
 
     player = this.physics.add.sprite(100, 450, 'dude');
 
