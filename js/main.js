@@ -29,7 +29,12 @@ var cursors;
 function preload() {
     // Static Images
     this.load.image('background', 'assets/background.png')
-    this.load.image('ground', 'assets/platform.png')
+    this.load.image('ground', 'assets/grass_platform_50x1.png')
+    this.load.image('dirt_block', 'assets/dirt_block.png')
+    this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
+    this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
+    this.load.image('grass_block', 'assets/grass_block.png')
+    this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
     this.load.image('star', 'assets/star.png')
     this.load.image('bomb', 'assets/bomb.png')
 
@@ -53,7 +58,10 @@ function create() {
     let groundData = data.ground;
     let platformData = data.platforms;
 
-    platforms.create(groundData.x, groundData.y, groundData.image).setScale(2).refreshBody();  // setScale scales the size of this object
+    // ground and platforms are separate for now but we can combine them if not needed
+    groundData.forEach(function(ground){
+        platforms.create(ground.x, ground.y, ground.image);
+    })
     platformData.forEach(function(platform){
         platforms.create(platform.x, platform.y, platform.image);
     })
