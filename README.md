@@ -23,6 +23,10 @@ Type in ```node server.js``` to run the server.
 
 Navigate to ```http://localhost:3000``` on your preferred browser.
 
+### Dependencies
+
+```npm install phaser@3.24.1```
+
 ## Schedule
 Week 7 (Tuesday, 8/4)
 + Going through the tutorials/Learning the resources

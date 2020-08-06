@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+div {
+    margin: auto;
+}
