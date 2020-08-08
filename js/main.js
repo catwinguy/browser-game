@@ -1,4 +1,5 @@
 const currentLevel = 'easy-level';
+const playerName = 'zombie';
 
 let phaserConfig = {
     type: Phaser.AUTO,
@@ -45,6 +46,7 @@ function preload() {
 
     // Dynamic Objects
     this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})
+    this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
 }
 
 function create() {
@@ -66,24 +68,24 @@ function create() {
         platforms.create(platform.x, platform.y, platform.image);
     })
 
-    player = this.physics.add.sprite(100, 450, 'dude');
+    player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
 
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers(playerName, { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
         key: 'turn',
-        frames: [ { key: 'dude', frame: 4 } ],
+        frames: [ { key: playerName, frame: 4 } ],
         frameRate: 20
     });
 
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
         frameRate: 10,
         repeat: -1
     });
