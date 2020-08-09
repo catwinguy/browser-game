@@ -10,7 +10,7 @@ let phaserConfig = {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 500
+                y: 700
             },
             debug: false
         }

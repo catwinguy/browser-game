@@ -6,8 +6,32 @@ body {
 
 h1 {
     text-align: center;
+    margin-bottom: 0px;
+}
+
+h4 {
+    text-align: center;
 }
 
 div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+footer {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    text-align: center;
 }
