@@ -1,4 +1,4 @@
-const currentLevel = 'easy-level';
+const currentLevel = 'hard-level';
 const playerName = 'zombie';
 
 let phaserConfig = {
@@ -26,6 +26,7 @@ let game = new Phaser.Game(phaserConfig);
 let platforms;
 var player;
 var cursors;
+let score = 0;
 
 function preload() {
     // Static Images
@@ -36,8 +37,11 @@ function preload() {
     this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
     this.load.image('grass_block', 'assets/grass_block.png')
     this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
+    this.load.image('stone_block', 'assets/stone_block.png')
+    this.load.image('stone_platform4', 'assets/stone_platform_4x1.png')
     this.load.image('star', 'assets/star.png')
     this.load.image('bomb', 'assets/bomb.png')
+    this.load.image('emerald', 'assets/emerald.png')
 
     // Levels
     this.load.json('easy-level', 'assets/story_level_easy.json')
@@ -90,10 +94,30 @@ function create() {
         repeat: -1
     });
 
+    coins = this.physics.add.group();
+    let coinData = data.coins;
+
+    coinData.forEach(function(coin){
+        coins.create(coin.x, coin.y, coin.image)
+    })
+
+    coins.children.iterate(function (child) {
+        child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
+    });
+
     //player.setBounce(0.2);
     player.setCollideWorldBounds(true);  // Collides with window edges
 
     this.physics.add.collider(player, platforms);  // Collider between two game objects
+    this.physics.add.collider(coins, platforms);  // make coins land on the ground
+
+    function collectCoin (player, coin){
+        coin.disableBody(true, true);
+        score++;
+        console.log("Current score:", score);
+    }
+
+    this.physics.add.overlap(player, coins, collectCoin, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
 }

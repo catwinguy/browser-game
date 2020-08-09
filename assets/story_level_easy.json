@@ -8,5 +8,6 @@
         {"image": "dirt_platform4", "x": 50, "y": 250},
         {"image": "dirt_platform4", "x": 750, "y": 220}
     ],
-    "playerStart": {"x": 100, "y": 450}
+    "playerStart": {"x": 100, "y": 450},
+    "coins": []
 }

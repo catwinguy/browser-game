@@ -49,5 +49,9 @@
         {"image": "dirt_platform4", "x": 96, "y": 200}
 
     ],
-    "playerStart": {"x": 40, "y": 50}
+    "playerStart": {"x": 40, "y": 50},
+    "coins": [
+        {"image": "emerald", "x": 104, "y": 56},
+        {"image": "emerald", "x": 728, "y": 520}
+    ]
 }
