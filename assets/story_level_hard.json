@@ -1,4 +1,5 @@
 {
+    "backgroundImage": "background",
     "ground": [
         {"image": "dirt_platform50", "x": 400, "y": 568},
         {"image": "dirt_platform50", "x": 400, "y": 584},

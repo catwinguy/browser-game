@@ -1,4 +1,5 @@
 {
+    "backgroundImage": "village_background",
     "ground": [
         {"image": "ground", "x": 400, "y": 576},
         {"image": "dirt_platform50", "x": 400, "y": 592}
