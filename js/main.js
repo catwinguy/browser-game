@@ -43,6 +43,8 @@ function preload() {
     this.load.image('star', 'assets/star.png')
     this.load.image('bomb', 'assets/bomb.png')
     this.load.image('emerald', 'assets/emerald.png')
+    this.load.image('diamond', 'assets/diamond.png')
+    this.load.image('door', 'assets/door.png')
 
     // Levels
     this.load.json('easy-level', 'assets/story_level_easy.json')
