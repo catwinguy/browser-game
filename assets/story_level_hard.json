@@ -9,9 +9,9 @@
         {"image": "dirt_platform4", "x": 32, "y": 56}, 
         {"image": "dirt_platform4", "x": 160, "y": 72},
         {"image": "dirt_platform4", "x": 272, "y": 56},
-        {"image": "dirt_platform4", "x": 416, "y": 72},
-        {"image": "dirt_platform4", "x": 544, "y": 56},
-        {"image": "dirt_platform4", "x": 672, "y": 72},
+        {"image": "dirt_platform4", "x": 400, "y": 72},
+        {"image": "dirt_platform4", "x": 520, "y": 56},
+        {"image": "dirt_platform4", "x": 640, "y": 72},
 
         {"image": "dirt_platform4", "x": 32, "y": 168},
         {"image": "dirt_platform4", "x": 96, "y": 168},
@@ -33,7 +33,8 @@
     "coins": [
         {"image": "diamond", "x": 152, "y": 40},
         {"image": "diamond", "x": 408, "y": 40},
-        {"image": "diamond", "x": 656, "y": 40},
-        {"image": "diamond", "x": 686, "y": 40}
-    ]
+        {"image": "diamond", "x": 624, "y": 40},
+        {"image": "diamond", "x": 654, "y": 40}
+    ],
+    "powerups": []
 }
