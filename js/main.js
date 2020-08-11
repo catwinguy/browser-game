@@ -1,5 +1,5 @@
 const currentLevel = 'hard-level';
-const playerName = 'zombie';
+const playerName = 'guy';
 
 let phaserConfig = {
     type: Phaser.AUTO,
@@ -51,6 +51,8 @@ function preload() {
     // Dynamic Objects
     this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})
     this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
+    this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
+    this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
 }
 
 function create() {
