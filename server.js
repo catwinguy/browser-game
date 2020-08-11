@@ -7,6 +7,8 @@ const hostname = "localhost";
 
 app.use(express.json());
 app.use(express.static("public_html"));
+app.use(express.static("js"));
+app.use(express.static("."));
 
 // imports database environment variables
 // const connection = require("../env.json");
