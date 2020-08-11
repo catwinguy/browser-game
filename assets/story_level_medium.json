@@ -6,16 +6,22 @@
     ],
     "platforms": [
         {"image": "dirt_platform50", "x": 400, "y": 8},
-        {"image": "dirt_platform4", "x": 200, "y": 200},
+        {"image": "dirt_platform4", "x": 180, "y": 180},
         {"image": "dirt_platform4", "x": 500, "y": 400},
         {"image": "dirt_platform4", "x": 50, "y": 500},
         {"image": "dirt_platform4", "x": 750, "y": 220},
-        {"image": "dirt_platform4", "x": 150, "y": 450},
+        {"image": "dirt_platform4", "x": 170, "y": 420},
         {"image": "dirt_platform4", "x": 80, "y": 300},
-        {"image": "dirt_platform4", "x": 220, "y": 375}
+        {"image": "dirt_platform4", "x": 250, "y": 350},
+        {"image": "dirt_platform4", "x": 400, "y": 100}
+
     ],
     "playerStart": {"x": 150, "y": 450},
     "coins": [
-        {"image": "star", "x": 80, "y": 280}
+        {"image": "star", "x": 180, "y": 160}
+    ],
+    "powerups": [
+        {"image": "emerald", "x": 80, "y": 280, "name": "lower-gravity"},
+        {"image": "bomb", "x": 400, "y": 80, "name": "raise-gravity"}
     ]
 }
