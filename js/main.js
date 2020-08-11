@@ -1,5 +1,5 @@
-const currentLevel = 'hard-level';
-const playerName = 'guy';
+const currentLevel = 'easy-level';
+const playerName = 'girl';
 
 let phaserConfig = {
     type: Phaser.AUTO,
@@ -31,6 +31,7 @@ let score = 0;
 function preload() {
     // Static Images
     this.load.image('background', 'assets/background.png')
+    this.load.image('village_background', 'assets/village_background.png')
     this.load.image('ground', 'assets/grass_platform_50x1.png')
     this.load.image('dirt_block', 'assets/dirt_block.png')
     this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
@@ -56,13 +57,13 @@ function preload() {
 }
 
 function create() {
+    let data = this.cache.json.get(currentLevel);
 
-    this.add.image(0,0,'background').setOrigin(0,0)
+    this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
 
     // Platforms group is a grouping for all ground objects
     platforms = this.physics.add.staticGroup();  // static object never moves
-
-    let data = this.cache.json.get(currentLevel);
+    
     let groundData = data.ground;
     let platformData = data.platforms;
 
