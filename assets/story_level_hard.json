@@ -36,5 +36,7 @@
         {"image": "diamond", "x": 624, "y": 40},
         {"image": "diamond", "x": 654, "y": 40}
     ],
-    "powerups": []
+    "powerups": [
+        {"image": "green_potion", "x": 768, "y": 200, "name": "lower-gravity"}
+    ]
 }

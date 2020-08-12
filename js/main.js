@@ -1,5 +1,5 @@
 let currentLevel = 'easy-level';
-const playerName = 'zombie';
+const playerName = 'girl';
 
 let phaserConfig = {
     type: Phaser.AUTO,
@@ -45,6 +45,9 @@ function preload() {
     this.load.image('emerald', 'assets/emerald.png')
     this.load.image('diamond', 'assets/diamond.png')
     this.load.image('door', 'assets/door.png')
+    this.load.image('green_potion', 'assets/potion_green.png')
+    this.load.image('purple_potion', 'assets/potion_purple.png')
+    this.load.image('blue_potion', 'assets/potion_blue.png')
 
     // Levels
     this.load.json('easy-level', 'assets/story_level_easy.json')
