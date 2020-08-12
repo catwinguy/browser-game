@@ -6,22 +6,29 @@
     ],
     "platforms": [
         {"image": "dirt_platform50", "x": 400, "y": 8},
-        {"image": "dirt_platform4", "x": 180, "y": 180},
-        {"image": "dirt_platform4", "x": 500, "y": 400},
-        {"image": "dirt_platform4", "x": 50, "y": 500},
-        {"image": "dirt_platform4", "x": 750, "y": 220},
-        {"image": "dirt_platform4", "x": 170, "y": 420},
+        {"image": "dirt_platform4", "x": 190, "y": 190},
+        {"image": "dirt_platform4", "x": 170, "y": 500},
+        {"image": "dirt_platform50", "x": 900, "y": 100},
+        {"image": "dirt_platform4", "x": 80, "y": 420},
         {"image": "dirt_platform4", "x": 80, "y": 300},
-        {"image": "dirt_platform4", "x": 250, "y": 350},
-        {"image": "dirt_platform4", "x": 400, "y": 100}
-
+        {"image": "dirt_platform4", "x": 220, "y": 380},
+        {"image": "dirt_platform4", "x": 350, "y": 300},
+        {"image": "dirt_platform4", "x": 420, "y": 190},
+        {"image": "dirt_platform4", "x": 600, "y": 300},
+        {"image": "dirt_platform4", "x": 550, "y": 450},
+        {"image": "dirt_platform4", "x": 650, "y": 530},
+        {"image": "dirt_platform4", "x": 450, "y": 380},
+        {"image": "door", "x": 750, "y": 75}
     ],
-    "playerStart": {"x": 150, "y": 450},
+    "playerStart": {"x": 100, "y": 450},
     "coins": [
-        {"image": "star", "x": 180, "y": 160}
+        {"image": "star", "x": 190, "y": 170},
+        {"image": "star", "x": 600, "y": 80},
+        {"image": "diamond", "x": 550, "y": 430}
     ],
     "powerups": [
         {"image": "emerald", "x": 80, "y": 280, "name": "lower-gravity"},
-        {"image": "bomb", "x": 400, "y": 80, "name": "raise-gravity"}
+        {"image": "bomb", "x": 350, "y": 280, "name": "raise-gravity"},
+        {"image": "bomb", "x": 650, "y": 510, "name": "raise-gravity"}
     ]
 }
