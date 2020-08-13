@@ -1,4 +1,4 @@
-const currentLevel = 'easy-level';
+let currentLevel = 'easy-level';
 const playerName = 'girl';
 
 let phaserConfig = {
@@ -10,7 +10,7 @@ let phaserConfig = {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 700
+                y: 250
             },
             debug: false
         }
@@ -43,6 +43,11 @@ function preload() {
     this.load.image('star', 'assets/star.png')
     this.load.image('bomb', 'assets/bomb.png')
     this.load.image('emerald', 'assets/emerald.png')
+    this.load.image('diamond', 'assets/diamond.png')
+    this.load.image('door', 'assets/door.png')
+    this.load.image('green_potion', 'assets/potion_green.png')
+    this.load.image('purple_potion', 'assets/potion_purple.png')
+    this.load.image('blue_potion', 'assets/potion_blue.png')
 
     // Levels
     this.load.json('easy-level', 'assets/story_level_easy.json')
@@ -76,6 +81,7 @@ function create() {
     })
 
     player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
+    player.body.setGravityY(400);
 
     this.anims.create({
         key: 'left',
@@ -98,21 +104,31 @@ function create() {
     });
 
     coins = this.physics.add.group();
+    powerups = this.physics.add.staticGroup();
     let coinData = data.coins;
+    let powerupData = data.powerups;
 
     coinData.forEach(function(coin){
         coins.create(coin.x, coin.y, coin.image)
     })
 
+    //coins.create returns the element, so this loop is unnecessary
     coins.children.iterate(function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
     });
+
+    powerupData.forEach(function(powerup){
+        let powerupChild = powerups.create(powerup.x, powerup.y, powerup.image);
+        powerupChild.name = powerup.name;
+    })
+
 
     //player.setBounce(0.2);
     player.setCollideWorldBounds(true);  // Collides with window edges
 
     this.physics.add.collider(player, platforms);  // Collider between two game objects
     this.physics.add.collider(coins, platforms);  // make coins land on the ground
+    this.physics.add.collider(powerups, platforms);
 
     function collectCoin (player, coin){
         coin.disableBody(true, true);
@@ -120,7 +136,26 @@ function create() {
         console.log("Current score:", score);
     }
 
+    function collectPowerup(player, powerup){
+        powerup.disableBody(true, true);
+        let powerupType = powerup.name;
+        switch (powerupType){
+            case "lower-gravity":
+                player.body.setGravityY(player.body.gravity.y/2);
+                break;
+            case "raise-gravity":
+                player.body.setGravityY(player.body.gravity.y*2);
+                break;
+            case "hop":
+                player.setVelocityY(-330);
+                break;
+            default:
+                break;
+        }
+    }
+
     this.physics.add.overlap(player, coins, collectCoin, null, this);
+    this.physics.add.overlap(player, powerups, collectPowerup, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
 }
