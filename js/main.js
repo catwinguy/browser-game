@@ -3,7 +3,7 @@ let config = {
     width: 800,
     height: 600,
     parent: 'game',
-    scene: [MenuScene, EasyLevelScene],  // Add your scene here, then follow the template scene
+    scene: [MenuScene, EasyLevelScene, MediumLevelScene],  // Add your scene here, then follow the template scene
     physics: {
         default: 'arcade',
         arcade: {
