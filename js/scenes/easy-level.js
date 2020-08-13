@@ -33,10 +33,8 @@ var EasyLevelScene = new Phaser.Class({
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
 
-        // Levels
-        this.load.json('easy-level', 'assets/story_level_easy.json')
-        this.load.json('medium-level', 'assets/story_level_medium.json')
-        this.load.json('hard-level', 'assets/story_level_hard.json')
+        // Level
+        this.load.json('easy-level', 'json/story_level_easy.json')
 
         // Dynamic Objects
         this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})

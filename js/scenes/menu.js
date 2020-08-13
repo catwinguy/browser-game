@@ -12,7 +12,7 @@ var MenuScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.json('menu', 'assets/menu.json')
+        this.load.json('menu', 'json/menu.json')
         this.load.image('menu_background', 'assets/minecraftMenuBackground.jpg');
         this.load.image('story_mode_button', 'assets/StoryModeButton.png');
         this.load.image('versus_mode_button', 'assets/VersusModeButton.png');
