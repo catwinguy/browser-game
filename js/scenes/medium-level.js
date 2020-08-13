@@ -1,3 +1,6 @@
+sceneTransition = false; 
+
+
 var MediumLevelScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -108,6 +111,9 @@ var MediumLevelScene = new Phaser.Class({
             powerupChild.name = powerup.name;
         })
 
+        doorData.forEach(function(door){
+            doors.create(door.x, door.y, door.image);
+        });
 
         //player.setBounce(0.2);
         player.setCollideWorldBounds(true);  // Collides with window edges
@@ -141,6 +147,7 @@ var MediumLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
+            this.scene.start('hardlevelscene'); 
             sceneTransition = true;
         }
 
@@ -175,5 +182,10 @@ var MediumLevelScene = new Phaser.Class({
         {
             player.setVelocityY(-330);
         }
+
+        if (cursors.space.isDown && sceneTransition) {
+            this.scene.start('hardlevelscene');  // Transitions to the next scene
+        }
+
     }
 });

@@ -1,5 +1,6 @@
 sceneTransition = false;
 
+
 var EasyLevelScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
