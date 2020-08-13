@@ -144,7 +144,7 @@ var HardLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            sceneTransition = true;
+            // TODO: add new scene telling player they won and their times
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);

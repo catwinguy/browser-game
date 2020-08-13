@@ -144,8 +144,9 @@ var MediumLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            this.scene.start('hardlevelscene'); 
-            sceneTransition = true;
+            this.scene.start('hardlevelscene');
+            player.setVelocityX(0);
+            player.setVelocityY(0);
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -178,10 +179,6 @@ var MediumLevelScene = new Phaser.Class({
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
-        }
-
-        if (cursors.space.isDown && sceneTransition) {
-            this.scene.start('hardlevelscene');  // Transitions to the next scene
         }
 
     }

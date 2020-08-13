@@ -1,5 +1,4 @@
-sceneTransition = false;
-
+sceneTransition = false; 
 
 var EasyLevelScene = new Phaser.Class({
 
@@ -147,7 +146,8 @@ var EasyLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             this.scene.start('mediumlevelscene');
-            sceneTransition = true;
+            player.setVelocityX(0);
+            player.setVelocityY(0);
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -182,8 +182,8 @@ var EasyLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
-        if (cursors.space.isDown && sceneTransition) {
-            this.scene.start('mediumlevelscene');  // Transitions to the next scene
-        }
+        // if (cursors.space.isDown && sceneTransition) {
+        //     this.scene.start('mediumlevelscene');  // Transitions to the next scene
+        // }
     }
 });
