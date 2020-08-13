@@ -20,7 +20,9 @@
     "powerups": [
         {"image": "emerald", "x": 100, "y": 403, "name": "lower-gravity"},
         {"image": "bomb", "x": 400, "y": 473, "name": "raise-gravity"},
-        {"image": "bomb", "x": 650, "y": 275, "name": "hop"},
-        {"image": "door", "x": 750, "y": 190, "name": "exit"}
+        {"image": "bomb", "x": 650, "y": 275, "name": "hop"}
+    ],
+    "doors": [
+        {"image": "door", "x": 750, "y": 197}
     ]
 }
