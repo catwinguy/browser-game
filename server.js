@@ -8,6 +8,7 @@ const hostname = "localhost";
 app.use(express.json());
 app.use(express.static("public_html"));
 app.use(express.static("js"));
+app.use(express.static("json"));
 app.use(express.static("js/scenes"));
 app.use(express.static("."));
 

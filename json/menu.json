@@ -1,0 +1,16 @@
+{
+    "background": {
+        "image": "menu_background", 
+        "x": 400, 
+        "y" : 300
+    },
+    "button1": {
+        "image": "story_mode_button", 
+        "x": 200, 
+        "y": 500},
+    "button2": {
+        "image": "versus_mode_button", 
+        "x": 600, 
+        "y": 500
+    }
+}

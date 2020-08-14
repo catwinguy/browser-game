@@ -21,8 +21,6 @@ var MediumLevelScene = new Phaser.Class({
         this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
         this.load.image('stone_block', 'assets/stone_block.png')
         this.load.image('stone_platform4', 'assets/stone_platform_4x1.png')
-        this.load.image('star', 'assets/star.png')
-        this.load.image('bomb', 'assets/bomb.png')
         this.load.image('emerald', 'assets/emerald.png')
         this.load.image('diamond', 'assets/diamond.png')
         this.load.image('door', 'assets/door.png')
@@ -31,12 +29,9 @@ var MediumLevelScene = new Phaser.Class({
         this.load.image('blue_potion', 'assets/potion_blue.png')
 
         // Levels
-        this.load.json('easy-level', 'assets/story_level_easy.json')
-        this.load.json('medium-level', 'assets/story_level_medium.json')
-        this.load.json('hard-level', 'assets/story_level_hard.json')
+        this.load.json('medium-level', 'json/story_level_medium.json')
 
         // Dynamic Objects
-        this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48})
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
@@ -44,18 +39,21 @@ var MediumLevelScene = new Phaser.Class({
 
     create: function ()
     {
-        let platforms;
-
         let data = this.cache.json.get('medium-level');
+        let groundData = data.ground;
+        let platformData = data.platforms;
+        let coinData = data.coins;
+        let powerupData = data.powerups;
+        let doorData = data.doors;
+
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
 
-        // Platforms group is a grouping for all ground objects
-        platforms = this.physics.add.staticGroup();  // static object never moves
-        
-        let groundData = data.ground;
-        let platformData = data.platforms;
-        let doorData = data.doors;
+        // Static groups
+        let platforms = this.physics.add.staticGroup();
+        let coins = this.physics.add.group();
+        let powerups = this.physics.add.staticGroup();
+        let doors = this.physics.add.staticGroup();
 
         // ground and platforms are separate for now but we can combine them if not needed
         groundData.forEach(function(ground){
@@ -88,26 +86,20 @@ var MediumLevelScene = new Phaser.Class({
             repeat: -1
         });
 
-        coins = this.physics.add.group();
-        powerups = this.physics.add.staticGroup();
-        doors = this.physics.add.staticGroup();
-        let coinData = data.coins;
-        let powerupData = data.powerups;
-
         coinData.forEach(function(coin){
-            coins.create(coin.x, coin.y, coin.image)
+            let cc = coins.create(coin.x, coin.y, coin.image);
+            cc.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
+            cc.name = coin.image;
         })
-
-        //coins.create returns the element, so this loop is unnecessary
-        coins.children.iterate(function (child) {
-            child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
-        });
 
         powerupData.forEach(function(powerup){
             let powerupChild = powerups.create(powerup.x, powerup.y, powerup.image);
             powerupChild.name = powerup.name;
         })
 
+        doorData.forEach(function(door){
+            doors.create(door.x, door.y, door.image);
+        });
 
         //player.setBounce(0.2);
         player.setCollideWorldBounds(true);  // Collides with window edges
@@ -118,7 +110,16 @@ var MediumLevelScene = new Phaser.Class({
 
         function collectCoin (player, coin){
             coin.disableBody(true, true);
-            score++;
+            switch(coin.name){
+                case "emerald":
+                    score++;
+                    break;
+                case "diamond":
+                    score += 5;
+                    break;
+                default:
+                    break;
+            }
             console.log("Current score:", score);
         }
 
@@ -141,7 +142,9 @@ var MediumLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            sceneTransition = true;
+            this.scene.start('hardlevelscene');
+            player.setVelocityX(0);
+            player.setVelocityY(0);
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -175,5 +178,6 @@ var MediumLevelScene = new Phaser.Class({
         {
             player.setVelocityY(-330);
         }
+
     }
 });
