@@ -421,13 +421,6 @@ var MediumLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
-<<<<<<< HEAD
-        // if (sceneTransitition) {
-        //     sceneTransitition = false;
-        //     this.scene.start('mediumlevelscene');  // Transitions to the next scene
-        // }
-    }
-=======
     }
 });
 
@@ -766,5 +759,4 @@ var HardLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
     }
->>>>>>> 1c21b1f8f944101b7d83d14dedf535d080a7c0aa
 });

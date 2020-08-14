@@ -1,5 +1,3 @@
-sceneTransition = false;
-
 var EasyLevelScene = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -97,12 +95,9 @@ var EasyLevelScene = new Phaser.Class({
         let powerupData = data.powerups;
 
         coinData.forEach(function(coin){
-            coins.create(coin.x, coin.y, coin.image)
-        });
-
-        //coins.create returns the element, so this loop is unnecessary
-        coins.children.iterate(function (child) {
-            child.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
+            let coinChild = coins.create(coin.x, coin.y, coin.image);
+            coinChild.name = coin.name;
+            coinChild.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
         });
 
         powerupData.forEach(function(powerup){
@@ -124,7 +119,17 @@ var EasyLevelScene = new Phaser.Class({
 
         function collectCoin (player, coin){
             coin.disableBody(true, true);
-            score++;
+            let coinType = coin.name;
+            switch(coinType){
+                case "emerald":
+                    score++;
+                    break;
+                case "diamond":
+                    score += 5;
+                    break;
+                default:
+                    break;
+            }
             console.log("Current score:", score);
         }
 
