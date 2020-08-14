@@ -12,39 +12,47 @@ var LevelSelectorScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.json('level_selector', 'json/level-selector.json')
+        this.load.json('level_selector', 'json/level_selector.json')
         this.load.image('menu_background', 'assets/village_background.png')
-        this.load.image('story_mode_button', 'assets/StoryModeButton.png');
-        this.load.image('versus_mode_button', 'assets/VersusModeButton.png');
+        
+        // NOTE: Change these assets in the future
+        this.load.image('stage_1_button', 'assets/StoryModeButton.png');
+        this.load.image('stage_2_button', 'assets/VersusModeButton.png');
+        this.load.image('stage_3_button', 'assets/VersusModeButton.png');
+        this.load.image('return_button', 'assets/VersusModeButton.png');
     },
 
     create: function ()
     {
         let data = this.cache.json.get('level_selector');
-        //console.log(this);  -- Debugging purposes
-        let background = this.add.image(data.background.x, data.background.y, data.background.image);
-        let storyButton = this.add.image(data.button1.x, data.button1.y, data.button1.image);
-        let versusButton = this.add.image(data.button2.x, data.button2.y, data.button2.image);
         
-        // Temporary instruction
-        let scoreText = this.add.text(225,580,'Click on Story Mode to Start!', {fontSize: '20px', fill: '#FFF' });
-        let message = this.add.text(430,450, "Under Construction!", {fontSize: '30px', fill: '#FFF'})
-        message.setVisible(false);
+        // Background
+        this.add.image(data.background.x, data.background.y, data.background.image);
 
-        storyButton.setInteractive();
-        storyButton.on("pointerup", () => {
-            message.setVisible(false);
+        // Buttons
+        let stage1Button = this.add.image(data.buttonS1.x, data.buttonS1.y, data.buttonS1.image);
+        let stage2Button = this.add.image(data.buttonS2.x, data.buttonS2.y, data.buttonS2.image);
+        let stage3Button = this.add.image(data.buttonS3.x, data.buttonS3.y, data.buttonS3.image);
+        let returnButton = this.add.image(data.returnButton.x, data.returnButton.y, data.returnButton.image);
+
+        stage1Button.setInteractive();
+        stage1Button.on("pointerup", () => {
             this.scene.start('easylevelscene');
         })
-        versusButton.setInteractive();
-        versusButton.on("pointerup", () => {
-            //scoreText.setText('Currently under construction!');
-            message.setVisible(true);
-            console.log("Next menu in progress!");
+
+        stage2Button.setInteractive();
+        stage2Button.on("pointerup", () => {
+            this.scene.start('mediumlevelscene');
         })
-        background.setInteractive();
-        background.on("pointerup", () => {
-            message.setVisible(false);
+
+        stage3Button.setInteractive();
+        stage3Button.on("pointerup", () => {
+            this.scene.start('hardlevelscene');
+        })
+
+        returnButton.setInteractive();
+        returnButton.on("pointerup", () => {
+            this.scene.start('mainmenu');
         })
     },
 });

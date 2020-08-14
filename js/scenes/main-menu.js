@@ -1,13 +1,13 @@
-var MenuScene = new Phaser.Class({
+var MainMenu = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
     initialize:
 
-    function MenuScene ()
+    function MainMenu ()
     {
         // This maps this class with the name of the scene so that it can be called by the game
-        Phaser.Scene.call(this, { key: 'menuscene'})
+        Phaser.Scene.call(this, { key: 'mainmenu'})
     },
 
     preload: function ()
@@ -34,7 +34,7 @@ var MenuScene = new Phaser.Class({
         storyButton.setInteractive();
         storyButton.on("pointerup", () => {
             message.setVisible(false);
-            this.scene.start('easylevelscene');
+            this.scene.start('levelselectorscene');
         })
         versusButton.setInteractive();
         versusButton.on("pointerup", () => {
