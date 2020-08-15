@@ -4,10 +4,15 @@
         "x": 400, 
         "y" : 300
     },
+    "stageText" : {
+        "image": "stages",
+        "x": 400,
+        "y": 100
+    },
     "buttonS1": {
         "image": "stage_1_button", 
         "x": 400, 
-        "y": 150},
+        "y": 200},
     "buttonS2": {
         "image": "stage_2_button", 
         "x": 400, 
@@ -16,11 +21,11 @@
     "buttonS3": {
         "image": "stage_3_button", 
         "x": 400, 
-        "y": 450
+        "y": 400
     },
     "returnButton": {
         "image": "return_button",
-        "x": 110,
-        "y": 50
+        "x": 50,
+        "y": 40
     }
 }

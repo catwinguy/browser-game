@@ -16,10 +16,11 @@ var LevelSelectorScene = new Phaser.Class({
         this.load.image('menu_background', 'assets/village_background.png')
         
         // NOTE: Change these assets in the future
-        this.load.image('stage_1_button', 'assets/StoryModeButton.png');
-        this.load.image('stage_2_button', 'assets/VersusModeButton.png');
-        this.load.image('stage_3_button', 'assets/VersusModeButton.png');
-        this.load.image('return_button', 'assets/VersusModeButton.png');
+        this.load.image('stages', 'assets/StagesButton.png');
+        this.load.image('stage_1_button', 'assets/Stage1_on.png');
+        this.load.image('stage_2_button', 'assets/Stage2_on.png');
+        this.load.image('stage_3_button', 'assets/Stage3_on.png');
+        this.load.image('return_button', 'assets/BackArrow.png');
     },
 
     create: function ()
@@ -28,6 +29,7 @@ var LevelSelectorScene = new Phaser.Class({
         
         // Background
         this.add.image(data.background.x, data.background.y, data.background.image);
+        this.add.image(data.stageText.x,data.stageText.y, data.stageText.image);
 
         // Buttons
         let stage1Button = this.add.image(data.buttonS1.x, data.buttonS1.y, data.buttonS1.image);
