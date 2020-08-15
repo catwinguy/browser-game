@@ -12,7 +12,7 @@ var LevelSelectorScene = new Phaser.Class({
 
     preload: function ()
     {
-        this.load.json('level_selector', 'json/level_selector.json')
+        this.load.json('level_selector', 'json/menu_level_selector.json')
         this.load.image('menu_background', 'assets/village_background.png')
         
         // NOTE: Change these assets in the future

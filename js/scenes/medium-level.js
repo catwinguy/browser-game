@@ -14,17 +14,11 @@ var MediumLevelScene = new Phaser.Class({
         // Static Images
         this.load.image('village_background', 'assets/village_background.png')
         this.load.image('ground', 'assets/grass_platform_50x1.png')
-        this.load.image('dirt_block', 'assets/dirt_block.png')
         this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
-        this.load.image('grass_block', 'assets/grass_block.png')
-        this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
-        this.load.image('stone_block', 'assets/stone_block.png')
-        this.load.image('stone_platform4', 'assets/stone_platform_4x1.png')
         this.load.image('emerald', 'assets/emerald.png')
         this.load.image('diamond', 'assets/diamond.png')
         this.load.image('door', 'assets/door.png')
-        this.load.image('green_potion', 'assets/potion_green.png')
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
 
