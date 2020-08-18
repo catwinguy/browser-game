@@ -1,0 +1,8 @@
+{
+    "playerName": "Player",
+    "gravity" : 400,
+    "equipment" : {
+        "armor": null,
+        "weapon": null
+    }
+}
