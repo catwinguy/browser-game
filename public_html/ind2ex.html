@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Name of the Game TBD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Game Name here</h1>
+    <div id="player-info">
+        <h4>Login | Register</h4>
+    </div>
+    <div id="game"></div>
+
+    <div id="scoreboard">
+        <h2>All Time Speedrun High Score</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Time</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody id="highscore-table"></tbody>
+        </table>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser-arcade-physics.min.js"></script> <!-- Import Phaser -->
+    
+    <!-- Scenes -->
+    <!--<script src="scenes.js"></script>-->
+    <script src="scenes/main-menu.js"></script>
+    <script src="scenes/level-selector-menu.js"></script>
+    <script src="scenes/hard-level.js"></script>
+    <script src="scenes/medium-level.js"></script>
+    <script src="scenes/easy-level.js"></script>
+    <script src="scenes/multiplayer-menu.js"></script>
+    <script src="scenes/connection-menu.js"></script>
+    <script src="scenes/options-window.js"></script>
+    
+    <!-- Main Files -->
+    <script src="main.js"></script>
+    <script src="client.js"></script>
+    <br>
+    <footer>
+        <p>&copy Copyright 2020 | CS 375 Final Project | Last Updated: <span style="color:gray;">August 13, 2020</span></p>
+    </footer>
+</body>
+
+</html>
