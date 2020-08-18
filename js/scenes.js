@@ -88,6 +88,22 @@ var EasyLevelScene = new Phaser.Class({
 
     create: function ()
     {
+        // amanda working on timer here
+        var me = this;
+
+        me.startTime = new Date();
+        me.totalTime = 120;
+        me.timeElapsed = 0;
+
+        me.createTimer();
+
+        me.gameTimer = game.time.events.loop(100, function () {
+            me.updateTimer();
+        });
+
+    
+       
+        //
         let platforms;
 
         let data = this.cache.json.get('easy-level');
@@ -190,6 +206,7 @@ var EasyLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             sceneTransition = true;
+            time2 = new Date();
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -199,8 +216,10 @@ var EasyLevelScene = new Phaser.Class({
         cursors = this.input.keyboard.createCursorKeys();
     },
 
+
     update: function()
     {
+
         // Move
         if (cursors.left.isDown)
         {
