@@ -94,5 +94,5 @@
         {"image": "purple_potion", "x": 768, "y": 200, "name": "raise-gravity"},
         {"image": "purple_potion", "x": 120, "y": 456, "name": "raise-gravity"}
     ],
-    "doors": [{"image": "door", "x": 760, "y": 464}]
+    "doors": [{"image": "door_left", "x": 760, "y": 464}]
 }

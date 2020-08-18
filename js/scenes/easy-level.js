@@ -29,6 +29,7 @@ var EasyLevelScene = new Phaser.Class({
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
+        this.load.spritesheet('door_left', 'assets/door_left.png', {frameWidth: 16, frameHeight: 32})
     },
 
     create: function ()
@@ -47,7 +48,7 @@ var EasyLevelScene = new Phaser.Class({
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
         let powerups = this.physics.add.staticGroup();
-        let doors = this.physics.add.staticGroup();
+        let doors = this.physics.add.group();
 
         // ground and platforms are separate for now but we can combine them if not needed
         groundData.forEach(function(ground){
@@ -91,9 +92,14 @@ var EasyLevelScene = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        doorData.forEach(function(door){
-            doors.create(door.x, door.y, door.image);
-        });
+        // currently only works for one door
+        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        doors.add(door);
+
+        this.anims.create({
+            key: "open",
+            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+        })
 
         //player.setBounce(0.2);
         player.setCollideWorldBounds(true);  // Collides with window edges
@@ -137,7 +143,11 @@ var EasyLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            this.scene.start('mediumlevelscene');
+            door.anims.play("open");
+            this.scene.transition({
+                target: 'mediumlevelscene',
+                duration: 4000
+            });
             player.setVelocityX(0);
             player.setVelocityY(0);
         }
