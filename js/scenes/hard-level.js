@@ -20,7 +20,6 @@ var HardLevelScene = new Phaser.Class({
         this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
         this.load.image('emerald', 'assets/emerald.png')
         this.load.image('diamond', 'assets/diamond.png')
-        this.load.image('door', 'assets/door.png')
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
 
@@ -31,6 +30,7 @@ var HardLevelScene = new Phaser.Class({
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
+        this.load.spritesheet('door_left', 'assets/door_left.png', {frameWidth: 16, frameHeight: 32})
     },
 
     create: function ()
@@ -49,7 +49,7 @@ var HardLevelScene = new Phaser.Class({
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
         let powerups = this.physics.add.staticGroup();
-        let doors = this.physics.add.staticGroup();
+        let doors = this.physics.add.group();
 
         // ground and platforms are separate for now but we can combine them if not needed
         groundData.forEach(function(ground){
@@ -93,9 +93,14 @@ var HardLevelScene = new Phaser.Class({
             powerupChild.name = powerup.name;
         })
 
-        doorData.forEach(function(door){
-            doors.create(door.x, door.y, door.image);
-        });
+        // currently only works for one door
+        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        doors.add(door);
+
+        this.anims.create({
+            key: "open",
+            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+        })
 
         //player.setBounce(0.2);
         player.setCollideWorldBounds(true);  // Collides with window edges
@@ -103,6 +108,7 @@ var HardLevelScene = new Phaser.Class({
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
+        this.physics.add.collider(doors, platforms);
 
         function collectCoin (player, coin){
             coin.disableBody(true, true);
@@ -139,6 +145,7 @@ var HardLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             // TODO: add new scene telling player they won and their times
+            door.anims.play("open");
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);

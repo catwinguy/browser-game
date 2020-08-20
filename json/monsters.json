@@ -1,0 +1,7 @@
+{
+    "zombie": {
+        "gravity" : 500,
+        "health_points": 3,
+        "attack_points": 1
+    }
+}
