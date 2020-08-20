@@ -30,6 +30,7 @@ var EasyLevelScene = new Phaser.Class({
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl_sword', 'assets/girl_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
+        this.load.spritesheet('guy_sword', 'assets/guy_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('door_left', 'assets/door_left.png', {frameWidth: 16, frameHeight: 32})
     },
 
@@ -64,6 +65,7 @@ var EasyLevelScene = new Phaser.Class({
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
+        player.hasSword = false;
 
         this.anims.create({
             key: 'left',
@@ -81,6 +83,28 @@ var EasyLevelScene = new Phaser.Class({
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        // with sword:
+
+        this.anims.create({
+            key: 'left_sword',
+            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn_sword',
+            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right_sword',
+            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -158,11 +182,8 @@ var EasyLevelScene = new Phaser.Class({
         }
 
         function collectSword(player, sword){
-            console.log("Sword!")
             sword.disableBody(true, true);
-            console.log(player);
-            player.setTexture(player.texture.key + "_sword");
-            console.log(player); // doesn't seem to actually set the new texture...
+            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -187,17 +208,31 @@ var EasyLevelScene = new Phaser.Class({
         if (cursors.left.isDown)
         {
             player.setVelocityX(-160);
-            player.anims.play('left', true);
+            if (player.hasSword){
+                player.anims.play('left_sword', true);
+            } else {
+                player.anims.play('left', true);
+            }
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(160);
-            player.anims.play('right', true);
+            if (player.hasSword){
+                player.anims.play('right_sword', true);
+            } else{
+                player.anims.play('right', true);
+            }
+            
         }
         else
         {
             player.setVelocityX(0);
-            player.anims.play('turn');
+            if (player.hasSword){
+                player.anims.play('turn_sword');
+            } else {
+                player.anims.play('turn');
+            }
+            
         }
 
         // Jump
