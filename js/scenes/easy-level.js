@@ -17,10 +17,10 @@ var EasyLevelScene = new Phaser.Class({
         this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
         this.load.image('emerald', 'assets/emerald.png')
-        this.load.image('door', 'assets/door.png')
         this.load.image('green_potion', 'assets/potion_green.png')
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
+        this.load.image('sword', 'assets/sword.png');
 
         // Level
         this.load.json('easy-level', 'json/story_level_easy.json')
@@ -28,7 +28,10 @@ var EasyLevelScene = new Phaser.Class({
         // Dynamic Objects
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
+        this.load.spritesheet('girl_sword', 'assets/girl_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
+        this.load.spritesheet('guy_sword', 'assets/guy_sword.png', {frameWidth: 32, frameHeight: 32})
+        this.load.spritesheet('door_left', 'assets/door_left.png', {frameWidth: 16, frameHeight: 32})
     },
 
     create: function ()
@@ -47,7 +50,8 @@ var EasyLevelScene = new Phaser.Class({
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
         let powerups = this.physics.add.staticGroup();
-        let doors = this.physics.add.staticGroup();
+        let doors = this.physics.add.group();
+        let swords = this.physics.add.staticGroup();
 
         // ground and platforms are separate for now but we can combine them if not needed
         groundData.forEach(function(ground){
@@ -57,8 +61,11 @@ var EasyLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
+        swords.create(data.sword.x, data.sword.y, data.sword.image);
+
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
+        player.hasSword = false;
 
         this.anims.create({
             key: 'left',
@@ -80,6 +87,28 @@ var EasyLevelScene = new Phaser.Class({
             repeat: -1
         });
 
+        // with sword:
+
+        this.anims.create({
+            key: 'left_sword',
+            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'turn_sword',
+            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'right_sword',
+            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
         coinData.forEach(function(coin){
             let cc = coins.create(coin.x, coin.y, coin.image);
             cc.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
@@ -91,9 +120,14 @@ var EasyLevelScene = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        doorData.forEach(function(door){
-            doors.create(door.x, door.y, door.image);
-        });
+        // currently only works for one door
+        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        doors.add(door);
+
+        this.anims.create({
+            key: "open",
+            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+        })
 
         //player.setBounce(0.2);
         player.setCollideWorldBounds(true);  // Collides with window edges
@@ -102,6 +136,7 @@ var EasyLevelScene = new Phaser.Class({
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
         this.physics.add.collider(doors, platforms);
+        this.physics.add.collider(swords, platforms);
 
         function collectCoin (player, coin){
             coin.disableBody(true, true);
@@ -137,16 +172,34 @@ var EasyLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            this.scene.start('mediumlevelscene');
+            door.anims.play("open");
+            this.scene.transition({
+                target: 'mediumlevelscene',
+                duration: 4000
+            });
             player.setVelocityX(0);
             player.setVelocityY(0);
+        }
+
+        function collectSword(player, sword){
+            sword.disableBody(true, true);
+            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
         this.physics.add.overlap(player, powerups, collectPowerup, null, this);
         this.physics.add.overlap(player, doors, enterDoor, null, this);
+        this.physics.add.overlap(player, swords, collectSword, null, this);
 
         cursors = this.input.keyboard.createCursorKeys();
+
+        // Pause screen implementation
+        pauseButton = this.input.keyboard.addKey('ESC');
+        pauseButton.on('up', function(event){
+            console.log('Escape key has been pressed!');
+            //this.scene.launch('pausescreen');
+            // this.scene.pause();
+        })
     },
 
     update: function()
@@ -155,17 +208,31 @@ var EasyLevelScene = new Phaser.Class({
         if (cursors.left.isDown)
         {
             player.setVelocityX(-160);
-            player.anims.play('left', true);
+            if (player.hasSword){
+                player.anims.play('left_sword', true);
+            } else {
+                player.anims.play('left', true);
+            }
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(160);
-            player.anims.play('right', true);
+            if (player.hasSword){
+                player.anims.play('right_sword', true);
+            } else{
+                player.anims.play('right', true);
+            }
+            
         }
         else
         {
             player.setVelocityX(0);
-            player.anims.play('turn');
+            if (player.hasSword){
+                player.anims.play('turn_sword');
+            } else {
+                player.anims.play('turn');
+            }
+            
         }
 
         // Jump

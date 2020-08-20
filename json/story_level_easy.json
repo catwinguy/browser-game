@@ -23,6 +23,7 @@
         {"image": "green_potion", "x": 650, "y": 275, "name": "hop"}
     ],
     "doors": [
-        {"image": "door", "x": 750, "y": 197}
-    ]
+        {"image": "door_left", "x": 750, "y": 197}
+    ],
+    "sword": {"image": "sword", "x": 500, "y": 550}
 }
