@@ -171,6 +171,14 @@ var EasyLevelScene = new Phaser.Class({
         this.physics.add.overlap(player, swords, collectSword, null, this);
 
         cursors = this.input.keyboard.createCursorKeys();
+
+        // Pause screen implementation
+        pauseButton = this.input.keyboard.addKey('ESC');
+        pauseButton.on('up', function(event){
+            console.log('Escape key has been pressed!');
+            //this.scene.launch('pausescreen');
+            // this.scene.pause();
+        })
     },
 
     update: function()
