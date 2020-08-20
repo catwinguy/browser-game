@@ -1,16 +1,9 @@
-var LevelSelectorScene = new Phaser.Class({
+class LevelSelectorScene extends Phaser.Scene {
+    constructor() {
+        super('levelselectorscene');
+    }
 
-    Extends: Phaser.Scene,
-
-    initialize:
-
-    function LevelSelectorScene ()
-    {
-        // This maps this class with the name of the scene so that it can be called by the game
-        Phaser.Scene.call(this, { key: 'levelselectorscene'})
-    },
-
-    preload: function ()
+    preload()
     {
         this.load.json('level_selector', 'json/menu_level_selector.json')
         this.load.image('menu_background', 'assets/village_background.png')
@@ -21,9 +14,9 @@ var LevelSelectorScene = new Phaser.Class({
         this.load.image('stage_2_button', 'assets/Stage2_on.png');
         this.load.image('stage_3_button', 'assets/Stage3_on.png');
         this.load.image('return_button', 'assets/BackArrow.png');
-    },
+    }
 
-    create: function ()
+    create()
     {
         let data = this.cache.json.get('level_selector');
         
@@ -56,5 +49,5 @@ var LevelSelectorScene = new Phaser.Class({
         returnButton.on("pointerup", () => {
             this.scene.start('mainmenu');
         })
-    },
-});
+    }
+}
