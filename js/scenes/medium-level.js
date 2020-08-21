@@ -172,8 +172,8 @@ var MediumLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
+            console.log('You unlocked the Hard Stage!');
             door.anims.play("open");
-            // this.scene.start('hardlevelscene');
             this.scene.transition({
                 target: 'hardlevelscene',
                 duration: 4000

@@ -176,6 +176,7 @@ var HardLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             // TODO: add new scene telling player they won and their times
+            console.log('Congratulations! You won the game!');
             door.anims.play("open");
         }
 

@@ -173,13 +173,14 @@ var EasyLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
+            console.log('You unlocked the Medium Stage!');
             door.anims.play("open");
             this.scene.transition({
                 target: 'mediumlevelscene',
                 duration: 4000
             });
-            player.setVelocityX(0);
-            player.setVelocityY(0);
+            // player.setVelocityX(0);
+            // player.setVelocityY(0);
         }
 
         function collectSword(player, sword){
