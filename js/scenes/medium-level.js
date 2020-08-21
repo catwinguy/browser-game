@@ -36,6 +36,7 @@ var MediumLevelScene = new Phaser.Class({
 
     create: function ()
     {
+        currentLevel = 'mediumlevelscene'
         let data = this.cache.json.get('medium-level');
         let groundData = data.ground;
         let platformData = data.platforms;
@@ -192,6 +193,27 @@ var MediumLevelScene = new Phaser.Class({
         this.physics.add.overlap(player, swords, collectSword, null, this);
 
         cursors = this.input.keyboard.createCursorKeys();
+
+        // Pause screen implementation
+        pauseButton = this.input.keyboard.addKey('ESC');
+        pauseButton.on('up', function(event){
+            console.log('Escape key has been pressed!');
+            this.scene.pause();
+            this.scene.launch('pausescene');
+        }, this)
+
+        this.events.on('pause', function () {
+            console.log('Easy level paused');
+        })
+
+        this.events.on('resume', function () {
+            console.log('Easy level resumed');
+            
+            // Fixes the issue with cursor input seeing it be saved as isDown when it is not
+            cursors.up.isDown = false;
+            cursors.left.isDown = false;
+            cursors.right.isDown = false;
+        })
     },
 
     update: function()

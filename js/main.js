@@ -4,7 +4,7 @@ let config = {
     height: 600,
     backgroundColor: 0x000000,  // Black Background
     parent: 'game',
-    scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, HardLevelScene],  // Add your scene here, then follow the template scene
+    scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, HardLevelScene, PauseScene],  // Add your scene here, then follow the template scene
     physics: {
         default: 'arcade',
         arcade: {
@@ -20,3 +20,4 @@ let game = new Phaser.Game(config);
 
 let score = 0;
 let playerName = 'girl';
+let currentLevel = null;
