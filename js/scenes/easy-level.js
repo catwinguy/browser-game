@@ -207,9 +207,8 @@ var EasyLevelScene = new Phaser.Class({
             console.log('Easy level paused');
         })
 
-        this.events.on('resume', function () {
+        this.events.on('resume', function (flag) {
             console.log('Easy level resumed');
-            
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
@@ -256,5 +255,9 @@ var EasyLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        if (returnMenu) {
+            this.scene.start('mainmenu');
+            returnMenu = false;
+        }
     }
 });

@@ -201,11 +201,11 @@ var HardLevelScene = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Easy level paused');
+            console.log('Hard level paused');
         })
 
         this.events.on('resume', function () {
-            console.log('Easy level resumed');
+            console.log('Hard level resumed');
             
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
@@ -249,6 +249,11 @@ var HardLevelScene = new Phaser.Class({
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
+        }
+
+        if (returnMenu) {
+            this.scene.start('mainmenu');
+            returnMenu = false;
         }
     }
 });

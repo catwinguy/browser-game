@@ -21,3 +21,4 @@ let game = new Phaser.Game(config);
 let score = 0;
 let playerName = 'girl';
 let currentLevel = null;
+let returnMenu = false;
