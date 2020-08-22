@@ -1,5 +1,7 @@
 body {
     background-image: url('../assets/village_background.png');
+    height: 100%;
+    background-position: center;
     background-size: cover;
 }
 
