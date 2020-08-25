@@ -1,5 +1,6 @@
 let divider = document.getElementById("player-info");
 
+let table = document.getElementById("highscore-table");
 
 function clearTable() {
 	table.textContent='';
@@ -14,3 +15,18 @@ function updateText(message) {
 	content.textContent = message;
     textContainer.append(content);
 }
+
+
+fetch("/")
+    .then(function (response) {
+        if (response.status != 200) {
+            error = true;
+        }
+        return response;
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .then(function (data) {
+        console.log(data);
+    });
