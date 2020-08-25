@@ -88,21 +88,6 @@ var EasyLevelScene = new Phaser.Class({
 
     create: function ()
     {
-        // amanda working on timer here
-        var me = this;
-
-        me.startTime = new Date();
-        me.totalTime = 120;
-        me.timeElapsed = 0;
-
-        me.createTimer();
-
-        me.gameTimer = game.time.events.loop(100, function () {
-            me.updateTimer();
-        });
-
-    
-       
         //
         let platforms;
 
@@ -184,6 +169,7 @@ var EasyLevelScene = new Phaser.Class({
             coin.disableBody(true, true);
             score++;
             console.log("Current score:", score);
+            console.log(timedEvent);
         }
 
         function collectPowerup(player, powerup){
@@ -204,17 +190,16 @@ var EasyLevelScene = new Phaser.Class({
             }
         }
 
-        function enterDoor (player, door) {
+        function enterDoor(player, door) {
             sceneTransition = true;
-            time2 = new Date();
-        }
 
-        this.physics.add.overlap(player, coins, collectCoin, null, this);
-        this.physics.add.overlap(player, powerups, collectPowerup, null, this);
-        this.physics.add.overlap(player, doors, enterDoor, null, this);
 
-        cursors = this.input.keyboard.createCursorKeys();
-    },
+            this.physics.add.overlap(player, coins, collectCoin, null, this);
+            this.physics.add.overlap(player, powerups, collectPowerup, null, this);
+            this.physics.add.overlap(player, doors, enterDoor, null, this);
+
+            cursors = this.input.keyboard.createCursorKeys();
+        },
 
 
     update: function()
