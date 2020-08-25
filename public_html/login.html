@@ -4,23 +4,27 @@
 <head>
     <meta charset="utf-8">
     <title>Sign-In</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
-<div>
-    <div>
-        <label name="username" for="username">Username:</label>
-        <input type="text" id="username">
-    </div>
-    <div>
-        <label name="password" for="password">Password:</label>
-        <input type="password" id="password">
-    </div>
+<div class="container-fluid center outer-div">
+<div class="center">
+    <form>
+        <div>
+            <label name="username" for="username">Username:</label>
+            <input type="text" id="username">
+        </div>
+        <div>
+            <label name="password" for="password">Password:</label>
+            <input type="password" id="password">
+        </div>
+    </form>
+    <div id="error-div"></div>
+    <button id="login">Login</button>
+    <p><a href="register.html">Don't have an account?</a></p>
 </div>
-<div id="error-div"></div>
-<button id="login">Login</button>
-<p><a href="login.html">Don't have an account?</a></p>
-
+</div>
 <script src="login.js"></script>
 </body>
 </html>

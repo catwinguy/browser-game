@@ -17,15 +17,28 @@ Phil H.
 
 ## Running the Program
 
+1. Create PostgreSQL Database to store Player Information
+    - user Table
+        - usernmae VARCHAR(20)
+        - password CHAR(60)
+        - highscore INT
+        - best-time NUMERIC
+
 Navigate to the program's directory then run ```npm install``` in the terminal to install the Node.js dependencies.
 
-Type in ```node server.js``` to run the server.
+Type ```node server.js``` into the terminal to run the server.
 
 Navigate to ```http://localhost:3000``` on your preferred browser.
 
-### Dependencies
+Now, you can enjoy the game!
 
-```npm install phaser@3.24.1```
+## Dependencies
+
++ bcrypt: 5.0.0
++ express: 4.17.1
++ express-session: 1.17.1
++ pg: 8.3.2
++ phaser: 3.24.1
 
 ## Schedule
 Week 7 (Tuesday, 8/4)

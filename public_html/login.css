@@ -1,0 +1,15 @@
+body {
+    background-image: url('../assets/village_background.png');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+.outer-div {
+    padding: 100px 0;
+}

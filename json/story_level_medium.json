@@ -32,5 +32,6 @@
     ],
     "doors": [
         {"image": "door_left", "x": 750, "y": 75}
-    ]
+    ],
+    "sword": {}
 }
