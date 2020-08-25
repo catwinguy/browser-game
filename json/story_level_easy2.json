@@ -1,0 +1,29 @@
+{
+    "backgroundImage": "village_background",
+    "ground": [
+        {"image": "ground", "x": 400, "y": 576},
+        {"image": "dirt_platform50", "x": 400, "y": 592}
+    ],
+    "platforms": [
+        {"image": "dirt_platform4", "x": 600, "y": 400},
+        {"image": "dirt_platform4", "x": 50, "y": 300},
+        {"image": "dirt_platform4", "x": 750, "y": 220},
+        {"image": "dirt_platform4", "x": 200, "y": 497},
+        {"image": "dirt_platform4", "x": 100, "y": 420},
+        {"image": "dirt_platform4", "x": 400, "y": 490},
+        {"image": "dirt_platform4", "x": 275, "y": 200}
+    ],
+    "playerStart": {"x": 50, "y": 550},
+    "coins": [
+        {"image": "emerald", "x": 200, "y": 480}
+    ],
+    "powerups": [
+        {"image": "blue_potion", "x": 100, "y": 403, "name": "lower-gravity"},
+        {"image": "purple_potion", "x": 400, "y": 473, "name": "raise-gravity"},
+        {"image": "green_potion", "x": 650, "y": 275, "name": "hop"}
+    ],
+    "doors": [
+        {"image": "door_left", "x": 750, "y": 197}
+    ],
+    "sword": {"image": "sword", "x": 500, "y": 550}
+}
