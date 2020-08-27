@@ -51,12 +51,12 @@ class LevelSelectorScene extends Phaser.Scene {
 
         stage4Button.setInteractive();
         stage4Button.on("pointerup", () => {
-            this.scene.start('hardlevelscene2');
+            this.scene.start('hardlevelscene');
         })
 
         stage5Button.setInteractive();
         stage5Button.on("pointerup", () => {
-            this.scene.start('hardlevelscene');
+            this.scene.start('hardlevelscene2');
         })
 
         returnButton.setInteractive();

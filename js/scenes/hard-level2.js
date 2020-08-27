@@ -14,6 +14,7 @@ var HardLevelScene2 = new Phaser.Class({
         // Static Images
         this.load.image('village_background', 'assets/village_background.png')
         this.load.image('ground', 'assets/grass_platform_50x1.png')
+        this.load.image('stone_block', 'assets/stone_block.png')
         this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
         this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
@@ -25,7 +26,7 @@ var HardLevelScene2 = new Phaser.Class({
         this.load.image('sword', 'assets/sword.png');
 
         // Level
-        this.load.json('easy-level', 'json/story_level_easy2.json')
+        this.load.json('hard-level2', 'json/story_level_hard2.json')
 
         // Dynamic Objects
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
@@ -38,8 +39,8 @@ var HardLevelScene2 = new Phaser.Class({
 
     create: function ()
     {
-        currentLevel = 'easylevelscene'
-        let data = this.cache.json.get('easy-level');
+        currentLevel = 'hardlevelscene2'
+        let data = this.cache.json.get('hard-level2');
         let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
@@ -67,7 +68,7 @@ var HardLevelScene2 = new Phaser.Class({
         swords.create(data.sword.x, data.sword.y, data.sword.image);
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
-        player.body.setGravityY(400);
+        player.body.setGravityY(600);
         player.hasSword = false;
 
         this.anims.create({
@@ -177,10 +178,10 @@ var HardLevelScene2 = new Phaser.Class({
         function enterDoor (player, door) {
             console.log('You unlocked the Medium Stage!');
             door.anims.play("open");
-            this.scene.transition({
-                target: 'mediumlevelscene',
-                duration: 4000
-            });
+            // this.scene.transition({
+            //     target: 'mediumlevelscene',
+            //     duration: 4000
+            // });
             // player.setVelocityX(0);
             // player.setVelocityY(0);
         }
