@@ -2,6 +2,7 @@ const pg = require("pg");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const app = express();
+const session = require("express-session");
 
 const port = 3000;
 const hostname = "localhost";
@@ -21,7 +22,6 @@ app.use(express.static("json"));
 app.use(express.static("js/scenes"));
 app.use(express.static("."));
 
-
 app.get('/', function (req, res) {
     pool.query("SELECT * FROM users")
         .then(function (result) {
@@ -33,6 +33,24 @@ app.get('/', function (req, res) {
             console.log(error);
             return;
         });
+    });
+
+app.use(session({
+    key: 'avocado',
+    secret: 'covid coders',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60000
+    }
+}));
+
+app.use(function(req, res, next) {
+    if (!req.session.hasOwnProperty("highscore")){
+        req.session.highscore = 0;
+    }
+
+    next()
 });
 
 app.post("/create-user", function (req, res) {
