@@ -21,20 +21,6 @@ app.use(express.static("json"));
 app.use(express.static("js/scenes"));
 app.use(express.static("."));
 
-
-app.get('/', function (req, res) {
-    pool.query("SELECT * FROM users")
-        .then(function (result) {
-            console.log(result);
-            res.json({ "users": result.rows });
-            return;
-        })
-        .catch(function (error) {
-            console.log(error);
-            return;
-        });
-});
-
 app.post("/create-user", function (req, res) {
     if (!req.body.hasOwnProperty("username") ||
         !req.body.hasOwnProperty("userPassword") ||
@@ -124,6 +110,19 @@ app.post("/auth", function(req, res) {
     });
 });
 
+app.get("/", function (req, res) {
+    console.log("hi");
+    pool.query("SELECT * FROM users")
+        .then(function (result) {
+            console.log(result);
+            res.json({ "users": result.rows });
+            return;
+        })
+        .catch(function (error) {
+            console.log(error);
+            return;
+        });
+});
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);

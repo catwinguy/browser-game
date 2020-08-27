@@ -16,17 +16,17 @@ function updateText(message) {
     textContainer.append(content);
 }
 
-
-fetch("/")
-    .then(function (response) {
+document.onload = function updateTable() {
+    fetch("/").then(function (response) {
         if (response.status != 200) {
             error = true;
         }
         return response;
     })
-    .catch(function (error) {
-        console.log(error);
-    })
-    .then(function (data) {
-        console.log(data);
-    });
+        .catch(function (error) {
+            console.log(error);
+        })
+        .then(function (data) {
+            console.log(data);
+        });
+}
