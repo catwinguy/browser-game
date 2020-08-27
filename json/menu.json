@@ -5,7 +5,12 @@
         "y" : 300
     },
     "button1": {
-        "image": "play_button", 
+        "image": "story_button", 
+        "x": 400, 
+        "y": 450
+    },
+    "button2": {
+        "image": "infinite_button", 
         "x": 400, 
         "y": 500}
 }
