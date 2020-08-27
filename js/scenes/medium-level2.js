@@ -1,10 +1,10 @@
-var MediumLevelScene = new Phaser.Class({
+var MediumLevelScene2 = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
     initialize:
 
-    function MediumLevelScene ()
+    function MediumLevelScene2 ()
     {
         Phaser.Scene.call(this, { key: 'mediumlevelscene2'})
     },
@@ -15,15 +15,17 @@ var MediumLevelScene = new Phaser.Class({
         this.load.image('village_background', 'assets/village_background.png')
         this.load.image('ground', 'assets/grass_platform_50x1.png')
         this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
+        this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
         this.load.image('emerald', 'assets/emerald.png')
         this.load.image('diamond', 'assets/diamond.png')
+        this.load.image('green_potion', 'assets/potion_green.png')
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
         this.load.image('sword', 'assets/sword.png');
 
-        // Levels
-        this.load.json('medium-level', 'json/story_level_medium.json')
+        // Level
+        this.load.json('medium-level2', 'json/story_level_medium2.json')
 
         // Dynamic Objects
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
@@ -36,14 +38,13 @@ var MediumLevelScene = new Phaser.Class({
 
     create: function ()
     {
-        currentLevel = 'mediumlevelscene'
-        let data = this.cache.json.get('medium-level');
+        currentLevel = 'mediumlevelscene2'
+        let data = this.cache.json.get('medium-level2');
         let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
         let doorData = data.doors;
-        let swords = this.physics.add.staticGroup();
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
@@ -53,6 +54,7 @@ var MediumLevelScene = new Phaser.Class({
         let coins = this.physics.add.group();
         let powerups = this.physics.add.staticGroup();
         let doors = this.physics.add.group();
+        let swords = this.physics.add.staticGroup();
 
         // ground and platforms are separate for now but we can combine them if not needed
         groundData.forEach(function(ground){
@@ -62,8 +64,7 @@ var MediumLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        // Temporarily removed this code to get rid of the unloaded/uncreated graphics indicated by the green box
-        //swords.create(data.sword.x, data.sword.y, data.sword.image);
+        swords.create(data.sword.x, data.sword.y, data.sword.image);
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
@@ -115,12 +116,12 @@ var MediumLevelScene = new Phaser.Class({
             let cc = coins.create(coin.x, coin.y, coin.image);
             cc.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
             cc.name = coin.image;
-        })
+        });
 
         powerupData.forEach(function(powerup){
             let powerupChild = powerups.create(powerup.x, powerup.y, powerup.image);
             powerupChild.name = powerup.name;
-        })
+        });
 
         // currently only works for one door
         let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
@@ -138,6 +139,7 @@ var MediumLevelScene = new Phaser.Class({
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
         this.physics.add.collider(doors, platforms);
+        this.physics.add.collider(swords, platforms);
 
         function collectCoin (player, coin){
             coin.disableBody(true, true);
@@ -178,9 +180,9 @@ var MediumLevelScene = new Phaser.Class({
             this.scene.transition({
                 target: 'hardlevelscene',
                 duration: 4000
-            })
-            player.setVelocityX(0);
-            player.setVelocityY(0);
+            });
+            // player.setVelocityX(0);
+            // player.setVelocityY(0);
         }
 
         function collectSword(player, sword){
@@ -204,12 +206,11 @@ var MediumLevelScene = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Medium level paused');
+            console.log('Easy level paused');
         })
 
-        this.events.on('resume', function () {
-            console.log('Medium level resumed');
-            
+        this.events.on('resume', function (flag) {
+            console.log('Easy level resumed');
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
@@ -237,6 +238,7 @@ var MediumLevelScene = new Phaser.Class({
             } else{
                 player.anims.play('right', true);
             }
+            
         }
         else
         {
@@ -246,6 +248,7 @@ var MediumLevelScene = new Phaser.Class({
             } else {
                 player.anims.play('turn');
             }
+            
         }
 
         // Jump

@@ -13,6 +13,8 @@ class LevelSelectorScene extends Phaser.Scene {
         this.load.image('stage_1_button', 'assets/Stage1_on.png');
         this.load.image('stage_2_button', 'assets/Stage2_on.png');
         this.load.image('stage_3_button', 'assets/Stage3_on.png');
+        this.load.image('stage_4_button', 'assets/Stage4_on.png');
+        this.load.image('stage_5_button', 'assets/Stage5_on.png');
         this.load.image('return_button', 'assets/BackArrow.png');
     }
 
@@ -28,6 +30,8 @@ class LevelSelectorScene extends Phaser.Scene {
         let stage1Button = this.add.image(data.buttonS1.x, data.buttonS1.y, data.buttonS1.image);
         let stage2Button = this.add.image(data.buttonS2.x, data.buttonS2.y, data.buttonS2.image);
         let stage3Button = this.add.image(data.buttonS3.x, data.buttonS3.y, data.buttonS3.image);
+        let stage4Button = this.add.image(data.buttonS4.x, data.buttonS4.y, data.buttonS4.image);
+        let stage5Button = this.add.image(data.buttonS5.x, data.buttonS5.y, data.buttonS5.image);
         let returnButton = this.add.image(data.returnButton.x, data.returnButton.y, data.returnButton.image);
 
         stage1Button.setInteractive();
@@ -42,6 +46,16 @@ class LevelSelectorScene extends Phaser.Scene {
 
         stage3Button.setInteractive();
         stage3Button.on("pointerup", () => {
+            this.scene.start('mediumlevelscene2');
+        })
+
+        stage4Button.setInteractive();
+        stage4Button.on("pointerup", () => {
+            this.scene.start('hardlevelscene2');
+        })
+
+        stage5Button.setInteractive();
+        stage5Button.on("pointerup", () => {
             this.scene.start('hardlevelscene');
         })
 

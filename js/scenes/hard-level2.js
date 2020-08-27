@@ -1,12 +1,12 @@
-var EasyLevelScene = new Phaser.Class({
+var HardLevelScene2 = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
     initialize:
 
-    function EasyLevelScene ()
+    function HardLevelScene2 ()
     {
-        Phaser.Scene.call(this, { key: 'easylevelscene2'})
+        Phaser.Scene.call(this, { key: 'hardlevelscene2'})
     },
 
     preload: function ()
@@ -15,15 +15,17 @@ var EasyLevelScene = new Phaser.Class({
         this.load.image('village_background', 'assets/village_background.png')
         this.load.image('ground', 'assets/grass_platform_50x1.png')
         this.load.image('dirt_platform4', 'assets/dirt_platform_4x1.png')
+        this.load.image('grass_platform4', 'assets/grass_platform_4x1.png')
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png')
         this.load.image('emerald', 'assets/emerald.png')
+        this.load.image('diamond', 'assets/diamond.png')
         this.load.image('green_potion', 'assets/potion_green.png')
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
         this.load.image('sword', 'assets/sword.png');
 
         // Level
-        this.load.json('easy-level', 'json/story_level_easy.json')
+        this.load.json('easy-level', 'json/story_level_easy2.json')
 
         // Dynamic Objects
         this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
