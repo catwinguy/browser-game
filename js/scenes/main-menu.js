@@ -36,7 +36,7 @@ var MainMenu = new Phaser.Class({
 
         infiniteButton.setInteractive();
         infiniteButton.on("pointerup", () => {
-            console.log('Mode will be added soon...');
+            this.scene.start('generatedlevelscene');
         })
     },
 });
