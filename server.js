@@ -21,6 +21,20 @@ app.use(express.static("json"));
 app.use(express.static("js/scenes"));
 app.use(express.static("."));
 
+
+app.get('/', function (req, res) {
+    pool.query("SELECT * FROM users")
+        .then(function (result) {
+            console.log(result);
+            res.json({ "users": result.rows });
+            return;
+        })
+        .catch(function (error) {
+            console.log(error);
+            return;
+        });
+});
+
 app.post("/create-user", function (req, res) {
     if (!req.body.hasOwnProperty("username") ||
         !req.body.hasOwnProperty("userPassword") ||
@@ -55,7 +69,7 @@ app.post("/create-user", function (req, res) {
 
     bcrypt.hash(req.body.userPassword, saltRounds)
           .then(function (hashedPassword) {
-              pool.query("INSERT INTO users (username, hashed_password, high_score) VALUES ($1, $2, $3)",
+              pool.query("INSERT INTO users (username, hashed_password, high_score) VALUES ($1, $2, $3, $4)",
                 [req.body.username, hashedPassword, 0])
                 .then(function (response) {
                     res.status(200).send();

@@ -40,6 +40,8 @@ let PauseScene = new Phaser.Class({
             console.log('Exit button.');
             this.scene.resume(currentLevel);
             this.scene.stop();
+            score = 0;
+            currentLevel = null;
             returnMenu = true;
         })
 
