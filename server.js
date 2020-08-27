@@ -22,15 +22,17 @@ app.use(express.static("js/scenes"));
 app.use(express.static("."));
 
 
-app.get("/", function (req, res) {
-    pool.query("SELECT * FROM users", function (err, result) {
-        if (err) {
-            console.log("ERROR:", err);
-        } else {
+app.get('/', function (req, res) {
+    pool.query("SELECT * FROM users")
+        .then(function (result) {
             console.log(result);
             res.json({ "users": result.rows });
-        }
-    })
+            return;
+        })
+        .catch(function (error) {
+            console.log(error);
+            return;
+        });
 });
 
 app.post("/create-user", function (req, res) {

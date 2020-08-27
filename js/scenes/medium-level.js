@@ -48,6 +48,11 @@ var MediumLevelScene = new Phaser.Class({
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
 
+        // timer
+        this.start = this.getTime();
+        let current = this.time.time;
+        text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
+
         // Static groups
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
@@ -217,8 +222,21 @@ var MediumLevelScene = new Phaser.Class({
         })
     },
 
+        getTime() {
+            //make a new date object
+            let d = new Date();
+
+            //return the number of milliseconds since 1 January 1970 00:00:00. 
+            return d.getTime();
+        },
+
     update: function()
     {
+        //timer
+        let time = new Date();
+        let elapsed = (time.getTime() - this.start) / 1000;
+        text.setText(elapsed.toString() + ' s');
+         
         // Move
         if (cursors.left.isDown)
         {
