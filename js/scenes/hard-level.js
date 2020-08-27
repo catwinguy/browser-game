@@ -175,9 +175,14 @@ var HardLevelScene = new Phaser.Class({
         }
 
         function enterDoor (player, door) {
-            // TODO: add new scene telling player they won and their times
-            console.log('Congratulations! You won the game!');
+            console.log('You unlocked the 2nd Hard Stage!');
             door.anims.play("open");
+            this.scene.transition({
+                target: 'hardlevelscene2',
+                duration: 4000
+            });
+            // player.setVelocityX(0);
+            // player.setVelocityY(0);
         }
 
         function collectSword(player, sword){
