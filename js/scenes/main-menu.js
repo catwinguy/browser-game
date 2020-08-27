@@ -14,7 +14,8 @@ var MainMenu = new Phaser.Class({
     {
         this.load.json('menu', 'json/menu.json')
         this.load.image('menu_background', 'assets/minecraftMenuBackground.jpg');
-        this.load.image('play_button', 'assets/PlayButton.png');
+        this.load.image('story_button', 'assets/StoryModeButton.png');
+        this.load.image('infinite_button', 'assets/InfiniteMode.png')
     },
 
     create: function ()
@@ -23,14 +24,19 @@ var MainMenu = new Phaser.Class({
         console.log("Main Menu...");  //-- Debugging purposes
         this.add.image(data.background.x, data.background.y, data.background.image);
         let storyButton = this.add.image(data.button1.x, data.button1.y, data.button1.image);
-        storyButton.setScale(2);
-        
+        let infiniteButton = this.add.image(data.button2.x, data.button2.y, data.button2.image);
+
         // Temporary instruction
-        this.add.text(275,570,'Click Play to Start!', {fontSize: '20px', fill: '#FFF' });
+        this.add.text(275,570,'Click Any Mode to Start!', {fontSize: '20px', fill: '#FFF' });
 
         storyButton.setInteractive();
         storyButton.on("pointerup", () => {
             this.scene.start('levelselectorscene');
+        })
+
+        infiniteButton.setInteractive();
+        infiniteButton.on("pointerup", () => {
+            this.scene.start('generatedlevelscene');
         })
     },
 });

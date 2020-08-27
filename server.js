@@ -142,6 +142,18 @@ app.post("/auth", function(req, res) {
     });
 });
 
+app.get("/table", function (req, res) {
+    console.log("hi");
+    pool.query("SELECT * FROM users")
+        .then(function (result) {
+            console.log(result.rows);
+            res.send(result.rows);
+        })
+        .catch(function (error) {
+            console.log(error);
+            return;
+        });
+});
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);

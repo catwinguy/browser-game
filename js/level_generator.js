@@ -1,3 +1,6 @@
+/* Level generation based on the drunkard walk algorithm. */
+
+
 function randint(a, b){
     // https://www.w3schools.com/js/js_random.asp
     return Math.floor(Math.random() * (b+1-a)) + a;
@@ -8,6 +11,7 @@ let COLS = 50;
 let HALF_ROWS = Math.floor(ROWS / 2);
 let HALF_COLS = Math.floor(COLS / 2);
 
+let NUM_BLOCKS = 700;  // change me to change max num blocks
 let PLATFORM = "x";
 let AIR = ".";
 let EMERALD = "o";
@@ -105,19 +109,19 @@ function west(r, c){
     return [r, c];
 }
 
-function populateMap(myMap, numBlocks){
-    /* Fill in the empty map with up to numBlocks platform blocks. */
+function populateMap(myMap){
+    /* Fill in the empty map with up to NUM_BLOCKS platform blocks. */
     let startingRows = [
-        randint(0, Math.floor((ROWS-1)/2)),
-        randint(0, Math.floor((ROWS-1)/2)),
-        randint(Math.floor((ROWS-1)/2), (ROWS-1)),
-        randint(Math.floor((ROWS-1)/2), (ROWS-1)),
+        randint(0, HALF_ROWS),
+        randint(0, HALF_ROWS),
+        randint(HALF_ROWS, (ROWS-1)),
+        randint(HALF_ROWS, (ROWS-1)),
     ];
     let startingCols = [
-        randint(0, Math.floor((COLS-1)/2)),
-        randint(0, Math.floor((COLS-1)/2)),
-        randint(Math.floor((COLS-1)/2), (COLS-1)),
-        randint(Math.floor((COLS-1)/2), (COLS-1)),
+        randint(0, HALF_COLS),
+        randint(0, HALF_COLS),
+        randint(HALF_COLS, (COLS-1)),
+        randint(HALF_COLS, (COLS-1)),
     ];
 
     let row = startingRows[0];
@@ -126,7 +130,7 @@ function populateMap(myMap, numBlocks){
     let prevCol = 0;
     let newCoords = [row, col];
 
-    for (let i=0; i<=numBlocks; i++){
+    for (let i=0; i<=NUM_BLOCKS; i++){
         if (validInnerCol(col) && validInnerRow(row)){
             // if too many surrounding platforms nearby, decrease chances of new platform
             let count = 0;
@@ -175,13 +179,13 @@ function populateMap(myMap, numBlocks){
             col = newCoords[1];
         }
 
-        if (i == Math.floor(numBlocks / 4)){
+        if (i == Math.floor(NUM_BLOCKS / 4)){
             row = startingRows[1];
             col = startingCols[1];
-        } else if (i == Math.floor(numBlocks / 4) * 2){
+        } else if (i == Math.floor(NUM_BLOCKS / 4) * 2){
             row = startingRows[2];
             col = startingCols[2];
-        } else if (i == Math.floor(numBlocks / 4) * 3){
+        } else if (i == Math.floor(NUM_BLOCKS / 4) * 3){
             row = startingRows[3];
             col = startingCols[3];
         }
@@ -298,9 +302,9 @@ function addCoins(myMap){
     return myMap;
 }
 
-function createMap(numBlocks){
+function createMap(){
     let m = createEmptyMap();
-    m = populateMap(m, numBlocks);
+    m = populateMap(m);
     m = cleanUp(m);
     m = addPlayerStart(m);
     m = addExitDoor(m);
@@ -310,6 +314,13 @@ function createMap(numBlocks){
 
 function convertMapToCoords(myMap){
     /* Convert the map array into JSON for the game. */
+    while (badMap){
+        // if the map was generated bad, try again
+        console.log("fixing bad map.")
+        badMap = false;
+        myMap = createMap();
+    }
+
     let json = {
         backgroundImage: "village_background",
         ground: [
@@ -332,7 +343,7 @@ function convertMapToCoords(myMap){
             y = i*16 + 8;
             switch(myMap[i][j]){
                 case PLATFORM:
-                    if (validInnerRow(i) && myMap[i-1][j] == AIR){
+                    if (validInnerRow(i) && myMap[i-1][j] != PLATFORM){
                         json["platforms"].push({"image": "grass_block", "x": x, "y": y});
                     } else {
                         json["platforms"].push({"image": "dirt_block", "x": x, "y": y});
@@ -350,8 +361,12 @@ function convertMapToCoords(myMap){
                     }
                     break;
                 case PLAYER_START:
-                    if (myMap[i-1][j] == PLAYER_START){
-                        json["playerStart"] = {"x": x, "y": y-8};
+                    if (validInnerRow(i) && myMap[i-1][j] == PLAYER_START){
+                        json["playerStart"]["x"] = x;
+                        json["playerStart"]["y"] = y-8;
+                    } else if (myMap[i+1][j] == PLAYER_START){
+                        json["playerStart"]["x"] = x;
+                        json["playerStart"]["y"] = y+8;
                     }
                     break;
             }
@@ -359,9 +374,3 @@ function convertMapToCoords(myMap){
     }
     return json;
 }
-
-
-let m = createMap(700);
-printMap(m);
-let json = convertMapToCoords(m);
-console.log(json);
