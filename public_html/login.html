@@ -5,26 +5,41 @@
     <meta charset="utf-8">
     <title>Sign-In</title>
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 
 <body>
-<div class="container-fluid center outer-div">
-<div class="center">
-    <form>
-        <div>
-            <label name="username" for="username">Username:</label>
-            <input type="text" id="username">
+    <div class="container-fluid main-container-fluid">
+        <div class="row pad-row align-items-start"></div>
+        <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h1>Login</h1>
+            <form>
+                <div class="form-group">
+                    <label name="username" for="username">Username:</label>
+                    <input type="text" id="username">
+                </div>
+                <div class="form-group">
+                    <label name="password" for="password">Password:</label>
+                    <input type="password" id="password">
+                </div>
+            </form>
+            <div class="container-fluid">
+            <div class="row">
+                <div class="col-6"><p><a href="register.html">Don't have an account?</a></p></div>
+                <div class="col-6"><button id="login" type="button">Login</button></div>
+            </div>
+            </div>
+            <div id="error-div"></div>
         </div>
-        <div>
-            <label name="password" for="password">Password:</label>
-            <input type="password" id="password">
+        <div class="col-4"></div>
         </div>
-    </form>
-    <div id="error-div"></div>
-    <button id="login">Login</button>
-    <p><a href="register.html">Don't have an account?</a></p>
-</div>
-</div>
-<script src="login.js"></script>
+        <div class="row pad-row align-items-end"></div>
+    </div>
+    <script src="login.js"></script>
 </body>
+
+
+
 </html>

@@ -6,6 +6,7 @@ let loginButton = document.getElementById("login");
 loginButton.addEventListener("click", login);
 
 function login() {
+    console.log("logging in");
     let postData = {
         username: usernameInput.value,
         userPassword: passwordInput.value

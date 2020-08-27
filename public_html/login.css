@@ -1,15 +1,24 @@
+html {
+    height: 100%;
+}
 body {
     background-image: url('../assets/village_background.png');
     height: 100%;
-    background-position: center;
     background-size: cover;
 }
 
-.center {
-    margin: auto;
-    width: 50%;
+.main-container-fluid {
+    height: 100%;
 }
 
-.outer-div {
-    padding: 100px 0;
+.pad-row {
+    height: 33%;
+}
+
+input {
+    width: 100%;
+}
+
+form {
+    padding: 0 15px;
 }
