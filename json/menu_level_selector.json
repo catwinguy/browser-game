@@ -12,16 +12,27 @@
     "buttonS1": {
         "image": "stage_1_button", 
         "x": 400, 
-        "y": 200},
+        "y": 175
+    },
     "buttonS2": {
         "image": "stage_2_button", 
         "x": 400, 
-        "y": 300
+        "y": 250
     },
     "buttonS3": {
         "image": "stage_3_button", 
         "x": 400, 
+        "y": 325
+    },
+    "buttonS4": {
+        "image": "stage_4_button", 
+        "x": 400, 
         "y": 400
+    },
+    "buttonS5": {
+        "image": "stage_5_button", 
+        "x": 400, 
+        "y": 475
     },
     "returnButton": {
         "image": "return_button",
