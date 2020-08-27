@@ -110,13 +110,12 @@ app.post("/auth", function(req, res) {
     });
 });
 
-app.get("/", function (req, res) {
+app.get("/table", function (req, res) {
     console.log("hi");
     pool.query("SELECT * FROM users")
         .then(function (result) {
-            console.log(result);
-            res.json({ "users": result.rows });
-            return;
+            console.log(result.rows);
+            res.send(result.rows);
         })
         .catch(function (error) {
             console.log(error);

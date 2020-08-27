@@ -16,15 +16,12 @@ function updateText(message) {
     textContainer.append(content);
 }
 
-document.onload = function updateTable() {
-    fetch("/").then(function (response) {
-        if (response.status != 200) {
-            error = true;
-        }
+function updateTable() {
+    fetch("/table").then(function (response) {
         return response;
-    })
+        })
         .catch(function (error) {
-            console.log(error);
+            console.log("error");
         })
         .then(function (data) {
             console.log(data);
