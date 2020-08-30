@@ -1,3 +1,5 @@
+// const { NONE } = require("phaser");
+
 let config = {
     type: Phaser.AUTO,
     width: 800,
@@ -18,8 +20,23 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let score = 0;
 let playerName = 'girl';
+
+let playerData = {
+    name : 'girl',
+    health : 5,
+    weapon : {
+        equipment : null,
+        attack : 0
+    }
+};
+
+let zombieData = {
+    health : 3,
+    attack : 1
+};
+
+let score = 0;
 let currentLevel = null;
 let returnMenu = false;
 let timedEvent;
