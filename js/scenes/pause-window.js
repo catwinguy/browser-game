@@ -15,6 +15,7 @@ let PauseScene = new Phaser.Class({
         this.load.image('pause_text', 'assets/GamePausedText.png');
         this.load.image('exit', 'assets/ExitButton.png');
         this.load.image('save', 'assets/SaveButton.png');
+        // this.load.image('restart', 'assets/Restart.png');
         this.load.image('resume', 'assets/ResumeButton.png');
     },
 
@@ -49,7 +50,7 @@ let PauseScene = new Phaser.Class({
         let saveButton = this.add.image(440,300,'save')
         saveButton.setInteractive();
         saveButton.on("pointerup", () => {
-            console.log('Save score.');
+            console.log('Save Level.');
             // INSERT CODE TO SAVE SCORE
         })
 

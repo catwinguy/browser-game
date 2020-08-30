@@ -36,7 +36,6 @@ var EasyLevelScene = new Phaser.Class({
 
     create: function ()
     {
-
         currentLevel = 'easylevelscene'
         let data = this.cache.json.get('easy-level');
         let groundData = data.ground;
@@ -136,9 +135,15 @@ var EasyLevelScene = new Phaser.Class({
             frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
         })
 
-        //player.setBounce(0.2);
-        player.setCollideWorldBounds(true);  // Collides with window edges
-
+        // Collision
+        player.body.collideWorldBounds = true;
+        player.body.onWorldBounds=true;
+        this.physics.world.on('worldbounds', (player, up, down, left, right) => {
+            if (down)
+            {
+                playerData.health = 0;
+            }
+        }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
@@ -275,6 +280,13 @@ var EasyLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        // Player Death
+        if (playerData.health == 0)
+        {
+            this.scene.restart();
+        }
+
+        // Exit
         if (returnMenu) {
             this.scene.start('mainmenu');
             returnMenu = false;

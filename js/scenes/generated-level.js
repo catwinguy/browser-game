@@ -31,7 +31,6 @@ var GeneratedLevelScene = new Phaser.Class({
 
     create: function ()
     {
-
         currentLevel = 'generatedlevelscene'
         let m = createMap();  // change this number to change the max num of blocks in the level
         let data = convertMapToCoords(m);
@@ -132,9 +131,15 @@ var GeneratedLevelScene = new Phaser.Class({
             frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
         })
 
-        //player.setBounce(0.2);
-        player.setCollideWorldBounds(true);  // Collides with window edges
-
+        // Collision
+        player.body.collideWorldBounds = true;
+        player.body.onWorldBounds=true;
+        this.physics.world.on('worldbounds', (player, up, down, left, right) => {
+            if (down)
+            {
+                playerData.health = 0;
+            }
+        }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
@@ -205,11 +210,11 @@ var GeneratedLevelScene = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Level paused');
+            console.log('Infinite mode paused');
         })
 
         this.events.on('resume', function (flag) {
-            console.log('Level resumed');
+            console.log('Infinite mode resumed');
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
@@ -270,6 +275,13 @@ var GeneratedLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        // Player Death
+        if (playerData.health == 0)
+        {
+            this.scene.restart();
+        }
+
+        // Exit
         if (returnMenu) {
             this.scene.start('mainmenu');
             returnMenu = false;

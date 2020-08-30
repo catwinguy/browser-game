@@ -70,6 +70,8 @@ var MediumLevelScene = new Phaser.Class({
         // Temporarily removed this code to get rid of the unloaded/uncreated graphics indicated by the green box
         //swords.create(data.sword.x, data.sword.y, data.sword.image);
 
+
+        /* Player Information - Start */
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
         player.hasSword = false;
@@ -126,7 +128,9 @@ var MediumLevelScene = new Phaser.Class({
             let powerupChild = powerups.create(powerup.x, powerup.y, powerup.image);
             powerupChild.name = powerup.name;
         })
+        /* Player Information - End */
 
+        /* Door - Start */
         // currently only works for one door
         let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
         doors.add(door);
@@ -135,10 +139,17 @@ var MediumLevelScene = new Phaser.Class({
             key: "open",
             frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
         })
+        /* Door - End */
 
-        //player.setBounce(0.2);
-        player.setCollideWorldBounds(true);  // Collides with window edges
-
+        /* Collision Setters */
+        player.body.collideWorldBounds = true;
+        player.body.onWorldBounds=true;
+        this.physics.world.on('worldbounds', (player, up, down, left, right) => {
+            if (down)
+            {
+                playerData.health = 0;
+            }
+        }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
@@ -200,7 +211,7 @@ var MediumLevelScene = new Phaser.Class({
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        // Pause screen implementation
+        /* Pause screen implementation */
         pauseButton = this.input.keyboard.addKey('ESC');
         pauseButton.on('up', function(event){
             console.log('Escape key has been pressed!');
@@ -220,15 +231,16 @@ var MediumLevelScene = new Phaser.Class({
             cursors.left.isDown = false;
             cursors.right.isDown = false;
         })
+        /* Pause screen implementation - End */
     },
 
-        getTime() {
-            //make a new date object
-            let d = new Date();
+    getTime() {
+        //make a new date object
+        let d = new Date();
 
-            //return the number of milliseconds since 1 January 1970 00:00:00. 
-            return d.getTime();
-        },
+        //return the number of milliseconds since 1 January 1970 00:00:00. 
+        return d.getTime();
+    },
 
     update: function()
     {
@@ -272,6 +284,13 @@ var MediumLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        // Player Death
+        if (playerData.health == 0)
+        {
+            this.scene.restart();
+        }
+
+        // Exit
         if (returnMenu) {
             this.scene.start('mainmenu');
             returnMenu = false;

@@ -140,6 +140,7 @@
     ],
     "playerStart": {"x": 750, "y": 550},
     "coins": [
+        {"image": "emerald", "x": 502, "y": 485},
         {"image": "emerald", "x": 502, "y": 385},
         {"image": "emerald", "x": 502, "y": 285},
         {"image": "diamond", "x": 502, "y": 185},
@@ -156,5 +157,5 @@
     "doors": [
         {"image": "door_left", "x": 400, "y": 112}
     ],
-    "sword": {"image": "sword", "x": 502, "y": 485}
+    "sword": {"image": "sword", "x": 70, "y": 525}
 }
