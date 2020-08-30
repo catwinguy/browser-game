@@ -22,7 +22,14 @@ app.use(express.static("json"));
 app.use(express.static("js/scenes"));
 app.use(express.static("."));
 
-app.get('/', function (req, res) {
+app.use(session({
+    secret: 'covid coders',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {}
+}));
+
+app.get("/", function (req, res) {
     pool.query("SELECT * FROM users")
         .then(function (result) {
             console.log(result);
@@ -33,24 +40,6 @@ app.get('/', function (req, res) {
             console.log(error);
             return;
         });
-    });
-
-app.use(session({
-    key: 'avocado',
-    secret: 'covid coders',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60000
-    }
-}));
-
-app.use(function(req, res, next) {
-    if (!req.session.hasOwnProperty("highscore")){
-        req.session.highscore = 0;
-    }
-
-    next()
 });
 
 app.post("/create-user", function (req, res) {
@@ -77,30 +66,30 @@ app.post("/create-user", function (req, res) {
     ).then(function (response) {
         if (response.rowCount !== 0) {
             res.status(401).json({"error": "Username is taken. Please choose another."}).send();
-            return;
+        }
+        else {
+            bcrypt.hash(req.body.userPassword, saltRounds)
+            .then(function (hashedPassword) {
+                pool.query("INSERT INTO users (username, hashed_password, highscore) VALUES ($1, $2, $3)",
+                  [req.body.username, hashedPassword, 0])
+                  .then(function (response) {
+                      res.status(200).send();
+                  })
+                  .catch(function (error) {
+                      console.log(error);
+                      res.status(500).json({"error": "Server error. Please try again."}).send();
+                  });
+            })
+            .catch(function (error) {
+                console.log(error);
+                res.status(500).json({"error": "Server error. Please try again."}).send();
+            });
         }
     }).catch(function (error) {
         console.log(error);
         res.status(500).json({"error": "Server error. Please try again."}).send();
         return;
     });
-
-    bcrypt.hash(req.body.userPassword, saltRounds)
-          .then(function (hashedPassword) {
-              pool.query("INSERT INTO users (username, hashed_password, high_score) VALUES ($1, $2, $3, $4)",
-                [req.body.username, hashedPassword, 0])
-                .then(function (response) {
-                    res.status(200).send();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    res.status(500).json({"error": "Server error. Please try again."}).send();
-                });
-          })
-          .catch(function (error) {
-              console.log(error);
-              res.status(500).json({"error": "Server error. Please try again."}).send();
-          });
 });
 
 app.post("/auth", function(req, res) {
@@ -124,6 +113,7 @@ app.post("/auth", function(req, res) {
         bcrypt.compare(req.body.userPassword, hashedPassword)
               .then(function (equal) {
                   if (equal) {
+                      req.session.user = req.body.username;
                       res.status(200).send();
                   }
                   else {
@@ -142,11 +132,37 @@ app.post("/auth", function(req, res) {
     });
 });
 
+app.post("/highscore", function (req, res) {
+    if (!req.body.hasOwnProperty("score") ||
+        !req.session.hasOwnProperty("user"))
+    {
+        res.status(500).json({"error": "Invalid request."}).send();
+        return;
+    }
+
+    pool.query(
+        "SELECT highscore FROM users WHERE username = $1",
+        [req.session.user]
+    ).then(function (response) {
+        console.log(response);
+    }).catch(function (error) {
+        console.log(error);
+        res.status(500).json({"error": "Server error. Please try again."}).send();
+        return;
+    });
+});
+
 app.get("/table", function (req, res) {
     console.log("hi");
+    if (!req.session.hasOwnProperty("user")) {
+        console.log("no user");
+    }
+    else {
+        console.log(req.session.user);
+    }
     pool.query("SELECT * FROM users")
         .then(function (result) {
-            console.log(result.rows);
+            //console.log(result.rows);
             res.send(result.rows);
         })
         .catch(function (error) {
