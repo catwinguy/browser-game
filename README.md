@@ -1,4 +1,4 @@
-# Name of the Game TBD
+# Minecraft Adventures Lite
 
 CS375 Final Project: Browser Game
 
@@ -17,18 +17,13 @@ Phil H.
 
 ## Running the Program
 
-1. Create PostgreSQL Database to store Player Information
-    - user Table
-        - usernmae VARCHAR(20)
-        - password CHAR(60)
-        - highscore INT
-        - best-time NUMERIC
+1. Navigate to the program's directory then run ```npm install``` in the terminal to install the Node.js dependencies.
 
-Navigate to the program's directory then run ```npm install``` in the terminal to install the Node.js dependencies.
+2. Run ```./database``` in Terminal to create a database for users
 
-Type ```node server.js``` into the terminal to run the server.
+3. Type ```node server.js``` into the terminal to run the server.
 
-Navigate to ```http://localhost:3000``` on your preferred browser.
+4. Navigate to ```http://localhost:3000``` on your preferred browser.
 
 Now, you can enjoy the game!
 
