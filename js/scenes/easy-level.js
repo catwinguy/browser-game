@@ -47,10 +47,13 @@ var EasyLevelScene = new Phaser.Class({
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
 
-        // timer
+        // timer 
         this.start = this.getTime();
-        let current = this.time.time;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
+        let startPause;
+        let pElapsed;
+        let pTime;
+        let start;
 
         // Static groups
         let platforms = this.physics.add.staticGroup();
@@ -214,10 +217,13 @@ var EasyLevelScene = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            start = this.start;
+            console.log(start);
         }, this)
 
         this.events.on('pause', function () {
             console.log('Easy level paused');
+            startPause = new Date();
         })
 
         this.events.on('resume', function (flag) {
@@ -226,11 +232,16 @@ var EasyLevelScene = new Phaser.Class({
             cursors.up.isDown = false;
             cursors.left.isDown = false;
             cursors.right.isDown = false;
+            pTime = new Date();
+            pElapsed = (pTime.getTime() - startPause.getTime());
+            console.log(pElapsed);
+            start += pElapsed;
+            console.log(start);
         })
     },
 
     getTime() {
-        //make a new date object
+        //make a new date object 
         let d = new Date();
 
         //return the number of milliseconds since 1 January 1970 00:00:00. 
@@ -241,6 +252,7 @@ var EasyLevelScene = new Phaser.Class({
     {
 
         //timer
+        this.start = start;
         let time = new Date();
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');

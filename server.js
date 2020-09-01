@@ -30,6 +30,7 @@ app.use(session({
 }));
 
 app.get("/", function (req, res) {
+    console.log("hello");
     pool.query("SELECT * FROM users")
         .then(function (result) {
             console.log(result);
@@ -164,6 +165,7 @@ app.get("/table", function (req, res) {
         .then(function (result) {
             //console.log(result.rows);
             res.send(result.rows);
+            return;
         })
         .catch(function (error) {
             console.log(error);
