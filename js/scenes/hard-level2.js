@@ -150,48 +150,10 @@ var HardLevelScene2 = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
             // TODO: add new scene telling player they won and their times
             console.log('Congratulations! You won the game!');
             door.anims.play("open");
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);

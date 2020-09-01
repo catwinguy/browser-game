@@ -32,7 +32,7 @@ var GeneratedLevelScene = new Phaser.Class({
     create: function ()
     {
         currentLevel = 'generatedlevelscene';
-        let m = createMap();  // change this number to change the max num of blocks in the level
+        let m = createMap();
         let data = convertMapToCoords(m);
         console.log(data);
         let groundData = data.ground;
@@ -148,49 +148,9 @@ var GeneratedLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
             door.anims.play("open");
             this.scene.restart();
-            // player.setVelocityX(0);
-            // player.setVelocityY(0);
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -287,3 +247,4 @@ var GeneratedLevelScene = new Phaser.Class({
         }
     }
 });
+

@@ -155,39 +155,6 @@ var MediumLevelScene = new Phaser.Class({
         this.physics.add.collider(powerups, platforms);
         this.physics.add.collider(doors, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
             console.log('You unlocked the 2nd Medium Stage!');
             door.anims.play("open");
@@ -197,11 +164,6 @@ var MediumLevelScene = new Phaser.Class({
             })
             // player.setVelocityX(0);
             // player.setVelocityY(0);
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
