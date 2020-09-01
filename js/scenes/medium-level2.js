@@ -63,7 +63,9 @@ var MediumLevelScene2 = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        swords.create(data.sword.x, data.sword.y, data.sword.image);
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);

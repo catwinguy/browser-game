@@ -67,9 +67,9 @@ var MediumLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        // Temporarily removed this code to get rid of the unloaded/uncreated graphics indicated by the green box
-        //swords.create(data.sword.x, data.sword.y, data.sword.image);
-
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         /* Player Information - Start */
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
