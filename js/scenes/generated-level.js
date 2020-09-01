@@ -31,7 +31,7 @@ var GeneratedLevelScene = new Phaser.Class({
 
     create: function ()
     {
-        currentLevel = 'generatedlevelscene'
+        currentLevel = 'generatedlevelscene';
         let m = createMap();  // change this number to change the max num of blocks in the level
         let data = convertMapToCoords(m);
         console.log(data);
@@ -63,7 +63,9 @@ var GeneratedLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        swords.create(data.sword.x, data.sword.y, data.sword.image);
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(200);
@@ -181,10 +183,7 @@ var GeneratedLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             door.anims.play("open");
-            this.scene.transition({
-                target: 'generatedlevelscene',
-                duration: 4000
-            });
+            this.scene.restart();
             // player.setVelocityX(0);
             // player.setVelocityY(0);
         }

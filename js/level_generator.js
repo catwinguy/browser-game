@@ -306,6 +306,7 @@ function createMap(){
     let m = createEmptyMap();
     m = populateMap(m);
     m = cleanUp(m);
+    m = cleanUp(m);  // make sure nothing was missed the first time
     m = addPlayerStart(m);
     m = addExitDoor(m);
     m = addCoins(m);
@@ -324,7 +325,7 @@ function convertMapToCoords(myMap){
     let json = {
         backgroundImage: "village_background",
         ground: [
-            {image: "dirt_platform50", "x": 400, "y": 592}
+            {image: "dirt_platform50", "x": 400, "y": 600}
         ],
         platforms: [],
         playerStart: {},
