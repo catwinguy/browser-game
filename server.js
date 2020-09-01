@@ -135,6 +135,20 @@ app.post("/highscore", function (req, res) {
             [req.session.user]
         ).then(function (response) {
             console.log(response);
+            let highscore;
+            let score;
+            if (score > highscore) {
+                pool.query(
+                    "UPDATE users SET highscore = $1 WHERE username = $2",
+                    [score, req.session.user]
+                ).then(function (response) {
+                    res.status(200).send();
+                }).catch(function (error) {
+                    console.log(error);
+                    res.status(500).json({"error": "Server error. Could not update high score."}).send();
+                    return;
+                });
+            }
         }).catch(function (error) {
             console.log(error);
             res.status(500).json({"error": "Server error. Please try again."}).send();
