@@ -43,9 +43,8 @@ var GeneratedLevelScene = new Phaser.Class({
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
 
-        // timer
+        // timer 
         this.start = this.getTime();
-        let current = this.time.time;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -166,6 +165,7 @@ var GeneratedLevelScene = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            startPause = new Date();
         }, this)
 
         this.events.on('pause', function () {
@@ -193,6 +193,10 @@ var GeneratedLevelScene = new Phaser.Class({
     {
 
         //timer
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
         let time = new Date();
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');

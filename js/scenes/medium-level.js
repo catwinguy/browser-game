@@ -50,10 +50,9 @@ var MediumLevelScene = new Phaser.Class({
 
         // timer  
         this.start = this.getTime();
-        let current = this.time.time;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
-        // Static groups
+        // Static groups 
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
         let powerups = this.physics.add.staticGroup();
@@ -158,6 +157,8 @@ var MediumLevelScene = new Phaser.Class({
         function enterDoor (player, door) {
             console.log('You unlocked the 2nd Medium Stage!');
             door.anims.play("open");
+            let time = new Date();
+            mediumTime = (time.getTime() - this.start) / 1000;
             this.scene.transition({
                 target: 'mediumlevelscene2',
                 duration: 4000
@@ -179,6 +180,8 @@ var MediumLevelScene = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            startPause = new Date();
+            mediumTime = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {
@@ -207,6 +210,10 @@ var MediumLevelScene = new Phaser.Class({
     update: function()
     {
         //timer
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
         let time = new Date();
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');

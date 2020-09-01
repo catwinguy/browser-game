@@ -22,7 +22,7 @@ var EasyLevelScene = new Phaser.Class({
         this.load.image('blue_potion', 'assets/potion_blue.png')
         this.load.image('sword', 'assets/sword.png');
 
-        // Level
+        // Level 
         this.load.json('easy-level', 'json/story_level_easy.json')
 
         // Dynamic Objects
@@ -50,10 +50,7 @@ var EasyLevelScene = new Phaser.Class({
         // timer 
         this.start = this.getTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
-        let startPause;
-        let pElapsed;
-        let pTime;
-        let start;
+        
 
         // Static groups
         let platforms = this.physics.add.staticGroup();
@@ -62,7 +59,7 @@ var EasyLevelScene = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
 
-        // ground and platforms are separate for now but we can combine them if not needed
+        // ground and platforms are separate for now but we can combine them if not needed 
         groundData.forEach(function(ground){
             platforms.create(ground.x, ground.y, ground.image);
         })
@@ -156,8 +153,10 @@ var EasyLevelScene = new Phaser.Class({
         this.physics.add.collider(swords, platforms);
 
         function enterDoor (player, door) {
-            // console.log('You unlocked the Medium Stage!');
+            // console.log('You unlocked the Medium Stage!'); 
             door.anims.play("open");
+            let time = new Date();
+            easyTime = (time.getTime() - this.start) / 1000;
             this.scene.transition({
                 target: 'mediumlevelscene',
                 duration: 4000
@@ -173,19 +172,18 @@ var EasyLevelScene = new Phaser.Class({
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        // Pause screen implementation
+        // Pause screen implementation 
         pauseButton = this.input.keyboard.addKey('ESC');
         pauseButton.on('up', function(event){
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
-            start = this.start;
-            console.log(start);
+            startPause = new Date();
+            easyTime = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {
             console.log('Easy level paused');
-            startPause = new Date();
         })
 
         this.events.on('resume', function (flag) {
@@ -194,11 +192,6 @@ var EasyLevelScene = new Phaser.Class({
             cursors.up.isDown = false;
             cursors.left.isDown = false;
             cursors.right.isDown = false;
-            pTime = new Date();
-            pElapsed = (pTime.getTime() - startPause.getTime());
-            console.log(pElapsed);
-            start += pElapsed;
-            console.log(start);
         })
     },
 
@@ -214,7 +207,10 @@ var EasyLevelScene = new Phaser.Class({
     {
 
         //timer
-        this.start = start;
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
         let time = new Date();
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');
