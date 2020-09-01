@@ -214,6 +214,22 @@ function cleanUp(myMap){
                         myMap[i+1][j] = AIR;
                     }
                 }
+                if (validInnerRow(i) && validInnerCol(j) && myMap[i+1][j] == PLATFORM && myMap[i-1][j-1] == PLATFORM){
+                    // below and upper left are platforms, can't fit through gap
+                    if (randint(0,1)){  // 50% chance
+                        myMap[i+1][j] = AIR;
+                    } else {
+                        myMap[i-1][j-1] = AIR;
+                    }
+                }
+                if (validInnerRow(i) && validInnerCol(j) && myMap[i+1][j] == PLATFORM && myMap[i-1][j+1] == PLATFORM){
+                    // below and upper right are platforms, can't fit through gap
+                    if (randint(0,1)){  // 50% chance
+                        myMap[i+1][j] = AIR;
+                    } else {
+                        myMap[i-1][j+1] = AIR;
+                    }
+                }
             } else {
                 if (i <= 1){
                     // make sure there's a two block gap at top of map
