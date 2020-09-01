@@ -26,7 +26,7 @@ var MainMenu = new Phaser.Class({
         let storyButton = this.add.image(data.button1.x, data.button1.y, data.button1.image);
         let infiniteButton = this.add.image(data.button2.x, data.button2.y, data.button2.image);
 
-        // Temporary instruction
+        // Temporary instruction  
         this.add.text(275,570,'Click Any Mode to Start!', {fontSize: '20px', fill: '#FFF' });
 
         storyButton.setInteractive();

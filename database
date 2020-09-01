@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 psql --u postgres -c "DROP DATABASE IF EXISTS minecraftgame";
 psql --u postgres -c "CREATE DATABASE minecraftgame";
 psql --u postgres -d minecraftgame -c "CREATE TABLE users (

@@ -72,8 +72,8 @@ app.post("/create-user", function (req, res) {
         else {
             bcrypt.hash(req.body.userPassword, saltRounds)
             .then(function (hashedPassword) {
-                pool.query("INSERT INTO users (username, hashed_password, high_score) VALUES ($1, $2, $3)",
-                  [req.body.username, hashedPassword, 0])
+                pool.query("INSERT INTO users (username, hashed_password, high_score, story_time) VALUES ($1, $2, $3, $4)",
+                  [req.body.username, hashedPassword, 0, 0])
                   .then(function (response) {
                       res.status(200).send();
                   })
@@ -158,17 +158,18 @@ app.post("/highscore", function (req, res) {
 app.post("/", function (req, res) {
     console.log(req.body);
     console.log(req.session.user);
-    pool.query(
-        "UPDATE users SET high_score = $1 WHERE username = $2",
-        [req.body.score, req.session.user]
-    ).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-        res.status(500).json({ "error": "Server error. Please try again." }).send();
-        return;
-    });
-
+    if (req.session.user != undefined) {
+        pool.query(
+            "UPDATE users SET high_score = $1, story_time = $2 WHERE username = $3",
+            [req.body.score, req.body.storyTime, req.session.user]
+        ).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ "error": "Server error. Please try again." }).send();
+            return;
+        });
+    }
 });
 
 
