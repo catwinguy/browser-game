@@ -153,6 +153,8 @@ var MediumLevelScene2 = new Phaser.Class({
 
         function enterDoor (player, door) {
             console.log('You unlocked the Hard Stage!');
+            let time = new Date();
+            mediumTime2 = (time.getTime() - this.start) / 1000;
             door.anims.play("open");
             this.scene.transition({
                 target: 'hardlevelscene',
@@ -211,6 +213,7 @@ var MediumLevelScene2 = new Phaser.Class({
             this.scene.pause();
             this.scene.launch('pausescene');
             startPause = new Date();
+            mediumTime2 = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {

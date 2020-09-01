@@ -147,7 +147,9 @@ var GeneratedLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function enterDoor (player, door) {
+        function enterDoor(player, door) {
+            let time = new Date();
+            generatedTime = (time.getTime() - this.start) / 1000;
             door.anims.play("open");
             this.scene.restart();
         }
@@ -166,6 +168,7 @@ var GeneratedLevelScene = new Phaser.Class({
             this.scene.pause();
             this.scene.launch('pausescene');
             startPause = new Date();
+            generatedTime = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {
