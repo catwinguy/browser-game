@@ -155,7 +155,9 @@ var HardLevelScene2 = new Phaser.Class({
         this.physics.add.collider(swords, platforms);
 
         function enterDoor (player, door) {
-            // TODO: add new scene telling player they won and their times
+            // TODO: add new scene telling player they won and their times  
+            let time = new Date();
+            hardTime2 = (time.getTime() - this.start) / 1000;
             console.log('Congratulations! You won the game!');
             door.anims.play("open");
         }
@@ -174,6 +176,7 @@ var HardLevelScene2 = new Phaser.Class({
             this.scene.pause();
             this.scene.launch('pausescene');
             startPause = new Date();
+            hardTime2 = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {

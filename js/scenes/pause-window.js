@@ -34,7 +34,6 @@ let PauseScene = new Phaser.Class({
             this.scene.stop();
             pTime = new Date();
             pElapsed = (pTime.getTime() - startPause.getTime());
-            console.log(pElapsed);
         })
         
         // Return to Main Menu
@@ -54,15 +53,16 @@ let PauseScene = new Phaser.Class({
         saveButton.setInteractive();
         saveButton.on("pointerup", () => {
             console.log('Save Level.');
-            // INSERT CODE TO SAVE SCORE 
+            let storyTime = (easyTime + mediumTime + mediumTime2 + hardTime + hardTime2);
             let data = {
-                // user: usernameInput.value,
                 score: score,
                 easyTime: easyTime,
                 mediumTime: mediumTime,
                 mediumTime2: mediumTime2,
                 hardTime: hardTime,
-                hardTime2: hardTime2
+                hardTime2: hardTime2,
+                storyTime: storyTime,
+                infiniteTime: generatedTime
             }
             fetch('/', {
                 method: 'POST',
@@ -87,7 +87,6 @@ let PauseScene = new Phaser.Class({
             this.scene.stop();
             pTime = new Date();
             pElapsed = (pTime.getTime() - startPause.getTime());
-            console.log(pElapsed);
         }, this)
     }
 });

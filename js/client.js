@@ -17,19 +17,28 @@ function updateText(message) {
 }
 
 function updateTable() {
-    fetch("/table")
+    fetch("/users")
         .then(function (response) {
-            if (response.status === 200) {
-                window.location.href = "index.html";
-            } else {
-                console.log(response);
-            }
             return response.json();
         })
-        .catch(function (error) {
-            console.log("error");
+        .then(function (response) {
+            rows = response.rows;
+            for (let i = 0; i < rows.length; i++) {
+                let row = document.createElement("tr");
+                let u = document.createTextNode(rows[i].username);
+                let hs = document.createTextNode(rows[i].high_score);
+                let username = document.createElement("td");
+                username.appendChild(u);
+                row.append(username);
+                let highscore = document.createElement("td");
+                highscore.appendChild(hs);
+                row.append(highscore);
+                table.append(row);
+            }
+
+
         })
-        .then(function (data) {
-            console.log(data);
+        .catch(function (error) {
+            console.log(error);
         });
 }

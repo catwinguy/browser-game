@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+psql --u postgres -c "CREATE DATABASE minecraftgame";
+psql --u postgres -d minecraftgame -c "CREATE TABLE users (
+    username VARCHAR(20),
+    hashed_password CHAR(60),
+    high_score INT,
+    story_time INT
+);"
