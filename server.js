@@ -29,17 +29,8 @@ app.use(session({
     cookie: {}
 }));
 
-app.get("/", function (req, res) {
-    pool.query("SELECT * FROM users")
-        .then(function (result) {
-            console.log(result);
-            res.json({ "users": result.rows });
-            return;
-        })
-        .catch(function (error) {
-            console.log(error);
-            return;
-        });
+app.post("/", function (req, res) {
+    console.log(req.body);
 });
 
 app.post("/create-user", function (req, res) {
@@ -164,6 +155,7 @@ app.get("/table", function (req, res) {
         .then(function (result) {
             //console.log(result.rows);
             res.send(result.rows);
+            return;
         })
         .catch(function (error) {
             console.log(error);

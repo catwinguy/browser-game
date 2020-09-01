@@ -17,8 +17,14 @@ function updateText(message) {
 }
 
 function updateTable() {
-    fetch("/table").then(function (response) {
-        return response;
+    fetch("/table")
+        .then(function (response) {
+            if (response.status === 200) {
+                window.location.href = "index.html";
+            } else {
+                console.log(response);
+            }
+            return response.json();
         })
         .catch(function (error) {
             console.log("error");

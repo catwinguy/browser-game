@@ -22,7 +22,7 @@ var EasyLevelScene = new Phaser.Class({
         this.load.image('blue_potion', 'assets/potion_blue.png')
         this.load.image('sword', 'assets/sword.png');
 
-        // Level
+        // Level 
         this.load.json('easy-level', 'json/story_level_easy.json')
 
         // Dynamic Objects
@@ -45,12 +45,12 @@ var EasyLevelScene = new Phaser.Class({
         let doorData = data.doors;
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
-        console.log("Onto the next scene!");
+        // console.log("Onto the next scene!");
 
-        // timer
+        // timer 
         this.start = this.getTime();
-        let current = this.time.time;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
+        
 
         // Static groups
         let platforms = this.physics.add.staticGroup();
@@ -59,7 +59,7 @@ var EasyLevelScene = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
 
-        // ground and platforms are separate for now but we can combine them if not needed
+        // ground and platforms are separate for now but we can combine them if not needed 
         groundData.forEach(function(ground){
             platforms.create(ground.x, ground.y, ground.image);
         })
@@ -67,7 +67,9 @@ var EasyLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        swords.create(data.sword.x, data.sword.y, data.sword.image);
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
@@ -150,53 +152,17 @@ var EasyLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
-            console.log('You unlocked the Medium Stage!');
+            // console.log('You unlocked the Medium Stage!'); 
             door.anims.play("open");
+            let time = new Date();
+            easyTime = (time.getTime() - this.start) / 1000;
             this.scene.transition({
                 target: 'mediumlevelscene',
                 duration: 4000
             });
             // player.setVelocityX(0);
             // player.setVelocityY(0);
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -206,12 +172,14 @@ var EasyLevelScene = new Phaser.Class({
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        // Pause screen implementation
+        // Pause screen implementation 
         pauseButton = this.input.keyboard.addKey('ESC');
         pauseButton.on('up', function(event){
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            startPause = new Date();
+            easyTime = (startPause.getTime() - this.start) / 1000;
         }, this)
 
         this.events.on('pause', function () {
@@ -228,7 +196,7 @@ var EasyLevelScene = new Phaser.Class({
     },
 
     getTime() {
-        //make a new date object
+        //make a new date object 
         let d = new Date();
 
         //return the number of milliseconds since 1 January 1970 00:00:00. 
@@ -239,6 +207,10 @@ var EasyLevelScene = new Phaser.Class({
     {
 
         //timer
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
         let time = new Date();
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');

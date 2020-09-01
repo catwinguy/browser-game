@@ -32,6 +32,9 @@ let PauseScene = new Phaser.Class({
             console.log('Game has been resumed.');
             this.scene.resume(currentLevel);
             this.scene.stop();
+            pTime = new Date();
+            pElapsed = (pTime.getTime() - startPause.getTime());
+            console.log(pElapsed);
         })
         
         // Return to Main Menu
@@ -51,7 +54,30 @@ let PauseScene = new Phaser.Class({
         saveButton.setInteractive();
         saveButton.on("pointerup", () => {
             console.log('Save Level.');
-            // INSERT CODE TO SAVE SCORE
+            // INSERT CODE TO SAVE SCORE 
+            let data = {
+                // user: usernameInput.value,
+                score: score,
+                easyTime: easyTime,
+                mediumTime: mediumTime,
+                mediumTime2: mediumTime2,
+                hardTime: hardTime,
+                hardTime2: hardTime2
+            }
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         })
 
         pauseButton = this.input.keyboard.addKey('ESC');
@@ -59,6 +85,9 @@ let PauseScene = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.resume(currentLevel);
             this.scene.stop();
+            pTime = new Date();
+            pElapsed = (pTime.getTime() - startPause.getTime());
+            console.log(pElapsed);
         }, this)
     }
 });

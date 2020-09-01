@@ -31,8 +31,8 @@ var GeneratedLevelScene = new Phaser.Class({
 
     create: function ()
     {
-        currentLevel = 'generatedlevelscene'
-        let m = createMap();  // change this number to change the max num of blocks in the level
+        currentLevel = 'generatedlevelscene';
+        let m = createMap();
         let data = convertMapToCoords(m);
         console.log(data);
         let groundData = data.ground;
@@ -43,9 +43,8 @@ var GeneratedLevelScene = new Phaser.Class({
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
 
-        // timer
+        // timer 
         this.start = this.getTime();
-        let current = this.time.time;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -63,7 +62,9 @@ var GeneratedLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        swords.create(data.sword.x, data.sword.y, data.sword.image);
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(200);
@@ -146,52 +147,9 @@ var GeneratedLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
             door.anims.play("open");
-            this.scene.transition({
-                target: 'generatedlevelscene',
-                duration: 4000
-            });
-            // player.setVelocityX(0);
-            // player.setVelocityY(0);
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
+            this.scene.restart();
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -207,6 +165,7 @@ var GeneratedLevelScene = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            startPause = new Date();
         }, this)
 
         this.events.on('pause', function () {
@@ -234,6 +193,10 @@ var GeneratedLevelScene = new Phaser.Class({
     {
 
         //timer
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
         let time = new Date();
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');
@@ -288,3 +251,4 @@ var GeneratedLevelScene = new Phaser.Class({
         }
     }
 });
+

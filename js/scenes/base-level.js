@@ -4,37 +4,6 @@ class BaseLevel extends Phaser.Scene {
     {
         super(key);
     }
-    collectCoin (player, coin, score){
-        coin.disableBody(true, true);
-        switch(coin.name){
-            case "emerald":
-                score++;
-                break;
-            case "diamond":
-                score += 5;
-                break;
-            default:
-                break;
-        }
-        console.log("Current score:", score);
-    }
-    collectPowerup(player, powerup){
-        powerup.disableBody(true, true);
-        let powerupType = powerup.name;
-        switch (powerupType){
-            case "lower-gravity":
-                player.body.setGravityY(player.body.gravity.y/2);
-                break;
-            case "raise-gravity":
-                player.body.setGravityY(player.body.gravity.y*2);
-                break;
-            case "hop":
-                player.setVelocityY(-330);
-                break;
-            default:
-                break;
-        }
-    }
     enterDoor (player, door) {
         door.anims.play("open");
         // this.scene.start('hardlevelscene');
@@ -44,13 +13,6 @@ class BaseLevel extends Phaser.Scene {
         })
         player.setVelocityX(0);
         player.setVelocityY(0);
-    }
-    collectSword(player, sword){
-        console.log("Sword!")
-        sword.disableBody(true, true);
-        console.log(player);
-        player.setTexture(player.texture.key + "_sword");
-        console.log(player); // doesn't seem to actually set the new texture...
     }
     update()
     {
@@ -76,4 +38,44 @@ class BaseLevel extends Phaser.Scene {
             player.setVelocityY(-330);
         }
     }
+}
+
+
+// common functions for scenes
+function collectCoin (player, coin){
+    coin.disableBody(true, true);
+    switch(coin.name){
+        case "emerald":
+            score++;
+            break;
+        case "diamond":
+            score += 5;
+            break;
+        default:
+            break;
+    }
+    console.log("Current score:", score);
+};
+
+function collectPowerup(player, powerup){
+    powerup.disableBody(true, true);
+    let powerupType = powerup.name;
+    switch (powerupType){
+        case "lower-gravity":
+            player.body.setGravityY(player.body.gravity.y/2);
+            break;
+        case "raise-gravity":
+            player.body.setGravityY(player.body.gravity.y*2);
+            break;
+        case "hop":
+            player.setVelocityY(-330);
+            break;
+        default:
+            break;
+    }
+}
+
+function collectSword(player, sword){
+    sword.disableBody(true, true);
+    player.hasSword = true;
 }

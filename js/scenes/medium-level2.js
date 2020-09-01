@@ -46,7 +46,11 @@ var MediumLevelScene2 = new Phaser.Class({
         let powerupData = data.powerups;
         let doorData = data.doors;
 
-        this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
+        this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0) 
+
+        // timer 
+        this.start = this.getTime();
+        text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
         let platforms = this.physics.add.staticGroup();
@@ -63,7 +67,9 @@ var MediumLevelScene2 = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        swords.create(data.sword.x, data.sword.y, data.sword.image);
+        if (data.sword.image !== undefined){
+            swords.create(data.sword.x, data.sword.y, data.sword.image);
+        };
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
         player.body.setGravityY(400);
@@ -145,39 +151,6 @@ var MediumLevelScene2 = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
         this.physics.add.collider(swords, platforms);
 
-        function collectCoin (player, coin){
-            coin.disableBody(true, true);
-            switch(coin.name){
-                case "emerald":
-                    score++;
-                    break;
-                case "diamond":
-                    score += 5;
-                    break;
-                default:
-                    break;
-            }
-            console.log("Current score:", score);
-        }
-
-        function collectPowerup(player, powerup){
-            powerup.disableBody(true, true);
-            let powerupType = powerup.name;
-            switch (powerupType){
-                case "lower-gravity":
-                    player.body.setGravityY(player.body.gravity.y/2);
-                    break;
-                case "raise-gravity":
-                    player.body.setGravityY(player.body.gravity.y*2);
-                    break;
-                case "hop":
-                    player.setVelocityY(-330);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         function enterDoor (player, door) {
             console.log('You unlocked the Hard Stage!');
             door.anims.play("open");
@@ -187,11 +160,6 @@ var MediumLevelScene2 = new Phaser.Class({
             });
             // player.setVelocityX(0);
             // player.setVelocityY(0);
-        }
-
-        function collectSword(player, sword){
-            sword.disableBody(true, true);
-            player.hasSword = true;
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -242,6 +210,7 @@ var MediumLevelScene2 = new Phaser.Class({
             console.log('Escape key has been pressed!');
             this.scene.pause();
             this.scene.launch('pausescene');
+            startPause = new Date();
         }, this)
 
         this.events.on('pause', function () {
@@ -257,8 +226,27 @@ var MediumLevelScene2 = new Phaser.Class({
         })
     },
 
+    getTime() {
+        //make a new date object 
+        let d = new Date();
+
+        //return the number of milliseconds since 1 January 1970 00:00:00. 
+        return d.getTime();
+    },
+
     update: function()
     {
+        //timer
+        if (pElapsed > 0) {
+            this.start += pElapsed;
+            pElapsed = 0;
+        }
+        let time = new Date();
+        let elapsed = (time.getTime() - this.start) / 1000;
+        text.setText(elapsed.toString() + ' s');
+
+
+
         // Move
         if (cursors.left.isDown)
         {
