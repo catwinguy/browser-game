@@ -137,19 +137,19 @@ app.post("/highscore", function (req, res) {
         !req.session.hasOwnProperty("user"))
     {
         res.status(500).json({"error": "Invalid request."}).send();
-        return;
     }
-
-    pool.query(
-        "SELECT highscore FROM users WHERE username = $1",
-        [req.session.user]
-    ).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-        res.status(500).json({"error": "Server error. Please try again."}).send();
-        return;
-    });
+    else {
+        pool.query(
+            "SELECT highscore FROM users WHERE username = $1",
+            [req.session.user]
+        ).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({"error": "Server error. Please try again."}).send();
+            return;
+        });
+    }
 });
 
 app.get("/table", function (req, res) {
