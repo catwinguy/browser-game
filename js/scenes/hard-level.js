@@ -160,11 +160,11 @@ var HardLevelScene = new Phaser.Class({
             door.anims.play("open");
             hardScore = hardTime - score;
             score = 0;
-            postScore(hardScore.toFixed(3), "level4_fastest_run");
             this.scene.transition({
                 target: 'hardlevelscene2',
                 duration: 4000
             });
+            postScore(hardScore.toFixed(3), "level4_fastest_run");
             // player.setVelocityX(0);
             // player.setVelocityY(0);
         }

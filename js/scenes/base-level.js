@@ -97,5 +97,8 @@ function postScore(levelScore, levelKey) {
         if (response.status !== 200) {
             console.log(response);
         }
+    })
+    .catch(function (error) {
+        console.log(error);
     });
 }

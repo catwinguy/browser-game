@@ -160,11 +160,11 @@ var EasyLevelScene = new Phaser.Class({
             easyTime = (time.getTime() - this.start) / 1000;
             easyScore = easyTime - score;
             score = 0;
-            postScore(easyScore.toFixed(3), "level1_fastest_run");
             this.scene.transition({
                 target: 'mediumlevelscene',
                 duration: 4000
             });
+            postScore(easyScore.toFixed(3), "level1_fastest_run");
             // player.setVelocityX(0);
             // player.setVelocityY(0);
         }

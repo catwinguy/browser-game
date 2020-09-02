@@ -21,17 +21,5 @@ var GameOverMenu = new Phaser.Class({
         let data = this.cache.json.get('gameovermenu');
         console.log("Game Over Menu...");  //-- Debugging purposes
         this.add.image(data.background.x, data.background.y, data.background.image);
-
-
-        console.log(easyScore);
-        console.log(mediumScore);
-        console.log(mediumScore2);
-        console.log(hardScore);
-        console.log(hardScore2);
-
-        // let totalTime = easyTime + mediumTime + mediumTime2 + hardTime + hardTime2;
-        // let finalScore = totalTime - score;
-        // finalScore = finalScore.toFixed(3);
-        // console.log(finalScore);
     },
 });

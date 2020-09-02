@@ -135,7 +135,6 @@ app.post("/auth", function(req, res) {
 });
 
 function updateScore(score, level, user) {
-    console.log(level);
     let success = false;
     switch(level) {
         case "level1_fastest_run":
@@ -210,8 +209,8 @@ function updateScore(score, level, user) {
             break;
         default:
             break;
-        return success;
     }
+    return success;
 }
 
 
@@ -243,16 +242,13 @@ app.post("/story-highscore", function (req, res) {
                         scores["level5_fastest_run"] !== null)
                     {
                         let total = scores["level1_fastest_run"] + scores["level2_fastest_run"] + scores["level3_fastest_run"] + scores["level4_fastest_run"] + scores["level5_fastest_run"];
-                        if (updateScore(total, "story_high_score", req.session.user)) {
-                            res.status(200).send();
-                        }
-                        else {
-                            res.status(500).json({"error": "Server error. Please try again."}).send();
-                            return;
+                        if (!updateScore(total, "story_high_score", req.session.user)) {
+                            console.log("Could not update high score.")
                         }
                     }
                     else {
                         res.status(200).send();
+                        return;
                     }
                 }
                 else {
@@ -260,6 +256,8 @@ app.post("/story-highscore", function (req, res) {
                     return;
                 }
             }
+            res.status(200).send();
+            return;
         }).catch(function (error) {
             console.log(error);
             res.status(500).json({"error": "Server error. Please try again."}).send();
@@ -284,9 +282,6 @@ app.post("/", function (req, res) {
         });
     }
 });
-
-
-
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);

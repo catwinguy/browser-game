@@ -162,11 +162,11 @@ var HardLevelScene2 = new Phaser.Class({
             door.anims.play("open");
             hardScore2 = hardTime2 - score;
             score = 0;
-            postScore(hardScore2.toFixed(3), "level5_fastest_run");
             this.scene.transition({
                 target: 'gameovermenu',
                 duration: 4000
             });
+            postScore(hardScore2.toFixed(3), "level5_fastest_run");
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
