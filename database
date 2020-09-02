@@ -4,11 +4,11 @@ psql --u postgres -c "CREATE DATABASE minecraftgame";
 psql --u postgres -d minecraftgame -c "CREATE TABLE users (
     username VARCHAR(20),
     hashed_password CHAR(60),
-    level1_fastest_run INT,
-    level2_fastest_run INT,
-    level3_fastest_run INT,
-    level4_fastest_run INT,
-    level5_fastest_run INT,
-    story_high_score INT,
-    infinite_high_score INT
+    level1_fastest_run NUMERIC,
+    level2_fastest_run NUMERIC,
+    level3_fastest_run NUMERIC,
+    level4_fastest_run NUMERIC,
+    level5_fastest_run NUMERIC,
+    story_high_score NUMERIC,
+    infinite_high_score NUMERIC
 );"
