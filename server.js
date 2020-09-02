@@ -168,24 +168,6 @@ app.post("/highscore", function (req, res) {
     }
 });
 
-
-<<<<<<< HEAD
-// app.post("/", function (req, res) {
-//     console.log(req.body);
-//     console.log(req.session.user);
-//     pool.query(
-//         "UPDATE users SET high_score = $1 WHERE username = $2",
-//         [req.body.score, req.session.user]
-//     ).then(function (response) {
-//         console.log(response);
-//     }).catch(function (error) {
-//         console.log(error);
-//         res.status(500).json({ "error": "Server error. Please try again." }).send();
-//         return;
-//     });
-
-// });
-=======
 app.post("/", function (req, res) {
     console.log(req.body);
     console.log(req.session.user);
@@ -202,7 +184,6 @@ app.post("/", function (req, res) {
         });
     }
 });
->>>>>>> 90ac502de18b82f944979c0a9b9be17973329adb
 
 
 
