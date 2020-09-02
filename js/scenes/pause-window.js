@@ -53,7 +53,11 @@ let PauseScene = new Phaser.Class({
         saveButton.setInteractive();
         saveButton.on("pointerup", () => {
             console.log('Save Level.');
-            let storyTime = (easyTime + mediumTime + mediumTime2 + hardTime + hardTime2);
+
+            if (!(easyTime === undefined || mediumTime === undefined || mediumTime2 === undefined || hardTime === undefined || hardTime2 === undefined)) {
+                storyTime = (easyTime + mediumTime + mediumTime2 + hardTime + hardTime2);
+            }
+           
             let data = {
                 score: score,
                 easyTime: easyTime,

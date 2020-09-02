@@ -43,6 +43,7 @@ let mediumTime2;
 let hardTime;
 let hardTime2;
 let generatedTime;
+let storyTime = 0;
 let currentLevel = null;
 let returnMenu = false;
 let text;
