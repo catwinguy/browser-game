@@ -160,6 +160,13 @@ var HardLevelScene2 = new Phaser.Class({
             hardTime2 = (time.getTime() - this.start) / 1000;
             console.log('Congratulations! You won the game!');
             door.anims.play("open");
+            hardScore2 = hardTime2 - score;
+            score = 0;
+            postScore(hardScore2.toFixed(3), "level5_fastest_run");
+            this.scene.transition({
+                target: 'gameovermenu',
+                duration: 4000
+            });
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);

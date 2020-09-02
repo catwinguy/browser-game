@@ -37,6 +37,7 @@ var EasyLevelScene = new Phaser.Class({
     create: function ()
     {
         currentLevel = 'easylevelscene'
+        doorEnabled = true;
         let data = this.cache.json.get('easy-level');
         let groundData = data.ground;
         let platformData = data.platforms;
@@ -157,6 +158,9 @@ var EasyLevelScene = new Phaser.Class({
             door.anims.play("open");
             let time = new Date();
             easyTime = (time.getTime() - this.start) / 1000;
+            easyScore = easyTime - score;
+            score = 0;
+            postScore(easyScore.toFixed(3), "level1_fastest_run");
             this.scene.transition({
                 target: 'mediumlevelscene',
                 duration: 4000

@@ -6,7 +6,7 @@ let config = {
     height: 600,
     backgroundColor: 0x000000,  // Black Background
     parent: 'game', 
-    scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, MediumLevelScene2, HardLevelScene, HardLevelScene2, PauseScene, GeneratedLevelScene],  // Add your scene here, then follow the template scene
+    scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, MediumLevelScene2, HardLevelScene, HardLevelScene2, PauseScene, GeneratedLevelScene, GameOverMenu],  // Add your scene here, then follow the template scene
     physics: {
         default: 'arcade',
         arcade: {
@@ -38,10 +38,15 @@ let zombieData = {
 
 let score = 0;
 let easyTime;
+let easyScore;
 let mediumTime;
+let mediumScore;
 let mediumTime2;
+let mediumScore2;
 let hardTime;
+let hardScore;
 let hardTime2;
+let hardScore2;
 let generatedTime;
 let storyTime = 0;
 let currentLevel = null;
@@ -50,3 +55,4 @@ let text;
 let startPause;
 let pElapsed;
 let pTime;
+let doorEnabled;

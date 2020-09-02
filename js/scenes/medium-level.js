@@ -159,6 +159,9 @@ var MediumLevelScene = new Phaser.Class({
             door.anims.play("open");
             let time = new Date();
             mediumTime = (time.getTime() - this.start) / 1000;
+            mediumScore = mediumTime - score;
+            score = 0;
+            postScore(mediumScore.toFixed(3), "level2_fastest_run");
             this.scene.transition({
                 target: 'mediumlevelscene2',
                 duration: 4000

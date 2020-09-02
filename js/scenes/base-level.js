@@ -79,3 +79,23 @@ function collectSword(player, sword){
     sword.disableBody(true, true);
     player.hasSword = true;
 }
+
+function postScore(levelScore, levelKey) {
+    let postData = {
+        score: levelScore,
+        level: levelKey
+    }
+
+    fetch("/story-highscore", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postData)
+    })
+    .then(function (response) {
+        if (response.status !== 200) {
+            console.log(response);
+        }
+    });
+}

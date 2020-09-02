@@ -72,8 +72,8 @@ app.post("/create-user", function (req, res) {
         else {
             bcrypt.hash(req.body.userPassword, saltRounds)
             .then(function (hashedPassword) {
-                pool.query("INSERT INTO users (username, hashed_password, high_score, story_time) VALUES ($1, $2, $3, $4)",
-                  [req.body.username, hashedPassword, 0, 0])
+                pool.query("INSERT INTO users (username, hashed_password) VALUES ($1, $2)",
+                  [req.body.username, hashedPassword])
                   .then(function (response) {
                       res.status(200).send();
                   })
@@ -134,31 +134,131 @@ app.post("/auth", function(req, res) {
     });
 });
 
-app.post("/highscore", function (req, res) {
+function updateScore(score, level, user) {
+    console.log(level);
+    let success = false;
+    switch(level) {
+        case "level1_fastest_run":
+            pool.query(
+                "UPDATE users SET level1_fastest_run = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "level2_fastest_run":
+            pool.query(
+                "UPDATE users SET level2_fastest_run = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "level3_fastest_run":
+            pool.query(
+                "UPDATE users SET level3_fastest_run = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "level4_fastest_run":
+            pool.query(
+                "UPDATE users SET level4_fastest_run = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "level5_fastest_run":
+            pool.query(
+                "UPDATE users SET level5_fastest_run = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "story_high_score":
+            pool.query(
+                "UPDATE users SET story_high_score = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        case "infinite_high_score":
+            pool.query(
+                "UPDATE users SET infinite_high_score = $1 WHERE username = $2",
+                [score, user]
+            ).then(function(response) {
+                success = true;
+            }).catch(function (error) {
+                console.log(error);
+            });
+            break;
+        default:
+            break;
+        return success;
+    }
+}
+
+
+
+app.post("/story-highscore", function (req, res) {
+    req.session.user = "phil";
     if (!req.body.hasOwnProperty("score") ||
+        !req.body.hasOwnProperty("level") ||
         !req.session.hasOwnProperty("user"))
     {
         res.status(500).json({"error": "Invalid request."}).send();
     }
     else {
+        let score = req.body.score;
+        let level = req.body.level;
+
         pool.query(
-            "SELECT highscore FROM users WHERE username = $1",
+            "SELECT * FROM users WHERE username = $1",
             [req.session.user]
         ).then(function (response) {
-            console.log(response);
-            let highscore;
-            let score;
-            if (score > highscore) {
-                pool.query(
-                    "UPDATE users SET highscore = $1 WHERE username = $2",
-                    [req.body.score, req.session.user]
-                ).then(function (response) {
-                    res.status(200).send();
-                }).catch(function (error) {
-                    console.log(error);
-                    res.status(500).json({"error": "Server error. Could not update high score."}).send();
+            let fastestRun = response.rows[0][level];
+            if (score < fastestRun || fastestRun === null) {
+                if (updateScore(score, level, req.session.user)) {
+                    let scores = response.rows[0];
+                    if (scores["level1_fastest_run"] !== null &&
+                        scores["level2_fastest_run"] !== null &&
+                        scores["level3_fastest_run"] !== null &&
+                        scores["level4_fastest_run"] !== null &&
+                        scores["level5_fastest_run"] !== null)
+                    {
+                        let total = scores["level1_fastest_run"] + scores["level2_fastest_run"] + scores["level3_fastest_run"] + scores["level4_fastest_run"] + scores["level5_fastest_run"];
+                        if (updateScore(total, "story_high_score", req.session.user)) {
+                            res.status(200).send();
+                        }
+                        else {
+                            res.status(500).json({"error": "Server error. Please try again."}).send();
+                            return;
+                        }
+                    }
+                    else {
+                        res.status(200).send();
+                    }
+                }
+                else {
+                    res.status(500).json({"error": "Server error. Please try again."}).send();
                     return;
-                });
+                }
             }
         }).catch(function (error) {
             console.log(error);
