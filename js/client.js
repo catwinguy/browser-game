@@ -26,7 +26,7 @@ function updateTable() {
             for (let i = 0; i < rows.length; i++) {
                 let row = document.createElement("tr");
                 let u = document.createTextNode(rows[i].username);
-                let hs = document.createTextNode(rows[i].high_score);
+                let hs = document.createTextNode(rows[i].highscore);
                 let username = document.createElement("td");
                 username.appendChild(u);
                 row.append(username);

@@ -151,7 +151,7 @@ app.post("/highscore", function (req, res) {
             if (score > highscore) {
                 pool.query(
                     "UPDATE users SET highscore = $1 WHERE username = $2",
-                    [score, req.session.user]
+                    [req.body.score, req.session.user]
                 ).then(function (response) {
                     res.status(200).send();
                 }).catch(function (error) {
@@ -169,21 +169,21 @@ app.post("/highscore", function (req, res) {
 });
 
 
-app.post("/", function (req, res) {
-    console.log(req.body);
-    console.log(req.session.user);
-    pool.query(
-        "UPDATE users SET high_score = $1 WHERE username = $2",
-        [req.body.score, req.session.user]
-    ).then(function (response) {
-        console.log(response);
-    }).catch(function (error) {
-        console.log(error);
-        res.status(500).json({ "error": "Server error. Please try again." }).send();
-        return;
-    });
+// app.post("/", function (req, res) {
+//     console.log(req.body);
+//     console.log(req.session.user);
+//     pool.query(
+//         "UPDATE users SET high_score = $1 WHERE username = $2",
+//         [req.body.score, req.session.user]
+//     ).then(function (response) {
+//         console.log(response);
+//     }).catch(function (error) {
+//         console.log(error);
+//         res.status(500).json({ "error": "Server error. Please try again." }).send();
+//         return;
+//     });
 
-});
+// });
 
 
 
