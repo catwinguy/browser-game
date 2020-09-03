@@ -213,10 +213,7 @@ function updateScore(score, level, user) {
     return success;
 }
 
-
-
 app.post("/story-highscore", function (req, res) {
-    req.session.user = "phil";
     if (!req.body.hasOwnProperty("score") ||
         !req.body.hasOwnProperty("level") ||
         !req.session.hasOwnProperty("user"))
@@ -250,6 +247,41 @@ app.post("/story-highscore", function (req, res) {
                         res.status(200).send();
                         return;
                     }
+                }
+                else {
+                    res.status(500).json({"error": "Server error. Please try again."}).send();
+                    return;
+                }
+            }
+            res.status(200).send();
+            return;
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({"error": "Server error. Please try again."}).send();
+            return;
+        });
+    }
+});
+
+app.post("/infinite-highscore", function (req, res) {
+    req.session.user = "phil";
+    if (!req.body.hasOwnProperty("score") ||
+        !req.session.hasOwnProperty("user"))
+    {
+        res.status(500).json({"error": "Invalid request."}).send();
+    }
+    else {
+        let score = req.body.score;
+
+        pool.query(
+            "SELECT * FROM users WHERE username = $1",
+            [req.session.user]
+        ).then(function (response) {
+            let highscore = response.rows[0]["infinite_high_score"];
+            if (score > highscore || highscore === null) {
+                if (updateScore(score, "infinite_high_score", req.session.user)) {
+                    res.status(200).send();
+                    return;
                 }
                 else {
                     res.status(500).json({"error": "Server error. Please try again."}).send();
