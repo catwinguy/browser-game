@@ -34,7 +34,6 @@ var GeneratedLevelScene = new Phaser.Class({
         currentLevel = 'generatedlevelscene';
         let m = createMap();
         let data = convertMapToCoords(m);
-        console.log(data);
         let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
@@ -45,6 +44,7 @@ var GeneratedLevelScene = new Phaser.Class({
 
         // timer 
         this.start = this.getTime();
+        this.endTime = this.start + infiniteTime;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -200,9 +200,16 @@ var GeneratedLevelScene = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start)/1000;
-        text.setText(elapsed.toString() + ' s');
+        let remaining = (this.endTime - this.getTime())/1000;
+        text.setText(remaining.toString() + ' s');
+
+        if (this.getTime() >= this.endTime){
+            // ran out of time and lost
+            this.scene.transition({
+                target: 'gameovermenu',
+                duration: 4000
+            })
+        }
 
         // Move
         if (cursors.left.isDown)

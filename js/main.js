@@ -52,3 +52,4 @@ let startPause;
 let pElapsed;
 let pTime;
 let doorEnabled;
+let infiniteTime = 20000; // milliseconds
