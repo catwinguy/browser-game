@@ -150,6 +150,26 @@ var GeneratedLevelScene = new Phaser.Class({
         function enterDoor(player, door) {
             let time = new Date();
             generatedTime = (time.getTime() - this.start) / 1000;
+            infiniteScore++;
+            let postData = {
+                score: infiniteScore,
+                level: "infinite_high_score"
+            };
+            fetch("/infinite-highscore", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(postData)
+            })
+                .then(function (response) {
+                    if (response.status !== 200) {
+                        console.log(response.json);
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             door.anims.play("open");
             this.scene.restart();
         }
@@ -177,7 +197,7 @@ var GeneratedLevelScene = new Phaser.Class({
 
         this.events.on('resume', function (flag) {
             console.log('Infinite mode resumed');
-            // Fixes the issue with cursor input seeing it be saved as isDown when it is not
+            // Fixes the issue with cursor input seeing it be saved as isDown when it is not 
             cursors.up.isDown = false;
             cursors.left.isDown = false;
             cursors.right.isDown = false;
@@ -196,10 +216,10 @@ var GeneratedLevelScene = new Phaser.Class({
         coin.disableBody(true, true);
         switch(coin.name){
             case "emerald":
-                this.endTime += 0.5 * 1000;  // add 0.5 seconds
+                this.endTime += 1000;  // add 1 second
                 break;
             case "diamond":
-                this.endTime += 1 * 1000;  // add 1 second
+                this.endTime += 5000;  // add 5 seconds
                 break;
             default:
                 break;
@@ -214,66 +234,58 @@ var GeneratedLevelScene = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let remaining = (this.endTime - this.getTime())/1000;
-        text.setText(remaining.toString() + ' s');
 
-        if (this.getTime() >= this.endTime){
+        let time = new Date();
+
+        if ((time.getTime() >= this.endTime) || (playerData.health == 0)) {
+            text.setText('');
             // ran out of time and lost
             this.scene.transition({
                 target: 'gameovermenu',
-                duration: 4000
+                duration: 1000
             })
         }
+        else {
+            let remaining = (this.endTime - time.getTime()) / 1000;
+            text.setText(remaining.toString() + ' s');
 
-        // Move
-        if (cursors.left.isDown)
-        {
-            player.setVelocityX(-160);
-            if (player.hasSword){
-                player.anims.play('left_sword', true);
-            } else {
-                player.anims.play('left', true);
+
+            // Move
+            if (cursors.left.isDown) {
+                player.setVelocityX(-160);
+                if (player.hasSword) {
+                    player.anims.play('left_sword', true);
+                } else {
+                    player.anims.play('left', true);
+                }
             }
-        }
-        else if (cursors.right.isDown)
-        {
-            player.setVelocityX(160);
-            if (player.hasSword){
-                player.anims.play('right_sword', true);
-            } else{
-                player.anims.play('right', true);
+            else if (cursors.right.isDown) {
+                player.setVelocityX(160);
+                if (player.hasSword) {
+                    player.anims.play('right_sword', true);
+                } else {
+                    player.anims.play('right', true);
+                }
+
             }
-            
-        }
-        else
-        {
-            player.setVelocityX(0);
-            if (player.hasSword){
-                player.anims.play('turn_sword');
-            } else {
-                player.anims.play('turn');
+            else {
+                player.setVelocityX(0);
+                if (player.hasSword) {
+                    player.anims.play('turn_sword');
+                } else {
+                    player.anims.play('turn');
+                }
+
             }
-            
+
+            // Jump
+            if (cursors.up.isDown && player.body.touching.down) {
+                player.setVelocityY(-330);
+            }
+
         }
 
-        // Jump
-        if (cursors.up.isDown && player.body.touching.down)
-        {
-            player.setVelocityY(-330);
-        }
-
-        // Player Death
-        if (playerData.health == 0)
-        {
-            // Should make this game over for this part
-            // this.scene.restart();
-            this.scene.transition({
-                target: 'gameovermenu',
-                duration: 4000
-            })
-        }
-
-        // Exit
+        // Exit 
         if (returnMenu) {
             this.scene.start('mainmenu');
             returnMenu = false;

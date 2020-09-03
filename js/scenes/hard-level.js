@@ -157,7 +157,7 @@ var HardLevelScene = new Phaser.Class({
         this.physics.add.collider(swords, platforms);
 
         function enterDoor (player, door) {
-            // console.log('You unlocked the 2nd Hard Stage!')
+            // console.log('You unlocked the 2nd Hard Stage!') 
             let time = new Date();
             hardTime = (time.getTime() - this.start) / 1000;
             door.anims.play("open");

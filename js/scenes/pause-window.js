@@ -35,8 +35,8 @@ let PauseScene = new Phaser.Class({
             pElapsed = (pTime.getTime() - startPause.getTime());
         })
         
-        // Return to Main Menu
-        let exitButton = this.add.image(355,310,'exit')
+        // Return to Main Menu 
+        let exitButton = this.add.image(355,310,'exit') 
         exitButton.setInteractive();
         exitButton.on("pointerup", () => {
             console.log('Exit button.');

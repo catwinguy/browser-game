@@ -30,7 +30,6 @@ app.use(session({
     cookie: {}
 }));
 
-let user;
 
 app.get("/users", function (req, res) {
     pool.query("SELECT * FROM users")
@@ -213,6 +212,36 @@ function updateScore(score, level, user) {
     return success;
 }
 
+app.post("/infinite-highscore", function (req, res) {
+    if (!req.body.hasOwnProperty("score") ||
+        !req.body.hasOwnProperty("level")) {
+        res.status(500).json({ "error": "Invalid request." }).send();
+    }
+    else {
+        let score = req.body.score;
+        let level = req.body.level;
+        if (req.session.user === undefined) {
+            req.session.user = "amanda";
+        }
+        pool.query(
+            "SELECT infinite_high_score FROM users WHERE username = $1",
+            [req.session.user]
+        ).then(function (response) {
+            let bestScore = response.rows[0].infinite_high_score;
+            if (score > bestScore || bestScore === undefined) {
+                updateScore(score, level, req.session.user);
+                res.status(200).send()
+            }
+            else {
+                console.log("No new high score.")
+            }
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ "error": "Server error. Please try again." }).send();
+            return;
+        });
+    }
+});
 
 
 app.post("/story-highscore", function (req, res) {
@@ -224,7 +253,8 @@ app.post("/story-highscore", function (req, res) {
     else {
         let score = req.body.score;
         let level = req.body.level;
-        if (!req.session.hasOwnProperty("user")) {
+        console.log(req.session.user);
+        if (req.session.user === undefined) {
             req.session.user = "amanda";
         }
         pool.query(
