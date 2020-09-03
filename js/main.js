@@ -55,4 +55,3 @@ let text;
 let startPause;
 let pElapsed;
 let pTime;
-let doorEnabled;
