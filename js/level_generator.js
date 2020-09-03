@@ -319,14 +319,6 @@ function addCoins(myMap){
 }
 
 function makeGround(){
-    // myMap = [];
-    // for (let i=0; i<ROWS; i++){
-    //     myMap.push([]);
-    //     for (let j=0; j<COLS; j++){
-    //         myMap[i].push(AIR);
-    //     }
-    // }
-    // return myMap;
     let gnd = [];
     for (let i=0; i<COLS; i++){
         if (randint(1,4) === 1){  // 25% chance
@@ -359,7 +351,6 @@ function convertMapToCoords(myMap){
     }
 
     let myGnd = makeGround();
-    console.log(myGnd);
 
     let json = {
         backgroundImage: "village_background",
@@ -415,6 +406,5 @@ function convertMapToCoords(myMap){
             json["ground"].push({"image": "grass_block", "x": i*16 + 8, "y": 600});
         }
     }
-    console.log(json);
     return json;
 }
