@@ -1,3 +1,5 @@
+// const { speed } = require("jquery");
+
 var MediumLevelScene2 = new Phaser.Class({
 
     Extends: Phaser.Scene,
@@ -45,6 +47,7 @@ var MediumLevelScene2 = new Phaser.Class({
         let coinData = data.coins;
         let powerupData = data.powerups;
         let doorData = data.doors;
+        let zombie1 = data.zombie;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0) 
 
@@ -71,26 +74,28 @@ var MediumLevelScene2 = new Phaser.Class({
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
 
-        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
+        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(400);
         player.hasSword = false;
+        player.health = playerData.health;
+        player.attack = 0;
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn',
-            frames: [ { key: playerName, frame: 4 } ],
+            frames: [ { key: playerData.name, frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -98,20 +103,20 @@ var MediumLevelScene2 = new Phaser.Class({
         // with sword:
         this.anims.create({
             key: 'left_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn_sword',
-            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frames: [ { key: playerData.name + "_sword", frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -142,9 +147,10 @@ var MediumLevelScene2 = new Phaser.Class({
         this.physics.world.on('worldbounds', (player, up, down, left, right) => {
             if (down)
             {
-                playerData.health = 0;
+                this.scene.restart();
             }
         }, this);
+
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
         this.physics.add.collider(powerups, platforms);
@@ -163,8 +169,6 @@ var MediumLevelScene2 = new Phaser.Class({
                 duration: 4000
             });
             postScore(mediumScore2.toFixed(3), "level3_fastest_run");
-            // player.setVelocityX(0);
-            // player.setVelocityY(0);
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -173,6 +177,16 @@ var MediumLevelScene2 = new Phaser.Class({
         this.physics.add.overlap(player, swords, collectSword, null, this);
 
         /* Zombie - Start */
+        this.zombie = this.physics.add.sprite(zombie1.x, zombie1.y, zombie1.image);
+        this.zombie.health = zombieData.health;
+        this.zombie.attack = zombieData.attack;
+        this.zombie.direction = 'forward';  // Starting zombie move direction
+        this.zombie.body.setGravityY(1000);
+        this.zombie.body.setBounce(0.1, 0.1);
+
+        console.log(this.zombie.health)
+        console.log(this.zombie.attack)
+
         this.anims.create({
             key: 'zombie_left',
             frames: this.anims.generateFrameNumbers('zombie', { start: 0, end: 3 }),
@@ -190,21 +204,12 @@ var MediumLevelScene2 = new Phaser.Class({
             frameRate: 10,
             repeat: -1
         })
-        let zombie = this.physics.add.sprite(100, 350, 'zombie');
-        zombie.body.setGravityY(1000);
-        zombie.body.setBounceY(0.1);
 
-        this.physics.add.collider(zombie, platforms);  // Collider between two game objects
-        this.physics.add.collider(zombie, player);  // make coins land on the ground
+        this.physics.add.collider(this.zombie, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie, player);  // make coins land on the ground
+        this.zombie.body.collideWorldBounds = true;
 
-        zombie.play('zombie_right');
-        zombie.anims.setRepeat(-1);
-        this.tweens.add({
-            targets: zombie,
-            x: -750,
-            duration: 8800,
-            ease: 'Linear'
-        })
+        this.physics.add.overlap(player, this.zombie, fight, null, this);
         /* Zombie - End */
 
         cursors = this.input.keyboard.createCursorKeys();
@@ -220,16 +225,55 @@ var MediumLevelScene2 = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Easy level paused');
+            console.log('Stage 3 paused');
         })
 
         this.events.on('resume', function (flag) {
-            console.log('Easy level resumed');
+            console.log('Stage 3 resumed');
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
             cursors.right.isDown = false;
         })
+    },
+
+    updateZombieX(zombie,movement)
+    {
+        zombie.x += movement;
+        if (movement > 0)
+        {
+            zombie.anims.play('zombie_right', true);
+        }
+        else if (movement < 0)
+        {
+            zombie.anims.play('zombie_left', true);
+        }
+        else
+        {
+            zombie.anims.play('zombie_stand', true);
+        }
+    },
+
+    moveZombie(zombie, speed, minDist, maxDist)
+    {
+        if (zombie.x > maxDist && zombie.direction == 'forward')
+        {
+            this.updateZombieX(zombie, 0);
+            zombie.direction = 'backward';
+        }
+        else if (zombie.x < minDist && zombie.direction == 'backward')
+        {
+            this.updateZombieX(zombie, 0);
+            zombie.direction = 'forward';
+        }
+        else if (zombie.x <= maxDist && zombie.direction == 'forward')
+        {
+            this.updateZombieX(zombie, speed);
+        }
+        else if (zombie.x >= minDist && zombie.direction == 'backward')
+        {
+            this.updateZombieX(zombie, -speed);
+        }
     },
 
     getTime() {
@@ -250,9 +294,10 @@ var MediumLevelScene2 = new Phaser.Class({
         let time = new Date();
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
-
-
-
+        
+        // Zombie Movement
+        this.moveZombie(this.zombie, 1, 90, 185);
+        
         // Move
         if (cursors.left.isDown)
         {
@@ -291,7 +336,7 @@ var MediumLevelScene2 = new Phaser.Class({
         }
 
         // Player Death
-        if (playerData.health == 0)
+        if (player.health == 0)
         {
             this.scene.restart();
         }

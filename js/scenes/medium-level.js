@@ -71,26 +71,26 @@ var MediumLevelScene = new Phaser.Class({
         };
 
         /* Player Information - Start */
-        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
+        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(400);
         player.hasSword = false;
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn',
-            frames: [ { key: playerName, frame: 4 } ],
+            frames: [ { key: playerData.name, frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -99,20 +99,20 @@ var MediumLevelScene = new Phaser.Class({
 
         this.anims.create({
             key: 'left_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn_sword',
-            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frames: [ { key: playerData.name + "_sword", frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -146,7 +146,7 @@ var MediumLevelScene = new Phaser.Class({
         this.physics.world.on('worldbounds', (player, up, down, left, right) => {
             if (down)
             {
-                playerData.health = 0;
+                this.scene.restart();
             }
         }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects

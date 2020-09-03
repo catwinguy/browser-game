@@ -95,5 +95,15 @@
         {"image": "purple_potion", "x": 120, "y": 456, "name": "raise-gravity"}
     ],
     "doors": [{"image": "door_left", "x": 760, "y": 464}],
+    "zombies":  [
+        {"image": "zombie", "x": 100, "y": 350},
+        {"image": "zombie", "x": 785, "y": 350},
+        {"image": "zombie", "x": 250, "y": 350},
+        {"image": "zombie", "x": 25, "y": 125},
+        {"image": "zombie", "x": 350, "y": 125},
+        {"image": "zombie", "x": 700, "y": 125},
+        {"image": "zombie", "x": 145, "y": 525},
+        {"image": "zombie", "x": 785, "y": 525}
+    ],
     "sword": {"image": "sword", "x": 56, "y": 40}
 }

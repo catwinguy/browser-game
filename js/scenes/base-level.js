@@ -1,46 +1,3 @@
-// Base Class that contains our custom functions
-class BaseLevel extends Phaser.Scene {
-    constructor(key)
-    {
-        super(key);
-    }
-    enterDoor (player, door) {
-        door.anims.play("open");
-        // this.scene.start('hardlevelscene');
-        this.scene.transition({
-            target: 'hardlevelscene',
-            duration: 4000
-        })
-        player.setVelocityX(0);
-        player.setVelocityY(0);
-    }
-    update()
-    {
-        if (cursors.left.isDown)
-        {
-            player.setVelocityX(-160);
-            player.anims.play('left', true);
-        }
-        else if (cursors.right.isDown)
-        {
-            player.setVelocityX(160);
-            player.anims.play('right', true);
-        }
-        else
-        {
-            player.setVelocityX(0);
-            player.anims.play('turn');
-        }
-
-        // Jump
-        if (cursors.up.isDown && player.body.touching.down)
-        {
-            player.setVelocityY(-330);
-        }
-    }
-}
-
-
 // common functions for scenes
 function collectCoin (player, coin){
     coin.disableBody(true, true);
@@ -78,7 +35,9 @@ function collectPowerup(player, powerup){
 function collectSword(player, sword){
     sword.disableBody(true, true);
     player.hasSword = true;
+    player.attack = 1;
 }
+
 
 function postScore(levelScore, levelKey) {
     let postData = {
@@ -101,4 +60,21 @@ function postScore(levelScore, levelKey) {
     .catch(function (error) {
         console.log(error);
     });
+}
+
+function fight (player, zombie) {
+    zombie.health -= player.attack;
+    if (!player.hasSword)
+    {
+        player.health--;
+    }
+    if (!zombie.health)
+    {
+        zombie.disableBody(true, true);
+    }
+    console.log(zombie.health);
+    console.log(player.health);
+    console.log(player.hasSword);
+    zombie.body.velocity.x *= -1.0001;
+    player.body.velocity.x *= -1.0001;
 }
