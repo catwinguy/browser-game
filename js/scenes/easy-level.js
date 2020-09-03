@@ -158,11 +158,12 @@ var EasyLevelScene = new Phaser.Class({
             door.anims.play("open");
             let time = new Date();
             easyTime = (time.getTime() - this.start) / 1000;
+            console.log(easyTime);
             easyScore = easyTime - score;
             score = 0;
             this.scene.transition({
                 target: 'mediumlevelscene',
-                duration: 4000
+                duration: 1000
             });
             postScore(easyScore.toFixed(3), "level1_fastest_run");
             // player.setVelocityX(0);
