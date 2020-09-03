@@ -6,12 +6,12 @@ var GeneratedLevelScene = new Phaser.Class({
 
     function GeneratedLevelScene ()
     {
-        Phaser.Scene.call(this, { key: 'generatedlevelscene'})
+        Phaser.Scene.call(this, { key: 'generatedlevelscene' });
     },
 
     preload: function ()
     {
-        // Static Images
+        // Static Images 
         this.load.image('village_background', 'assets/village_background.png');
         this.load.image('ground', 'assets/grass_platform_50x1.png');
         this.load.image('dirt_platform50', 'assets/dirt_platform_50x1.png');
@@ -20,8 +20,8 @@ var GeneratedLevelScene = new Phaser.Class({
         this.load.image('emerald', 'assets/emerald.png');
         this.load.image('diamond', 'assets/diamond.png');
 
-        // Dynamic Objects
-        this.load.spritesheet('zombie', 'assets/zombie.png', {frameWidth: 16, frameHeight: 32})
+        // Dynamic Objects 
+        this.load.spritesheet('zombie', 'assets/zombie.png', { frameWidth: 16, frameHeight: 32 })
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
         this.load.spritesheet('girl_sword', 'assets/girl_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
@@ -40,7 +40,7 @@ var GeneratedLevelScene = new Phaser.Class({
         let powerupData = data.powerups;
         let doorData = data.doors;
 
-        this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
+        this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0);
 
         // timer 
         this.start = this.getTime();
@@ -54,7 +54,7 @@ var GeneratedLevelScene = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
 
-        // ground and platforms are separate for now but we can combine them if not needed
+        // ground and platforms are separate for now but we can combine them if not needed 
         groundData.forEach(function(ground){
             platforms.create(ground.x, ground.y, ground.image);
         })
@@ -181,12 +181,12 @@ var GeneratedLevelScene = new Phaser.Class({
 
         cursors = this.input.keyboard.createCursorKeys();
 
-        // Pause screen implementation
+        // Pause screen implementation 
         pauseButton = this.input.keyboard.addKey('ESC');
         pauseButton.on('up', function(event){
             console.log('Escape key has been pressed!');
             this.scene.pause();
-            this.scene.launch('pausescene');
+            this.scene.launch('pauseinfinite');
             startPause = new Date();
             generatedTime = (startPause.getTime() - this.start) / 1000;
         }, this)
@@ -238,7 +238,6 @@ var GeneratedLevelScene = new Phaser.Class({
         let time = new Date();
 
         if ((time.getTime() >= this.endTime) || (playerData.health == 0)) {
-            text.setText('');
             // ran out of time and lost
             this.scene.transition({
                 target: 'gameovermenu',
