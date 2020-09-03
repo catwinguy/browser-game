@@ -198,17 +198,17 @@ function updateScore(score, level, user, res) {
 }
 
 app.post("/story-highscore", function (req, res) {
-    req.session.user = "phil";
     if (!req.body.hasOwnProperty("score") ||
-        !req.body.hasOwnProperty("level") ||
-        !req.session.hasOwnProperty("user"))
+        !req.body.hasOwnProperty("level"))
     {
         res.status(500).json({"error": "Invalid request."}).send();
     }
     else {
         let score = req.body.score;
         let level = req.body.level;
-
+        if (!req.session.hasOwnProperty("user")) {
+            req.session.user = "amanda";
+        }
         pool.query(
             "SELECT * FROM users WHERE username = $1",
             [req.session.user]
@@ -274,23 +274,6 @@ app.post("/infinite-highscore", function (req, res) {
         }).catch(function (error) {
             console.log(error);
             res.status(500).json({"error": "Server error. Please try again."}).send();
-            return;
-        });
-    }
-});
-
-app.post("/", function (req, res) {
-    console.log(req.body);
-    console.log(req.session.user);
-    if (req.session.user != undefined) {
-        pool.query(
-            "UPDATE users SET high_score = $1, story_time = $2 WHERE username = $3",
-            [req.body.score, req.body.storyTime, req.session.user]
-        ).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-            res.status(500).json({ "error": "Server error. Please try again." }).send();
             return;
         });
     }

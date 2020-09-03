@@ -12,6 +12,9 @@ function collectCoin (player, coin){
             break;
     }
     console.log("Current score:", score);
+    let time = new Date();
+    easyTime = (time.getTime() - this.start) / 1000;
+    console.log(easyTime);
 };
 
 function collectPowerup(player, powerup){
@@ -54,7 +57,7 @@ function postScore(levelScore, levelKey) {
     })
     .then(function (response) {
         if (response.status !== 200) {
-            console.log(response);
+            console.log(response.json);
         }
     })
     .catch(function (error) {

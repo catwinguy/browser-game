@@ -48,7 +48,7 @@ var MediumLevelScene = new Phaser.Class({
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
 
-        // timer  
+        // timer
         this.start = this.getTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
