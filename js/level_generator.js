@@ -235,6 +235,10 @@ function cleanUp(myMap){
                     // make sure there's a two block gap at top of map
                     myMap[i][j] = AIR;
                 }
+                if (i <= 4 && j <= 7){
+                    // make sure there's a cutout for the timer
+                    myMap[i][j] = AIR;
+                }
                 if (validInnerCol(j) && validInnerRow(i) &&
                     myMap[i][j-1] == AIR && myMap[i][j+1] == AIR &&
                     myMap[i-1][j] == AIR &&  myMap[i+1][j] == AIR){
@@ -345,7 +349,7 @@ function convertMapToCoords(myMap){
     /* Convert the map array into JSON for the game. */
     while (badMap){
         // if the map was generated bad, try again
-        console.log("fixing bad map.")
+        // console.log("fixing bad map.")
         badMap = false;
         myMap = createMap();
     }
