@@ -245,7 +245,11 @@ var GeneratedLevelScene = new Phaser.Class({
         if (playerData.health == 0)
         {
             // Should make this game over for this part
-            this.scene.restart();
+            // this.scene.restart();
+            this.scene.transition({
+                target: 'gameovermenu',
+                duration: 4000
+            })
         }
 
         // Exit
