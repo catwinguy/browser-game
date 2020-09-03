@@ -22,10 +22,10 @@ let PauseScene = new Phaser.Class({
     {
         console.log('Pause Menu Scene has been entered...')
         this.add.image(400,300,'window');
-        this.add.image(400,275, 'pause_text');
+        this.add.image(400,280, 'pause_text');
 
         // Resumes the level
-        let resumeButton = this.add.image(450,300,'resume');
+        let resumeButton = this.add.image(440,310,'resume');
         resumeButton.setInteractive();
         resumeButton.on("pointerup", () => {
             console.log('Game has been resumed.');
@@ -36,7 +36,7 @@ let PauseScene = new Phaser.Class({
         })
         
         // Return to Main Menu
-        let exitButton = this.add.image(350,300,'exit')
+        let exitButton = this.add.image(355,310,'exit')
         exitButton.setInteractive();
         exitButton.on("pointerup", () => {
             console.log('Exit button.');
