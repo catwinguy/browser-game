@@ -1,6 +1,6 @@
 let divider = document.getElementById("player-info");
-
-let table = document.getElementById("highscore-table");
+let storyTable = document.getElementById("story-mode");
+let infiniteTable = document.getElementById("infinite-mode");
 
 function clearTable() {
 	table.textContent='';
@@ -22,49 +22,57 @@ function updateTable() {
             return response.json();
         })
         .then(function (response) {
-            rows = response.rows;
-            for (let i = 0; i < rows.length; i++) {
-                let row = document.createElement("tr");
-                let r = document.createTextNode(i + 1);
-                let u = document.createTextNode(rows[i].username);
-                let t1 = document.createTextNode(rows[i].level1_time);
-                let t2 = document.createTextNode(rows[i].level2_time);
-                let t3 = document.createTextNode(rows[i].level3_time);
-                let t4 = document.createTextNode(rows[i].level4_time);
-                let t5 = document.createTextNode(rows[i].level5_time);
-                let shs = document.createTextNode(rows[i].story_highscore);
-                let ihs = document.createTextNode(rows[i].infinite_highscore);
+            let i;
+            let currentRank = 1;
+            let users = response.rows;
+            users.sort((x, y) => (x.story_high_score > y.story_high_score) ? 1 : -1);
+            for (i = 0; i < users.length; i++) {
+                if (users[i]["story_high_score"] === null) {
+                    continue;
+                }
+                let currentUser = users[i];
+                console.log(currentUser);
+
+                let newRow = document.createElement("tr");
                 let rank = document.createElement("td");
-                rank.appendChild(r);
-                row.append(rank);
                 let username = document.createElement("td");
-                username.appendChild(u);
-                row.append(username);
-                let time1 = document.createElement("td");
-                time1.appendChild(t1);
-                row.append(time1);
-                let time2 = document.createElement("td");
-                time2.appendChild(t2);
-                row.append(time2);
-                let time3 = document.createElement("td");
-                time3.appendChild(t3);
-                row.append(time3);
-                let time4 = document.createElement("td");
-                time4.appendChild(t4);
-                row.append(time4);
-                let time5 = document.createElement("td");
-                time5.appendChild(t5);
-                row.append(time5);
-                let story_highscore = document.createElement("td");
-                story_highscore.appendChild(shs);
-                row.append(story_highscore);
-                let infinite_highscore = document.createElement("td");
-                infinite_highscore.appendChild(ihs);
-                row.append(infinite_highscore);
-                table.append(row);
+                let storyScore = document.createElement("td");
+
+                rank.textContent = currentRank;
+                username.textContent = currentUser.username;
+                storyScore.textContent = parseFloat(currentUser.story_high_score).toFixed(3) + "s";
+
+                newRow.append(rank);
+                newRow.append(username);
+                newRow.append(storyScore);
+                storyTable.append(newRow);
+                currentRank++;
             }
 
+            currentRank = 1;
+            users.sort((x, y) => (x.infinite_high_score < y.infinite_high_score) ? 1 : -1);
+            for (i = 0; i < users.length; i++) {
+                if (users[i]["infinite_high_score"] === null) {
+                    continue;
+                }
+                let currentUser = users[i];
+                console.log(currentUser);
 
+                let newRow = document.createElement("tr");
+                let rank = document.createElement("td");
+                let username = document.createElement("td");
+                let infiniteScore = document.createElement("td");
+
+                rank.textContent = currentRank;
+                username.textContent = currentUser.username;
+                infiniteScore.textContent = currentUser.infinite_high_score;
+
+                newRow.append(rank);
+                newRow.append(username);
+                newRow.append(infiniteScore);
+                infiniteTable.append(newRow);
+                currentRank++;
+            }
         })
         .catch(function (error) {
             console.log(error);

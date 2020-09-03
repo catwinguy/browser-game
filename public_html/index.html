@@ -18,16 +18,26 @@
 
     <div id="scoreboard">
         <h2>All Time Speedrun High Score</h2>
-        <table>
+        <table id="story-mode">
             <thead>
                 <tr>
                     <th>Rank</th>
                     <th>Player</th>
                     <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="story-mode-body"></tbody>
+        </table>
+        <br />
+         <table id="infinite-mode">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
                     <th>Score</th>
                 </tr>
             </thead>
-            <tbody id="highscore-table"></tbody>
+            <tbody id="infinite-mode-body"></tbody>
         </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser-arcade-physics.min.js"></script> <!-- Import Phaser -->

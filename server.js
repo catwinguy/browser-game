@@ -34,7 +34,23 @@ app.use(session({
 app.get("/users", function (req, res) {
     pool.query("SELECT * FROM users")
         .then(function (response) {
-            res.json({ rows: response.rows });
+            let i;
+            let rows = [];
+            for (i = 0; i < response.rows.length; i++) {
+                let row = response.rows[i];
+                let userObject = {
+                    level1_fastest_run: row.level1_fastest_run,
+                    level2_fastest_run: row.level2_fastest_run,
+                    level3_fastest_run: row.level3_fastest_run,
+                    level4_fastest_run: row.level4_fastest_run,
+                    level5_fastest_run: row.level5_fastest_run,
+                    infinite_high_score: row.infinite_high_score,
+                    story_high_score: row.story_high_score,
+                    username: row.username
+                };
+                rows.push(userObject);
+            }
+            res.json({ rows: rows });
         }).catch(function (error) {
             console.log(error);
             res.status(500).json({ "error": "Server error. Please try again." }).send();
