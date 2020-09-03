@@ -164,11 +164,11 @@ var MediumLevelScene2 = new Phaser.Class({
             door.anims.play("open");
             mediumScore2 = mediumTime2 - score;
             score = 0;
+            postScore(mediumScore2, "level3_fastest_run");
             this.scene.transition({
                 target: 'hardlevelscene',
                 duration: 4000
             });
-            postScore(mediumScore2.toFixed(3), "level3_fastest_run");
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
