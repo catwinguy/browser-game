@@ -196,7 +196,6 @@ function updateScore(score, level, user, res) {
     }
 }
 
-<<<<<<< HEAD
 app.post("/infinite-highscore", function (req, res) {
     if (!req.body.hasOwnProperty("score") ||
         !req.body.hasOwnProperty("level")) {
@@ -214,7 +213,7 @@ app.post("/infinite-highscore", function (req, res) {
         ).then(function (response) {
             let bestScore = response.rows[0].infinite_high_score;
             if (score > bestScore || bestScore === undefined) {
-                updateScore(score, level, req.session.user);
+                updateScore(score, level, req.session.user, res);
                 res.status(200).send()
             }
             else {
@@ -228,9 +227,6 @@ app.post("/infinite-highscore", function (req, res) {
     }
 });
 
-
-=======
->>>>>>> 4d7361279d8578f52b43977526f4833870fbaa8d
 app.post("/story-highscore", function (req, res) {
     if (!req.body.hasOwnProperty("score") ||
         !req.body.hasOwnProperty("level"))
@@ -279,40 +275,6 @@ app.post("/story-highscore", function (req, res) {
     }
 });
 
-app.post("/infinite-highscore", function (req, res) {
-    req.session.user = "phil";
-    if (!req.body.hasOwnProperty("score") ||
-        !req.session.hasOwnProperty("user"))
-    {
-        res.status(500).json({"error": "Invalid request."}).send();
-    }
-    else {
-        let score = req.body.score;
-
-        pool.query(
-            "SELECT * FROM users WHERE username = $1",
-            [req.session.user]
-        ).then(function (response) {
-            let highscore = response.rows[0]["infinite_high_score"];
-            if (score > highscore || highscore === null) {
-                if (updateScore(score, "infinite_high_score", req.session.user)) {
-                    res.status(200).send();
-                    return;
-                }
-                else {
-                    res.status(500).json({"error": "Server error. Please try again."}).send();
-                    return;
-                }
-            }
-            res.status(200).send();
-            return;
-        }).catch(function (error) {
-            console.log(error);
-            res.status(500).json({"error": "Server error. Please try again."}).send();
-            return;
-        });
-    }
-});
 
 app.listen(port, hostname, () => {
     console.log(`Listening at: http://${hostname}:${port}`);
