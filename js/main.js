@@ -7,7 +7,7 @@ let config = {
     backgroundColor: 0x000000,  // Black Background
     parent: 'game', 
     scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, MediumLevelScene2, HardLevelScene, HardLevelScene2, PauseScene, GeneratedLevelScene, GameOverMenu],  // Add your scene here, then follow the template scene
-    physics: {
+    physics: { 
         default: 'arcade',
         arcade: {
             gravity: {
@@ -43,7 +43,7 @@ let hardTime;
 let hardScore;
 let hardTime2;
 let hardScore2;
-let generatedTIme;
+let generatedTime;
 let infiniteScore = 0;
 let storyTime = 0;
 let currentLevel = null;

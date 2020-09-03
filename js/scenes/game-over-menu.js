@@ -26,7 +26,7 @@ var GameOverMenu = new Phaser.Class({
         this.add.text(300, 32, "Game Over", { fontSize: '40px', fill: '#FFF' });
 
         let window = this.add.image(400, 300, 'window');
-        let exitButton = this.add.image(400, 300, 'exit');
+        exitButton = this.add.image(400, 300, 'exit');
         exitButton.setScale(2);
         exitButton.setInteractive();
         exitButton.on("pointerup", () => {
@@ -37,5 +37,5 @@ var GameOverMenu = new Phaser.Class({
             currentLevel = null;
             returnMenu = true;
         })
-    },
+    }
 });

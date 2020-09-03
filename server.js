@@ -196,7 +196,6 @@ function updateScore(score, level, user, res) {
     }
 }
 
-<<<<<<< HEAD
 app.post("/infinite-highscore", function (req, res) {
     if (!req.body.hasOwnProperty("score") ||
         !req.body.hasOwnProperty("level")) {
@@ -229,8 +228,6 @@ app.post("/infinite-highscore", function (req, res) {
 });
 
 
-=======
->>>>>>> 4d7361279d8578f52b43977526f4833870fbaa8d
 app.post("/story-highscore", function (req, res) {
     if (!req.body.hasOwnProperty("score") ||
         !req.body.hasOwnProperty("level"))
