@@ -154,7 +154,7 @@ var GeneratedLevelScene = new Phaser.Class({
             this.scene.restart();
         }
 
-        this.physics.add.overlap(player, coins, collectCoin, null, this);
+        this.physics.add.overlap(player, coins, this.updateScore, null, this);
         this.physics.add.overlap(player, powerups, collectPowerup, null, this);
         this.physics.add.overlap(player, doors, enterDoor, null, this);
         this.physics.add.overlap(player, swords, collectSword, null, this);
@@ -190,6 +190,20 @@ var GeneratedLevelScene = new Phaser.Class({
 
         //return the number of milliseconds since 1 January 1970 00:00:00. 
         return d.getTime();
+    },
+
+    updateScore(player, coin){
+        coin.disableBody(true, true);
+        switch(coin.name){
+            case "emerald":
+                this.endTime += 0.5 * 1000;  // add 0.5 seconds
+                break;
+            case "diamond":
+                this.endTime += 1 * 1000;  // add 1 second
+                break;
+            default:
+                break;
+        }
     },
 
     update: function()
@@ -266,4 +280,3 @@ var GeneratedLevelScene = new Phaser.Class({
         }
     }
 });
-
