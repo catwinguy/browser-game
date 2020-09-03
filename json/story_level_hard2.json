@@ -92,5 +92,14 @@
     "doors": [
         {"image": "door_left", "x": 400, "y": 30}
     ],
+    "zombies":  [
+        {"image": "zombie", "x": 100, "y": 350},
+        {"image": "zombie", "x": 700, "y": 350},
+        {"image": "zombie", "x": 400, "y": 225},
+        {"image": "zombie", "x": 100, "y": 100},
+        {"image": "zombie", "x": 300, "y": 100},
+        {"image": "zombie", "x": 700, "y": 100},
+        {"image": "zombie", "x": 500, "y": 100}
+    ],
     "sword": {"image": "sword", "x": 400, "y": 225}
 }

@@ -157,5 +157,6 @@
     "doors": [
         {"image": "door_left", "x": 400, "y": 112}
     ],
+    "zombie":  {"image": "zombie", "x": 100, "y": 360},
     "sword": {"image": "sword", "x": 70, "y": 525}
 }

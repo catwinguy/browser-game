@@ -45,6 +45,7 @@ var HardLevelScene = new Phaser.Class({
         let coinData = data.coins;
         let powerupData = data.powerups;
         let doorData = data.doors;
+        let zombies = data.zombies;
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
@@ -72,26 +73,28 @@ var HardLevelScene = new Phaser.Class({
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
 
-        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
+        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(400);
         player.hasSword = false;
+        player.health = playerData.health;
+        player.attack = 0;
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn',
-            frames: [ { key: playerName, frame: 4 } ],
+            frames: [ { key: playerData.name, frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -100,20 +103,20 @@ var HardLevelScene = new Phaser.Class({
 
         this.anims.create({
             key: 'left_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn_sword',
-            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frames: [ { key: playerData.name + "_sword", frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -139,12 +142,12 @@ var HardLevelScene = new Phaser.Class({
         })
 
         // Collision
-        player.body.collideWorldBounds = true;  // Collides with window edges
+        player.body.collideWorldBounds = true;
         player.body.onWorldBounds=true;
         this.physics.world.on('worldbounds', (player, up, down, left, right) => {
             if (down)
             {
-                playerData.health = 0;
+                this.scene.restart();
             }
         }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects
@@ -174,6 +177,130 @@ var HardLevelScene = new Phaser.Class({
         this.physics.add.overlap(player, doors, enterDoor, null, this);
         this.physics.add.overlap(player, swords, collectSword, null, this);
 
+        /* Zombie - Start */
+        this.anims.create({
+            key: 'zombie_left',
+            frames: this.anims.generateFrameNumbers('zombie', { start: 0, end: 3 }),
+            framerate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'zombie_stand',
+            frames: [ { key: 'zombie', frame: 4 } ],
+            frameRate: 15
+        });
+        this.anims.create({
+            key: 'zombie_right',
+            frames: this.anims.generateFrameNumbers('zombie', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        })
+
+        // Zombie 1
+        this.zombie1 = this.physics.add.sprite(zombies[0].x, zombies[0].y, 'zombie');
+        this.zombie1.health = zombieData.health;
+        this.zombie1.attack = zombieData.attack;
+        this.zombie1.direction = 'forward';  // Starting zombie move direction
+        this.zombie1.body.setGravityY(1000);
+        this.zombie1.body.setBounce(0.1, 0.1);
+
+        // Zombie 2
+        this.zombie2 = this.physics.add.sprite(zombies[1].x, zombies[1].y, 'zombie');
+        this.zombie2.health = zombieData.health;
+        this.zombie2.attack = zombieData.attack;
+        this.zombie2.direction = 'backward';  // Starting zombie move direction
+        this.zombie2.body.setGravityY(1000);
+        this.zombie2.body.setBounce(0.1, 0.1);
+
+        // Zombie 3
+        this.zombie3 = this.physics.add.sprite(zombies[2].x, zombies[2].y, 'zombie');
+        this.zombie3.health = zombieData.health;
+        this.zombie3.attack = zombieData.attack;
+        this.zombie3.direction = 'forward';  // Starting zombie move direction
+        this.zombie3.body.setGravityY(1000);
+        this.zombie3.body.setBounce(0.1, 0.1);
+
+        // Zombie 4
+        this.zombie4 = this.physics.add.sprite(zombies[3].x, zombies[3].y, 'zombie');
+        this.zombie4.health = zombieData.health;
+        this.zombie4.attack = zombieData.attack;
+        this.zombie4.direction = 'forward';  // Starting zombie move direction
+        this.zombie4.body.setGravityY(1000);
+        this.zombie4.body.setBounce(0.1, 0.1);
+
+        // Zombie 5
+        this.zombie5 = this.physics.add.sprite(zombies[4].x, zombies[4].y, 'zombie');
+        this.zombie5.health = zombieData.health;
+        this.zombie5.attack = zombieData.attack;
+        this.zombie5.direction = 'forward';  // Starting zombie move direction
+        this.zombie5.body.setGravityY(1000);
+        this.zombie5.body.setBounce(0.1, 0.1);
+
+        // Zombie 6
+        this.zombie6 = this.physics.add.sprite(zombies[5].x, zombies[5].y, 'zombie');
+        this.zombie6.health = zombieData.health;
+        this.zombie6.attack = zombieData.attack;
+        this.zombie6.direction = 'forward';  // Starting zombie move direction
+        this.zombie6.body.setGravityY(1000);
+        this.zombie6.body.setBounce(0.1, 0.1);
+
+        // Zombie 7
+        this.zombie7 = this.physics.add.sprite(zombies[6].x, zombies[6].y, 'zombie');
+        this.zombie7.health = zombieData.health;
+        this.zombie7.attack = zombieData.attack;
+        this.zombie7.direction = 'forward';  // Starting zombie move direction
+        this.zombie7.body.setGravityY(1000);
+        this.zombie7.body.setBounce(0.1, 0.1);
+
+        // Zombie 8
+        this.zombie8 = this.physics.add.sprite(zombies[7].x, zombies[7].y, 'zombie');
+        this.zombie8.health = zombieData.health;
+        this.zombie8.attack = zombieData.attack;
+        this.zombie8.direction = 'forward';  // Starting zombie move direction
+        this.zombie8.body.setGravityY(1000);
+        this.zombie8.body.setBounce(0.1, 0.1);
+
+        // Zombie Collision
+        this.physics.add.collider(this.zombie1, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie1, player);  // make coins land on the ground
+        this.zombie1.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie2, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie2, player);  // make coins land on the ground
+        this.zombie2.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie3, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie3, player);  // make coins land on the ground
+        this.zombie3.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie4, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie4, player);  // make coins land on the ground
+        this.zombie4.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie5, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie5, player);  // make coins land on the ground
+        this.zombie5.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie6, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie6, player);  // make coins land on the ground
+        this.zombie6.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie7, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie7, player);  // make coins land on the ground
+        this.zombie7.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie8, platforms);  // Collider between two game objects
+        this.physics.add.collider(this.zombie8, player);  // make coins land on the ground
+        this.zombie8.body.collideWorldBounds = true;
+
+        this.physics.add.overlap(player, this.zombie1, fight, null, this);
+        this.physics.add.overlap(player, this.zombie2, fight, null, this);
+        this.physics.add.overlap(player, this.zombie3, fight, null, this);
+        this.physics.add.overlap(player, this.zombie4, fight, null, this);
+        this.physics.add.overlap(player, this.zombie5, fight, null, this);
+        this.physics.add.overlap(player, this.zombie6, fight, null, this);
+
+        this.physics.add.overlap(this.zombie4, player, fight, null, this);
+        this.physics.add.overlap(this.zombie5, player, fight, null, this);
+        this.physics.add.overlap(this.zombie6, player, fight, null, this);
+
+        this.physics.add.overlap(player, this.zombie7, fight, null, this);
+        this.physics.add.overlap(player, this.zombie8, fight, null, this);
+        /* Zombie - End */
+
         cursors = this.input.keyboard.createCursorKeys();
 
         // Pause screen implementation
@@ -200,13 +327,52 @@ var HardLevelScene = new Phaser.Class({
         })
     },
 
-        getTime() {
-            //make a new date object
-            let d = new Date();
+    updateZombieX(zombie,movement)
+    {
+        zombie.x += movement;
+        if (movement > 0)
+        {
+            zombie.anims.play('zombie_right', true);
+        }
+        else if (movement < 0)
+        {
+            zombie.anims.play('zombie_left', true);
+        }
+        else
+        {
+            zombie.anims.play('zombie_stand', true);
+        }
+    },
 
-            //return the number of milliseconds since 1 January 1970 00:00:00. 
-            return d.getTime();
-        },
+    moveZombie(zombie, speed, minDist, maxDist)
+    {
+        if (zombie.x > maxDist && zombie.direction == 'forward')
+        {
+            this.updateZombieX(zombie, 0);
+            zombie.direction = 'backward';
+        }
+        else if (zombie.x < minDist && zombie.direction == 'backward')
+        {
+            this.updateZombieX(zombie, 0);
+            zombie.direction = 'forward';
+        }
+        else if (zombie.x <= maxDist && zombie.direction == 'forward')
+        {
+            this.updateZombieX(zombie, speed);
+        }
+        else if (zombie.x >= minDist && zombie.direction == 'backward')
+        {
+            this.updateZombieX(zombie, -speed);
+        }
+    },
+
+    getTime() {
+        //make a new date object
+        let d = new Date();
+
+        //return the number of milliseconds since 1 January 1970 00:00:00. 
+        return d.getTime();
+    },
 
     update: function()
     {
@@ -218,6 +384,16 @@ var HardLevelScene = new Phaser.Class({
         let time = new Date();
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
+
+        // Zombie Movement
+        this.moveZombie(this.zombie1, 2, 90, 785);
+        this.moveZombie(this.zombie2, 2, 90, 785);
+        this.moveZombie(this.zombie3, 1, 250, 550);
+        this.moveZombie(this.zombie4, 2, 15, 725);
+        this.moveZombie(this.zombie5, 2, 15, 725);
+        this.moveZombie(this.zombie6, 2, 15, 725);
+        this.moveZombie(this.zombie7, 1, 145, 400);
+        this.moveZombie(this.zombie8, 2, 650, 775);
 
         // Move 
         if (cursors.left.isDown)

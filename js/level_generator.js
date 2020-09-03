@@ -318,6 +318,18 @@ function addCoins(myMap){
     return myMap;
 }
 
+function makeGround(){
+    let gnd = [];
+    for (let i=0; i<COLS; i++){
+        if (randint(1,4) === 1){  // 25% chance
+            gnd.push(AIR);
+        } else {
+            gnd.push(PLATFORM);
+        }
+    }
+    return gnd;
+}
+
 function createMap(){
     let m = createEmptyMap();
     m = populateMap(m);
@@ -338,11 +350,11 @@ function convertMapToCoords(myMap){
         myMap = createMap();
     }
 
+    let myGnd = makeGround();
+
     let json = {
         backgroundImage: "village_background",
-        ground: [
-            {image: "dirt_platform50", "x": 400, "y": 600}
-        ],
+        ground: [],
         platforms: [],
         playerStart: {},
         coins: [],
@@ -387,6 +399,11 @@ function convertMapToCoords(myMap){
                     }
                     break;
             }
+        }
+    }
+    for (let i=0; i<myGnd.length; i++){
+        if (myGnd[i] === PLATFORM){
+            json["ground"].push({"image": "grass_block", "x": i*16 + 8, "y": 600});
         }
     }
     return json;

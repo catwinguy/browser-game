@@ -20,17 +20,13 @@ let config = {
 
 let game = new Phaser.Game(config);
 
-let playerName = 'girl';
-
+// Default Player Data
 let playerData = {
     name : 'girl',
-    health : 5,
-    weapon : {
-        equipment : null,
-        attack : 0
-    }
+    health : 5
 };
 
+// Default Zombie Data
 let zombieData = {
     health : 3,
     attack : 1
@@ -55,3 +51,5 @@ let text;
 let startPause;
 let pElapsed;
 let pTime;
+let doorEnabled;
+let infiniteTime = 20000; // milliseconds

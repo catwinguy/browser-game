@@ -34,7 +34,6 @@ var GeneratedLevelScene = new Phaser.Class({
         currentLevel = 'generatedlevelscene';
         let m = createMap();
         let data = convertMapToCoords(m);
-        console.log(data);
         let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
@@ -45,6 +44,7 @@ var GeneratedLevelScene = new Phaser.Class({
 
         // timer 
         this.start = this.getTime();
+        this.endTime = this.start + infiniteTime;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -66,26 +66,26 @@ var GeneratedLevelScene = new Phaser.Class({
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
 
-        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerName);
+        player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(200);
         player.hasSword = false;
 
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn',
-            frames: [ { key: playerName, frame: 4 } ],
+            frames: [ { key: playerData.name, frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers(playerName, { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name, { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -94,20 +94,20 @@ var GeneratedLevelScene = new Phaser.Class({
 
         this.anims.create({
             key: 'left_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn_sword',
-            frames: [ { key: playerName + "_sword", frame: 4 } ],
+            frames: [ { key: playerData.name + "_sword", frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right_sword',
-            frames: this.anims.generateFrameNumbers(playerName + "_sword", { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -154,7 +154,7 @@ var GeneratedLevelScene = new Phaser.Class({
             this.scene.restart();
         }
 
-        this.physics.add.overlap(player, coins, collectCoin, null, this);
+        this.physics.add.overlap(player, coins, this.updateScore, null, this);
         this.physics.add.overlap(player, powerups, collectPowerup, null, this);
         this.physics.add.overlap(player, doors, enterDoor, null, this);
         this.physics.add.overlap(player, swords, collectSword, null, this);
@@ -192,6 +192,20 @@ var GeneratedLevelScene = new Phaser.Class({
         return d.getTime();
     },
 
+    updateScore(player, coin){
+        coin.disableBody(true, true);
+        switch(coin.name){
+            case "emerald":
+                this.endTime += 0.5 * 1000;  // add 0.5 seconds
+                break;
+            case "diamond":
+                this.endTime += 1 * 1000;  // add 1 second
+                break;
+            default:
+                break;
+        }
+    },
+
     update: function()
     {
 
@@ -200,9 +214,16 @@ var GeneratedLevelScene = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start)/1000;
-        text.setText(elapsed.toString() + ' s');
+        let remaining = (this.endTime - this.getTime())/1000;
+        text.setText(remaining.toString() + ' s');
+
+        if (this.getTime() >= this.endTime){
+            // ran out of time and lost
+            this.scene.transition({
+                target: 'gameovermenu',
+                duration: 4000
+            })
+        }
 
         // Move
         if (cursors.left.isDown)
@@ -244,7 +265,12 @@ var GeneratedLevelScene = new Phaser.Class({
         // Player Death
         if (playerData.health == 0)
         {
-            this.scene.restart();
+            // Should make this game over for this part
+            // this.scene.restart();
+            this.scene.transition({
+                target: 'gameovermenu',
+                duration: 4000
+            })
         }
 
         // Exit
@@ -254,4 +280,3 @@ var GeneratedLevelScene = new Phaser.Class({
         }
     }
 });
-
