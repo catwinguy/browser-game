@@ -13,7 +13,7 @@
         this.load.image('window', 'assets/ButtonBackground.png');
         this.load.image('pause_text', 'assets/GamePausedText.png');
         this.load.image('exit', 'assets/ExitButton.png');
-        this.load.image('resume', 'assets/ResumeButton.png');
+        this.load.image('resume', 'assets/PlayButton.png');
     },
 
     create: function () {
