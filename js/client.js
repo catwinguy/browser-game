@@ -5,9 +5,10 @@ let storyButton = document.getElementById("show-story");
 let infiniteButton = document.getElementById("show-infinite");
 let storyScoreboard = document.getElementById("story-scoreboard");
 let infiniteScoreboard = document.getElementById("infinite-scoreboard");
-let currentUser = document.getElementById("current-user-info");
 let logoutButton = document.getElementById("logout-button");
 let usernameDisplay = document.getElementById("username-display");
+let loginLink = document.getElementById("login-link");
+let registerLink = document.getElementById("register-link");
 
 storyButton.addEventListener('click', showStoryHighScores);
 infiniteButton.addEventListener('click', showInfiniteHighScores);
@@ -142,12 +143,16 @@ function showUserInfo() {
         return response.json();
     }).then(function (data) {
         if (data.user === null) {
-            divider.style.display = "block";
-            currentUser.style.display = "none";
+            loginLink.style.display = "inline";
+            registerLink.style.display = "inline";
+            usernameDisplay.style.display = "none";
+            logoutButton.style.display = "none";
         } else {
             usernameDisplay.textContent = "User: " + data.user;
-            divider.style.display = "none";
-            currentUser.style.display = "block";
+            loginLink.style.display = "none";
+            registerLink.style.display = "none";
+            usernameDisplay.style.display = "inline";
+            logoutButton.style.display = "inline";
         }
     }).catch(function (error) {
         console.log(error);

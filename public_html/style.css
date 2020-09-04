@@ -78,6 +78,15 @@ p {
     color: white;
 }
 
+#username-display {
+    color: white;
+    font-size: 20px;
+}
+
+#player-info {
+    height: 40px;
+}
+
 a:link, a:visited {
     background-color: #6F3326;
     color: white;
@@ -89,8 +98,4 @@ a:link, a:visited {
   
 a:hover, a:active {
     background-color: #58281E;
-}
-
-.button-div {
-    display: none;
 }
