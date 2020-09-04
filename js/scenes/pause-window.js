@@ -43,7 +43,6 @@ var PauseScene = new Phaser.Class({
             this.scene.resume(currentLevel);
             this.scene.stop();
             score = 0;
-            currentLevel = null;
             returnMenu = true;
         })
 
@@ -55,7 +54,6 @@ var PauseScene = new Phaser.Class({
             this.scene.resume(currentLevel);
             this.scene.stop();
             score = 0;
-            currentLevel = null;
             restartFlag = true;
         })
 
