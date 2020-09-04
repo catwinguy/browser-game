@@ -149,11 +149,11 @@ var MediumLevelScene = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Medium level paused');
+            console.log('Stage 2 paused');
         })
 
         this.events.on('resume', function () {
-            console.log('Medium level resumed');
+            console.log('Stage 2 resumed');
             
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
