@@ -41,7 +41,7 @@ function collectSword(player, sword){
     player.attack = 1;
     player.swordDurability = 5;
     
-    for (i in player.durabilityList) {
+    for (let i in player.durabilityList) {
         // Initially set visibility of durability to false
         player.durabilityList[i].setVisible(true);
     }
