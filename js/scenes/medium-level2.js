@@ -43,7 +43,6 @@ var MediumLevelScene2 = new Phaser.Class({
     {
         currentLevel = 'mediumlevelscene2'
         let data = this.cache.json.get('medium-level2');
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
@@ -63,10 +62,6 @@ var MediumLevelScene2 = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
         
-        // ground and platforms are separate for now but we can combine them if not needed
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })

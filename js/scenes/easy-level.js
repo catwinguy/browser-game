@@ -34,7 +34,6 @@ var EasyLevelScene = new Phaser.Class({
         currentLevel = 'easylevelscene'
         doorEnabled = true;
         let data = this.cache.json.get('easy-level');
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
@@ -53,10 +52,6 @@ var EasyLevelScene = new Phaser.Class({
         let powerups = this.physics.add.staticGroup();
         let doors = this.physics.add.group();
 
-        // ground and platforms are separate for now but we can combine them if not needed 
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })

@@ -358,7 +358,6 @@ function convertMapToCoords(myMap){
 
     let json = {
         backgroundImage: "village_background",
-        ground: [],
         platforms: [],
         playerStart: {},
         coins: [],
@@ -405,7 +404,7 @@ function convertMapToCoords(myMap){
     }
     for (let i=0; i<myGnd.length; i++){
         if (myGnd[i] === PLATFORM){
-            json["ground"].push({"image": "grass_block", "x": i*16 + 8, "y": 600});
+            json["platforms"].push({"image": "grass_block", "x": i*16 + 8, "y": 600});
         }
     }
     return json;

@@ -1,10 +1,8 @@
 {
     "backgroundImage": "village_background",
-    "ground": [
-        {"image": "ground", "x": 400, "y": 576},
-        {"image": "dirt_platform50", "x": 400, "y": 592}
-    ],
     "platforms": [
+        {"image": "ground", "x": 400, "y": 576},
+        {"image": "dirt_platform50", "x": 400, "y": 592},
         {"image": "dirt_platform50", "x": 400, "y": 8},
         {"image": "dirt_platform4", "x": 190, "y": 190},
         {"image": "dirt_platform4", "x": 170, "y": 500},
