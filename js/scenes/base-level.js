@@ -40,6 +40,11 @@ function collectSword(player, sword){
     player.hasSword = true;
     player.attack = 1;
     player.swordDurability = 5;
+    
+    for (i in player.durabilityList) {
+        // Initially set visibility of durability to false
+        player.durabilityList[i].setVisible(true);
+    }
 }
 
 
@@ -78,6 +83,10 @@ function fight (player, zombie) {
     }
 
     player.swordDurability--;
+    if (player.swordDurability >= 0 && player.durabilityList)
+    {
+        player.durabilityList[player.swordDurability].setVisible(false);
+    }
 
     if (!player.swordDurability)
     {

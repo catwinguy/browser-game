@@ -101,5 +101,12 @@
         {"image": "zombie", "x": 700, "y": 100},
         {"image": "zombie", "x": 500, "y": 100}
     ],
-    "sword": {"image": "sword", "x": 400, "y": 225}
+    "sword": {"image": "sword", "x": 400, "y": 225},
+    "durability": [
+        {"image" : "durability", "x" : 780, "y" : 25},
+        {"image" : "durability", "x" : 760, "y" : 25},
+        {"image" : "durability", "x" : 740, "y" : 25},
+        {"image" : "durability", "x" : 720, "y" : 25},
+        {"image" : "durability", "x" : 700, "y" : 25}
+    ]
 }
