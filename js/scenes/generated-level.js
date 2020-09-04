@@ -155,10 +155,10 @@ var GeneratedLevelScene = new Phaser.Class({
         coin.disableBody(true, true);
         switch(coin.name){
             case "emerald":
-                this.endTime += 1000;  // add 1 second
+                this.endTime += 500;  // add 0.5 seconds
                 break;
             case "diamond":
-                this.endTime += 5000;  // add 5 seconds
+                this.endTime += 1000;  // add 1 second
                 break;
             default:
                 break;
