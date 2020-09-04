@@ -5,9 +5,13 @@ let storyButton = document.getElementById("show-story");
 let infiniteButton = document.getElementById("show-infinite");
 let storyScoreboard = document.getElementById("story-scoreboard");
 let infiniteScoreboard = document.getElementById("infinite-scoreboard");
+let currentUser = document.getElementById("current-user-info");
+let logoutButton = document.getElementById("logout-button");
+let usernameDisplay = document.getElementById("username-display");
 
 storyButton.addEventListener('click', showStoryHighScores);
 infiniteButton.addEventListener('click', showInfiniteHighScores);
+logoutButton.addEventListener('click', logout);
 
 function clearTable() {
 	table.textContent='';
@@ -103,6 +107,24 @@ function updateInfiniteTable() {
         });
 }
 
+function logout() {
+    fetch("/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (response) {
+        showUserInfo();
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function onLoadFunc() {
+    showStoryHighScores();
+    showUserInfo();
+}
+
 function showStoryHighScores() {
     infiniteScoreboard.style.display = "none";
     storyScoreboard.style.display = "block";
@@ -113,4 +135,21 @@ function showInfiniteHighScores() {
     infiniteScoreboard.style.display = "block";
     storyScoreboard.style.display = "none";
     updateInfiniteTable();
+}
+
+function showUserInfo() {
+    fetch("/current-user").then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if (data.user === null) {
+            divider.style.display = "block";
+            currentUser.style.display = "none";
+        } else {
+            usernameDisplay.textContent = "User: " + data.user;
+            divider.style.display = "none";
+            currentUser.style.display = "block";
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 }

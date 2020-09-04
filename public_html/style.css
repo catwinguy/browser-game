@@ -44,12 +44,23 @@ div {
 button {
     margin-left: 20px;
     margin-right: 20px;
+    background-color: #6F3326;
+    color: white;
+    padding: 5px 15px;
+    border: 2px solid black;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #58281E;
 }
 
 table {
     border-collapse: collapse;
     text-align: center;
-    background-color: white;
+    background-color: #72B04E;
+    color: #58281E;
 }
 
 th, td {
@@ -72,8 +83,14 @@ a:link, a:visited {
     color: white;
     padding: 5px 15px;
     text-decoration: none;
+    border: 2px solid black;
+    border-radius: 4px;
 }
   
 a:hover, a:active {
     background-color: #58281E;
+}
+
+.button-div {
+    display: none;
 }

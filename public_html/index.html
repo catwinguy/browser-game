@@ -14,13 +14,18 @@
   </style>
 </head>
 
-<body onload="showStoryHighScores()">
+<body onload="onLoadFunc()">
     <!-- <h1>Minecraft Adventures Lite</h1> -->
     <img src="assets/MinecraftLogo.png" alt="Minecraft Adventures Lite">
     <br/>
-    <div id="player-info">
+    <div id="player-info" class="button-div">
         <span>
             <a href="login.html">Login</a> <a href="register.html">Register</a>
+        </span>
+    </div>
+    <div id="current-user-info" class="button-div">
+        <span>
+            <h3 id="username-display"></h3> <button id="logout-button" type="button">Logout</button>
         </span>
     </div>
     <br/>

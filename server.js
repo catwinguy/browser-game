@@ -30,6 +30,20 @@ app.use(session({
     cookie: {}
 }));
 
+app.get("/current-user", function (req, res) {
+    let data = {
+        "user": null
+    }
+    if (req.session.hasOwnProperty("user")) {
+        data.user = req.session.user;
+    }
+    res.status(200).json(data);
+});
+
+app.post("/logout", function (req, res) {
+    req.session.user = null;
+    res.status(200).send();
+});
 
 app.get("/users", function (req, res) {
     pool.query("SELECT * FROM users")
