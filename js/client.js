@@ -35,7 +35,7 @@ function updateStoryTable() {
             let i;
             let currentRank = 1;
             let users = response.rows;
-            users.sort((x, y) => (x.story_high_score > y.story_high_score) ? 1 : -1);
+            users.sort((x, y) => (parseFloat(x.story_high_score) > parseFloat(y.story_high_score)) ? 1 : -1);
             for (i = 0; i < users.length; i++) {
                 if (users[i]["story_high_score"] === null) {
                     continue;
@@ -75,7 +75,7 @@ function updateInfiniteTable() {
             let i;
             let currentRank = 1;
             let users = response.rows;
-            users.sort((x, y) => (x.infinite_high_score < y.infinite_high_score) ? 1 : -1);
+            users.sort((x, y) => (parseInt(x.infinite_high_score) < parseInt(y.infinite_high_score)) ? 1 : -1);
             for (i = 0; i < users.length; i++) {
                 if (users[i]["infinite_high_score"] === null) {
                     continue;
