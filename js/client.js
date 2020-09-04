@@ -1,6 +1,13 @@
 let divider = document.getElementById("player-info");
 let storyTable = document.getElementById("story-mode");
 let infiniteTable = document.getElementById("infinite-mode");
+let storyButton = document.getElementById("show-story");
+let infiniteButton = document.getElementById("show-infinite");
+let storyScoreboard = document.getElementById("story-scoreboard");
+let infiniteScoreboard = document.getElementById("infinite-scoreboard");
+
+storyButton.addEventListener('click', showStoryHighScores);
+infiniteButton.addEventListener('click', showInfiniteHighScores);
 
 function clearTable() {
 	table.textContent='';
@@ -16,7 +23,10 @@ function updateText(message) {
     textContainer.append(content);
 }
 
-function updateTable() {
+function updateStoryTable() {
+    while (storyTable.rows.length > 1){
+		storyTable.deleteRow(1);
+	}
     fetch("/users")
         .then(function (response) {
             return response.json();
@@ -48,8 +58,24 @@ function updateTable() {
                 storyTable.append(newRow);
                 currentRank++;
             }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
-            currentRank = 1;
+function updateInfiniteTable() {
+    while (infiniteTable.rows.length > 1){
+		infiniteTable.deleteRow(1);
+	}
+    fetch("/users")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (response) {
+            let i;
+            let currentRank = 1;
+            let users = response.rows;
             users.sort((x, y) => (x.infinite_high_score < y.infinite_high_score) ? 1 : -1);
             for (i = 0; i < users.length; i++) {
                 if (users[i]["infinite_high_score"] === null) {
@@ -77,4 +103,16 @@ function updateTable() {
         .catch(function (error) {
             console.log(error);
         });
+}
+
+function showStoryHighScores() {
+    infiniteScoreboard.style.display = "none";
+    storyScoreboard.style.display = "block";
+    updateStoryTable();
+}
+
+function showInfiniteHighScores() {
+    infiniteScoreboard.style.display = "block";
+    storyScoreboard.style.display = "none";
+    updateInfiniteTable();
 }

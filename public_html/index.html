@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body onload="updateTable()">
+<body onload="showStoryHighScores()">
     <h1>Minecraft Adventures Lite</h1>
     <div id="player-info">
         <span>
@@ -17,7 +17,11 @@
     <div id="game"></div>
 
     <div id="scoreboard">
-        <h2>All Time Speedrun High Score</h2>
+    <h2>All Time High Scores</h2>
+    <button id="show-story" type="button">Story Mode High Scores</button>
+    <button id="show-infinite" type="button">Infinite Mode High Scores</button>
+    <div id="story-scoreboard">
+        <h3>Story Mode</h3>
         <table id="story-mode">
             <thead>
                 <tr>
@@ -28,8 +32,10 @@
             </thead>
             <tbody id="story-mode-body"></tbody>
         </table>
-        <br />
-         <table id="infinite-mode">
+    </div>
+    <div id="infinite-scoreboard">
+        <h3>Infinite Mode</h3>
+        <table id="infinite-mode">
             <thead>
                 <tr>
                     <th>Rank</th>
@@ -39,6 +45,7 @@
             </thead>
             <tbody id="infinite-mode-body"></tbody>
         </table>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser-arcade-physics.min.js"></script> <!-- Import Phaser -->
     
