@@ -29,6 +29,7 @@ var GameOverMenu = new Phaser.Class({
         let exitWindow = this.add.image(data.exit.x, data.exit.y, 'window');
         exitWindow.setScale(0.5);
         let exitButton = this.add.image(data.exit.x, data.exit.y, data.exit.image);
+        
         exitWindow.setInteractive();
         exitWindow.on("pointerup", () => {
             console.log('Exit button.');

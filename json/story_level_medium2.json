@@ -158,5 +158,12 @@
         {"image": "door_left", "x": 400, "y": 112}
     ],
     "zombie":  {"image": "zombie", "x": 100, "y": 360},
-    "sword": {"image": "sword", "x": 70, "y": 525}
+    "sword": {"image": "sword", "x": 70, "y": 525},
+    "durability": [
+        {"image" : "durability", "x" : 780, "y" : 25},
+        {"image" : "durability", "x" : 760, "y" : 25},
+        {"image" : "durability", "x" : 740, "y" : 25},
+        {"image" : "durability", "x" : 720, "y" : 25},
+        {"image" : "durability", "x" : 700, "y" : 25}
+    ]
 }

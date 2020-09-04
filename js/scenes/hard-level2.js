@@ -24,6 +24,7 @@ var HardLevelScene2 = new Phaser.Class({
         this.load.image('purple_potion', 'assets/potion_purple.png')
         this.load.image('blue_potion', 'assets/potion_blue.png')
         this.load.image('sword', 'assets/sword.png');
+        this.load.image('durability', 'assets/swordIcon.png')
 
         // Level
         this.load.json('hard-level2', 'json/story_level_hard2.json')
@@ -70,15 +71,28 @@ var HardLevelScene2 = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
+        // Sword
         if (data.sword.image !== undefined){
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
+
+        // Durability
+        let sword1 = this.add.image(data.durability[0].x, data.durability[0].y, data.durability[0].image).setScale(0.1);
+        let sword2 = this.add.image(data.durability[1].x, data.durability[1].y, data.durability[1].image).setScale(0.1);
+        let sword3 = this.add.image(data.durability[2].x, data.durability[2].y, data.durability[2].image).setScale(0.1);
+        let sword4 = this.add.image(data.durability[3].x, data.durability[3].y, data.durability[3].image).setScale(0.1);
+        let sword5 = this.add.image(data.durability[4].x, data.durability[4].y, data.durability[4].image).setScale(0.1);
 
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(600);
         player.hasSword = false;
         player.health = playerData.health;
         player.attack = 0;
+        player.durabilityList = [sword1, sword2, sword3, sword4, sword5];
+        for (i in player.durabilityList) {
+            // Initially set visibility of durability to false
+            player.durabilityList[i].setVisible(false);
+        }
 
         this.anims.create({
             key: 'left',
