@@ -1,5 +1,7 @@
-// common functions for scenes
+/* Common functions for scenes */
+
 function collectCoin (player, coin){
+    /* Collect coins when the player collides with them and update the score. */
     coin.disableBody(true, true);
     switch(coin.name){
         case "emerald":
@@ -18,6 +20,7 @@ function collectCoin (player, coin){
 };
 
 function collectPowerup(player, powerup){
+    /* Collect powerups when the player collides with them and update gravity or velocity. */
     powerup.disableBody(true, true);
     let powerupType = powerup.name;
     switch (powerupType){
@@ -36,12 +39,13 @@ function collectPowerup(player, powerup){
 }
 
 function collectSword(player, sword){
+    /* Collect the sword when the player collides with it. */
     sword.disableBody(true, true);
     player.hasSword = true;
     player.attack = 1;
     player.swordDurability = 5;
     
-    for (i in player.durabilityList) {
+    for (let i in player.durabilityList) {
         // Initially set visibility of durability to false
         player.durabilityList[i].setVisible(true);
     }
@@ -49,6 +53,7 @@ function collectSword(player, sword){
 
 
 function postScore(levelScore, levelKey) {
+    /* Post the score to the database. */
     let postData = {
         score: levelScore,
         level: levelKey
@@ -72,6 +77,7 @@ function postScore(levelScore, levelKey) {
 }
 
 function fight (player, zombie) {
+    /* Update the zombie and player health when fighting. */
     zombie.health -= player.attack;
     if (!player.hasSword)
     {
@@ -97,4 +103,10 @@ function fight (player, zombie) {
     console.log("Zombie Health: " + zombie.health);
     console.log("Player Health: " + player.health);
     console.log("Sword: " + player.hasSword);
+}
+
+function getCurrentTime() {
+    /* Get the current time in milliseconds since epoch (1 January 1970 00:00:00). */
+    let d = new Date();
+    return d.getTime();
 }

@@ -42,18 +42,16 @@ var HardLevelScene2 = new Phaser.Class({
     {
         currentLevel = 'hardlevelscene2'
         let data = this.cache.json.get('hard-level2');
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
-        let doorData = data.doors;
         let zombies = data.zombies;
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
         console.log("Onto the next scene!");
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -63,10 +61,6 @@ var HardLevelScene2 = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
 
-        // ground and platforms are separate for now but we can combine them if not needed
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })
@@ -147,13 +141,12 @@ var HardLevelScene2 = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collision
@@ -172,9 +165,7 @@ var HardLevelScene2 = new Phaser.Class({
         this.physics.add.collider(swords, platforms);
 
         function enterDoor (player, door) {
-            // TODO: add new scene telling player they won and their times  
-            let time = new Date();
-            hardTime2 = (time.getTime() - this.start) / 1000;
+            hardTime2 = (getCurrentTime() - this.start) / 1000;
             console.log('Congratulations! You won the game!');
             door.anims.play("open");
             hardScore2 = hardTime2 - score;
@@ -201,7 +192,7 @@ var HardLevelScene2 = new Phaser.Class({
         this.anims.create({
             key: 'zombie_stand',
             frames: [ { key: 'zombie', frame: 4 } ],
-            frameRate: 15
+            frameRate: 20
         });
         this.anims.create({
             key: 'zombie_right',
@@ -303,11 +294,11 @@ var HardLevelScene2 = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Easy level paused');
+            console.log('Stage 5 paused');
         })
 
         this.events.on('resume', function (flag) {
-            console.log('Easy level resumed');
+            console.log('Stage 5 resumed');
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
@@ -354,14 +345,6 @@ var HardLevelScene2 = new Phaser.Class({
         }
     },
 
-    getTime() {
-        //make a new date object 
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     update: function()
     {
         //timer
@@ -369,21 +352,22 @@ var HardLevelScene2 = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start) / 1000;
+        let elapsed = (getCurrentTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
 
-        // Zombie Movement
-        if (currentLevel === 'hardlevelscene2')
+        if (currentLevel !== 'hardlevelscene2')
         {
-            this.moveZombie(this.zombie1, 2, 10, 190);
-            this.moveZombie(this.zombie2, 2, 610, 790);
-            this.moveZombie(this.zombie3, 2, 185, 575);
-            this.moveZombie(this.zombie4, 3, 15, 350);
-            this.moveZombie(this.zombie5, 3, 15, 350);
-            this.moveZombie(this.zombie6, 3, 450, 785);
-            this.moveZombie(this.zombie7, 3, 450, 785);
+            return;
         }
+
+        // Zombie Movement
+        this.moveZombie(this.zombie1, 2, 10, 190);
+        this.moveZombie(this.zombie2, 2, 610, 790);
+        this.moveZombie(this.zombie3, 2, 185, 575);
+        this.moveZombie(this.zombie4, 3, 15, 350);
+        this.moveZombie(this.zombie5, 3, 15, 350);
+        this.moveZombie(this.zombie6, 3, 450, 785);
+        this.moveZombie(this.zombie7, 3, 450, 785);
 
         // Move
         if (cursors.left.isDown)
@@ -420,6 +404,12 @@ var HardLevelScene2 = new Phaser.Class({
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
+        }
+
+        // Restart
+        if (restartFlag) {
+            this.scene.restart();
+            restartFlag = false;
         }
 
         // Player Death

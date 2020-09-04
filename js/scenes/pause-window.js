@@ -11,10 +11,10 @@ var PauseScene = new Phaser.Class({
 
     preload: function()
     {
-        this.load.image('window','assets/ButtonBackground.png');
+        this.load.image('window','assets/Button300x79.png');
         this.load.image('pause_text', 'assets/GamePausedText.png');
         this.load.image('exit', 'assets/ExitButton.png');
-        // this.load.image('restart', 'assets/Restart.png'); 
+        this.load.image('restart', 'assets/Restart.png'); 
         this.load.image('resume', 'assets/PlayButton.png');
     },
 
@@ -22,10 +22,10 @@ var PauseScene = new Phaser.Class({
     {
         console.log('Pause Menu Scene has been entered...');
         this.add.image(400,300,'window');
-        this.add.image(400,280, 'pause_text');
+        this.add.image(400,287, 'pause_text');
 
         // Resumes the level
-        let resumeButton = this.add.image(430,310,'resume').setScale(0.85);
+        let resumeButton = this.add.image(390, 315, 'resume').setScale(0.75);
         resumeButton.setInteractive();
         resumeButton.on("pointerup", () => {
             console.log('Game has been resumed.');
@@ -36,17 +36,26 @@ var PauseScene = new Phaser.Class({
         })
         
         // Return to Main Menu 
-        let exitButton = this.add.image(365,310,'exit').setScale(0.85);
+        let exitButton = this.add.image(325, 315, 'exit').setScale(0.75);
         exitButton.setInteractive();
         exitButton.on("pointerup", () => {
             console.log('Exit button.');
             this.scene.resume(currentLevel);
             this.scene.stop();
             score = 0;
-            currentLevel = null;
             returnMenu = true;
         })
 
+        // Restart Level
+        let restartButton = this.add.image(470,315,'restart').setScale(0.75);
+        restartButton.setInteractive();
+        restartButton.on("pointerup", () => {
+            console.log('Restart button.');
+            this.scene.resume(currentLevel);
+            this.scene.stop();
+            score = 0;
+            restartFlag = true;
+        })
 
         pauseButton = this.input.keyboard.addKey('ESC');
         pauseButton.on('up', function(event){

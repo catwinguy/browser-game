@@ -1,10 +1,8 @@
 {
     "backgroundImage": "village_background",
-    "ground": [
-        {"image": "ground", "x": 400, "y": 576},
-        {"image": "dirt_platform50", "x": 400, "y": 592}
-    ],
     "platforms": [
+        {"image": "ground", "x": 400, "y": 576},
+        {"image": "dirt_platform50", "x": 400, "y": 592},
         {"image": "dirt_platform4", "x": 600, "y": 400},
         {"image": "dirt_platform4", "x": 50, "y": 320},
         {"image": "dirt_platform4", "x": 750, "y": 220},
@@ -22,8 +20,6 @@
         {"image": "blue_potion", "x": 100, "y": 403, "name": "lower-gravity"},
         {"image": "green_potion", "x": 650, "y": 275, "name": "hop"}
     ],
-    "doors": [
-        {"image": "door_left", "x": 750, "y": 197}
-    ],
-    "sword": {"image": "sword", "x": 500, "y": 550}
+    "door": {"image": "door_left", "x": 750, "y": 197},
+    "sword": {}
 }

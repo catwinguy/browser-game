@@ -13,7 +13,6 @@ var GeneratedLevelScene = new Phaser.Class({
     {
         // Static Images 
         this.load.image('village_background', 'assets/village_background.png');
-        this.load.image('ground', 'assets/grass_platform_50x1.png');
         this.load.image('dirt_block', 'assets/dirt_block.png');
         this.load.image('grass_block', 'assets/grass_block.png');
         this.load.image('emerald', 'assets/emerald.png');
@@ -30,15 +29,13 @@ var GeneratedLevelScene = new Phaser.Class({
         currentLevel = 'generatedlevelscene';
         let m = createMap();
         let data = convertMapToCoords(m);
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
-        let doorData = data.doors;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0);
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         this.endTime = this.start + infiniteTime;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
@@ -46,10 +43,6 @@ var GeneratedLevelScene = new Phaser.Class({
         let coins = this.physics.add.group();
         let doors = this.physics.add.group();
 
-        // ground and platforms are separate for now but we can combine them if not needed 
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })
@@ -83,13 +76,12 @@ var GeneratedLevelScene = new Phaser.Class({
             cc.name = coin.image;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collision
@@ -106,8 +98,7 @@ var GeneratedLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
 
         function enterDoor(player, door) {
-            let time = new Date();
-            generatedTime = (time.getTime() - this.start) / 1000;
+            generatedTime = (getCurrentTime() - this.start) / 1000;
             infiniteScore++;
             let postData = {
                 score: infiniteScore,
@@ -160,14 +151,6 @@ var GeneratedLevelScene = new Phaser.Class({
         })
     },
 
-    getTime() {
-        //make a new date object
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     updateScore(player, coin){
         coin.disableBody(true, true);
         switch(coin.name){
@@ -184,10 +167,9 @@ var GeneratedLevelScene = new Phaser.Class({
 
     update: function()
     {
-
         //timer
         if (pElapsed > 0) {
-            this.start += pElapsed;
+            this.endTime += pElapsed;
             pElapsed = 0;
         }
 

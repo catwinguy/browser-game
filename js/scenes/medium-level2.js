@@ -43,17 +43,15 @@ var MediumLevelScene2 = new Phaser.Class({
     {
         currentLevel = 'mediumlevelscene2'
         let data = this.cache.json.get('medium-level2');
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
-        let doorData = data.doors;
         let zombie1 = data.zombie;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0) 
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -63,10 +61,6 @@ var MediumLevelScene2 = new Phaser.Class({
         let doors = this.physics.add.group();
         let swords = this.physics.add.staticGroup();
         
-        // ground and platforms are separate for now but we can combine them if not needed
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })
@@ -76,7 +70,6 @@ var MediumLevelScene2 = new Phaser.Class({
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
 
-        
         // Durability
         let sword1 = this.add.image(data.durability[0].x, data.durability[0].y, data.durability[0].image).setScale(0.1);
         let sword2 = this.add.image(data.durability[1].x, data.durability[1].y, data.durability[1].image).setScale(0.1);
@@ -148,13 +141,12 @@ var MediumLevelScene2 = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collisions
@@ -175,8 +167,7 @@ var MediumLevelScene2 = new Phaser.Class({
 
         function enterDoor (player, door) {
             console.log('You unlocked the Hard Stage!');
-            let time = new Date();
-            mediumTime2 = (time.getTime() - this.start) / 1000;
+            mediumTime2 = (getCurrentTime() - this.start) / 1000;
             door.anims.play("open");
             mediumScore2 = mediumTime2 - score;
             score = 0;
@@ -212,7 +203,7 @@ var MediumLevelScene2 = new Phaser.Class({
         this.anims.create({
             key: 'zombie_stand',
             frames: [ { key: 'zombie', frame: 4 } ],
-            frameRate: 15
+            frameRate: 20
         });
         this.anims.create({
             key: 'zombie_right',
@@ -291,14 +282,6 @@ var MediumLevelScene2 = new Phaser.Class({
         }
     },
 
-    getTime() {
-        //make a new date object 
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     update: function()
     {
         //timer
@@ -306,15 +289,16 @@ var MediumLevelScene2 = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start) / 1000;
+        let elapsed = (getCurrentTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
         
-        // Zombie Movement
-        if (currentLevel === 'mediumlevelscene2')
+        if (currentLevel !== 'mediumlevelscene2')
         {
-            this.moveZombie(this.zombie, 1, 90, 185);
+            return;
         }
+
+        // Zombie Movement
+        this.moveZombie(this.zombie, 1, 90, 185);
         
         // Move
         if (cursors.left.isDown)
@@ -351,6 +335,12 @@ var MediumLevelScene2 = new Phaser.Class({
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.setVelocityY(-330);
+        }
+
+        // Restart
+        if (restartFlag) {
+            this.scene.restart();
+            restartFlag = false;
         }
 
         // Player Death

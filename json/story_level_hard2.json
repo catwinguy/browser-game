@@ -1,6 +1,6 @@
 {
     "backgroundImage": "village_background",
-    "ground": [
+    "platforms": [
         {"image": "ground", "x": 1000, "y": 400},
         {"image": "dirt_platform50", "x": 1000, "y": 416},
         {"image": "ground", "x": -200, "y": 400},
@@ -8,9 +8,8 @@
         {"image": "ground", "x": -25, "y": 130},
         {"image": "dirt_platform50", "x": -25, "y": 146},
         {"image": "ground", "x": 825, "y": 130},
-        {"image": "dirt_platform50", "x": 825, "y": 146}
-    ],
-    "platforms": [
+        {"image": "dirt_platform50", "x": 825, "y": 146},
+
         {"image": "grass_platform4", "x": 600, "y": 250},
         {"image": "grass_platform4", "x": 550, "y": 250},
         {"image": "grass_platform4", "x": 500, "y": 250},
@@ -89,9 +88,7 @@
         {"image": "purple_potion", "x":750, "y": 290, "name": "raise-gravity"},
         {"image": "green_potion", "x": 400, "y": 160, "name": "hop"}
     ],
-    "doors": [
-        {"image": "door_left", "x": 400, "y": 30}
-    ],
+    "door": {"image": "door_left", "x": 400, "y": 30},
     "zombies":  [
         {"image": "zombie", "x": 100, "y": 350},
         {"image": "zombie", "x": 700, "y": 350},

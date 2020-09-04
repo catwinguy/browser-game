@@ -22,7 +22,7 @@
         this.add.image(400, 280, 'pause_text');
 
         // Resumes the level 
-        let resumeButton = this.add.image(440, 310, 'resume');
+        let resumeButton = this.add.image(430, 315, 'resume');
         resumeButton.setInteractive();
         resumeButton.on("pointerup", () => {
             console.log('Game has been resumed.');
@@ -33,7 +33,7 @@
         })
 
         // Return to Main Menu 
-        let exitButton = this.add.image(355, 310, 'exit')
+        let exitButton = this.add.image(360, 315, 'exit')
         exitButton.setInteractive();
         exitButton.on("pointerup", () => {
             console.log('Exit button.');

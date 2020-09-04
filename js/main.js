@@ -1,12 +1,10 @@
-// const { NONE } = require("phaser");
-
 let config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
     backgroundColor: 0x000000,  // Black Background
     parent: 'game',
-    scene: [MainMenu, LevelSelectorScene, EasyLevelScene, MediumLevelScene, MediumLevelScene2, HardLevelScene, HardLevelScene2, PauseScene, GeneratedLevelScene, GameOverMenu, PauseInfinite],  // Add your scene here, then follow the template scene
+    scene: [MainMenu, LevelSelectorScene, HelpScene, EasyLevelScene, MediumLevelScene, MediumLevelScene2, HardLevelScene, HardLevelScene2, PauseScene, GeneratedLevelScene, GameOverMenu, PauseInfinite],  // Add your scene here, then follow the template scene
     physics: { 
         default: 'arcade',
         arcade: {
@@ -35,6 +33,7 @@ let zombieData = {
     attack : 1
 };
 
+// Constants
 let score = 0;
 let easyTime;
 let easyScore;
@@ -51,9 +50,10 @@ let infiniteScore = 0;
 let storyTime = 0;
 let currentLevel = null;
 let returnMenu = false;
+let restartFlag = false;
 let text;
 let startPause;
 let pElapsed;
 let pTime;
 let doorEnabled;
-let infiniteTime = 20000; // milliseconds
+let infiniteTime = 10000; // milliseconds
