@@ -310,11 +310,13 @@ var MediumLevelScene2 = new Phaser.Class({
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
         
-        // Zombie Movement
-        if (currentLevel === 'mediumlevelscene2')
+        if (currentLevel !== 'mediumlevelscene2')
         {
-            this.moveZombie(this.zombie, 1, 90, 185);
+            return;
         }
+
+        // Zombie Movement
+        this.moveZombie(this.zombie, 1, 90, 185);
         
         // Move
         if (cursors.left.isDown)

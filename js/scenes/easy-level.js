@@ -220,6 +220,11 @@ var EasyLevelScene = new Phaser.Class({
         let elapsed = (time.getTime() - this.start)/1000;
         text.setText(elapsed.toString() + ' s');
 
+        if (currentLevel !== 'easylevelscene')
+        {
+            return;
+        }
+
         // Move
         if (cursors.left.isDown)
         {

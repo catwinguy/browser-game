@@ -373,17 +373,19 @@ var HardLevelScene2 = new Phaser.Class({
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
 
-        // Zombie Movement
-        if (currentLevel === 'hardlevelscene2')
+        if (currentLevel !== 'hardlevelscene2')
         {
-            this.moveZombie(this.zombie1, 2, 10, 190);
-            this.moveZombie(this.zombie2, 2, 610, 790);
-            this.moveZombie(this.zombie3, 2, 185, 575);
-            this.moveZombie(this.zombie4, 3, 15, 350);
-            this.moveZombie(this.zombie5, 3, 15, 350);
-            this.moveZombie(this.zombie6, 3, 450, 785);
-            this.moveZombie(this.zombie7, 3, 450, 785);
+            return;
         }
+
+        // Zombie Movement
+        this.moveZombie(this.zombie1, 2, 10, 190);
+        this.moveZombie(this.zombie2, 2, 610, 790);
+        this.moveZombie(this.zombie3, 2, 185, 575);
+        this.moveZombie(this.zombie4, 3, 15, 350);
+        this.moveZombie(this.zombie5, 3, 15, 350);
+        this.moveZombie(this.zombie6, 3, 450, 785);
+        this.moveZombie(this.zombie7, 3, 450, 785);
 
         // Move
         if (cursors.left.isDown)

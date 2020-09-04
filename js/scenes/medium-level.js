@@ -221,6 +221,11 @@ var MediumLevelScene = new Phaser.Class({
         let elapsed = (time.getTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
          
+        if (currentLevel !== 'mediumlevelscene')
+        {
+            return;
+        }
+
         // Move
         if (cursors.left.isDown)
         {

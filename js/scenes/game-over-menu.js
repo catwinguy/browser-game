@@ -22,6 +22,7 @@ var GameOverMenu = new Phaser.Class({
     {
         let data = this.cache.json.get('gameovermenu');
         console.log("Game Over Menu...");  //-- Debugging purposes 
+        currentLevel = null;
         this.add.image(data.background.x, data.background.y, data.background.image);
         this.add.text(300, 32, "Game Over", { fontSize: '40px', fill: '#FFF' });
         text = this.add.text(1000, 1000, 'time: 0ms', { font: '20px Arial' });
