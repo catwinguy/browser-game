@@ -25,17 +25,17 @@ var GameOverMenu = new Phaser.Class({
         this.add.image(data.background.x, data.background.y, data.background.image);
         this.add.text(300, 32, "Game Over", { fontSize: '40px', fill: '#FFF' });
 
-        let window = this.add.image(400, 300, 'window');
-        exitButton = this.add.image(400, 300, 'exit');
-        exitButton.setScale(2);
-        exitButton.setInteractive();
-        exitButton.on("pointerup", () => {
+        let exitWindow = this.add.image(data.exit.x, data.exit.y, 'window');
+        exitWindow.setScale(0.5);
+        let exitButton = this.add.image(data.exit.x, data.exit.y, data.exit.image);
+        exitWindow.setInteractive();
+        exitWindow.on("pointerup", () => {
             console.log('Exit button.');
-            this.scene.resume(currentLevel);
-            this.scene.stop();
+            this.scene.restart();
+            this.scene.start("mainmenu");
             score = 0;
             currentLevel = null;
-            returnMenu = true;
+            playerData.health = defaultPlayerHealth;
         })
     }
 });

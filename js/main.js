@@ -20,10 +20,12 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+let defaultPlayerHealth = 5;
+
 // Default Player Data
 let playerData = {
     name : 'girl',
-    health : 5
+    health : defaultPlayerHealth
 };
 
 // Default Zombie Data
