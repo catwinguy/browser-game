@@ -3,5 +3,10 @@
         "image": "menu_background", 
         "x": 400, 
         "y" : 300
+    },
+    "exit": {
+        "image": "exit",
+        "x": 400,
+        "y": 500
     }
 }

@@ -167,7 +167,7 @@ var MediumLevelScene2 = new Phaser.Class({
             postScore(mediumScore2, "level3_fastest_run");
             this.scene.transition({
                 target: 'hardlevelscene',
-                duration: 4000
+                duration: 1000
             });
         }
 
@@ -182,7 +182,7 @@ var MediumLevelScene2 = new Phaser.Class({
         this.zombie.attack = zombieData.attack;
         this.zombie.direction = 'forward';  // Starting zombie move direction
         this.zombie.body.setGravityY(1000);
-        this.zombie.body.setBounce(0.1, 0.1);
+        this.zombie.body.setBounce(0, 0.1);
 
         console.log(this.zombie.health)
         console.log(this.zombie.attack)
@@ -205,8 +205,7 @@ var MediumLevelScene2 = new Phaser.Class({
             repeat: -1
         })
 
-        this.physics.add.collider(this.zombie, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie, player);  // make coins land on the ground
+        this.physics.add.collider(this.zombie, platforms);
         this.zombie.body.collideWorldBounds = true;
 
         this.physics.add.overlap(player, this.zombie, fight, null, this);
@@ -296,7 +295,10 @@ var MediumLevelScene2 = new Phaser.Class({
         text.setText(elapsed.toString() + ' s');
         
         // Zombie Movement
-        this.moveZombie(this.zombie, 1, 90, 185);
+        if (currentLevel === 'mediumlevelscene2')
+        {
+            this.moveZombie(this.zombie, 1, 90, 185);
+        }
         
         // Move
         if (cursors.left.isDown)
