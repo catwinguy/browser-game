@@ -166,7 +166,7 @@ var HardLevelScene = new Phaser.Class({
             postScore(hardScore, "level4_fastest_run");
             this.scene.transition({
                 target: 'hardlevelscene2',
-                duration: 4000
+                duration: 1000
             });
             // player.setVelocityX(0);
             // player.setVelocityY(0);
@@ -386,14 +386,17 @@ var HardLevelScene = new Phaser.Class({
         text.setText(elapsed.toString() + ' s');
 
         // Zombie Movement
-        this.moveZombie(this.zombie1, 2, 90, 785);
-        this.moveZombie(this.zombie2, 2, 90, 785);
-        this.moveZombie(this.zombie3, 1, 250, 550);
-        this.moveZombie(this.zombie4, 2, 15, 725);
-        this.moveZombie(this.zombie5, 2, 15, 725);
-        this.moveZombie(this.zombie6, 2, 15, 725);
-        this.moveZombie(this.zombie7, 1, 145, 400);
-        this.moveZombie(this.zombie8, 2, 650, 775);
+        if (currentLevel === 'hardlevelscene')
+        {
+            this.moveZombie(this.zombie1, 2, 90, 785);
+            this.moveZombie(this.zombie2, 2, 90, 785);
+            this.moveZombie(this.zombie3, 1, 250, 550);
+            this.moveZombie(this.zombie4, 2, 15, 725);
+            this.moveZombie(this.zombie5, 2, 15, 725);
+            this.moveZombie(this.zombie6, 2, 15, 725);
+            this.moveZombie(this.zombie7, 1, 145, 400);
+            this.moveZombie(this.zombie8, 2, 650, 775);
+        }
 
         // Move 
         if (cursors.left.isDown)

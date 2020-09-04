@@ -167,7 +167,7 @@ var MediumLevelScene2 = new Phaser.Class({
             postScore(mediumScore2, "level3_fastest_run");
             this.scene.transition({
                 target: 'hardlevelscene',
-                duration: 4000
+                duration: 1000
             });
         }
 
@@ -296,7 +296,10 @@ var MediumLevelScene2 = new Phaser.Class({
         text.setText(elapsed.toString() + ' s');
         
         // Zombie Movement
-        this.moveZombie(this.zombie, 1, 90, 185);
+        if (currentLevel === 'mediumlevelscene2')
+        {
+            this.moveZombie(this.zombie, 1, 90, 185);
+        }
         
         // Move
         if (cursors.left.isDown)

@@ -164,7 +164,7 @@ var MediumLevelScene = new Phaser.Class({
             postScore(mediumScore, "level2_fastest_run");
             this.scene.transition({
                 target: 'mediumlevelscene2',
-                duration: 4000
+                duration: 1000
             });
             // player.setVelocityX(0);
             // player.setVelocityY(0);
