@@ -30,7 +30,6 @@ var GeneratedLevelScene = new Phaser.Class({
         currentLevel = 'generatedlevelscene';
         let m = createMap();
         let data = convertMapToCoords(m);
-        let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
         let doorData = data.doors;
@@ -46,10 +45,6 @@ var GeneratedLevelScene = new Phaser.Class({
         let coins = this.physics.add.group();
         let doors = this.physics.add.group();
 
-        // ground and platforms are separate for now but we can combine them if not needed 
-        groundData.forEach(function(ground){
-            platforms.create(ground.x, ground.y, ground.image);
-        })
         platformData.forEach(function(platform){
             platforms.create(platform.x, platform.y, platform.image);
         })

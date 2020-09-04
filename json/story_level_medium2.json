@@ -1,12 +1,11 @@
 {
     "backgroundImage": "village_background",
-    "ground": [
+    "platforms": [
         {"image": "ground", "x": 800, "y": 576},
         {"image": "dirt_platform50", "x": 800, "y": 592},
         {"image": "ground", "x": -200, "y": 576},
-        {"image": "dirt_platform50", "x": -200, "y": 592}
-    ],
-    "platforms": [
+        {"image": "dirt_platform50", "x": -200, "y": 592},
+
         {"image": "grass_platform4", "x": 650, "y": 505},
         {"image": "dirt_platform4", "x": 650, "y": 520},
         {"image": "dirt_platform4", "x": 650, "y": 535},
