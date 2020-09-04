@@ -93,7 +93,7 @@
         {"image": "purple_potion", "x": 768, "y": 200, "name": "raise-gravity"},
         {"image": "purple_potion", "x": 120, "y": 456, "name": "raise-gravity"}
     ],
-    "doors": [{"image": "door_left", "x": 760, "y": 464}],
+    "door": {"image": "door_left", "x": 760, "y": 464},
     "zombies":  [
         {"image": "zombie", "x": 100, "y": 350},
         {"image": "zombie", "x": 785, "y": 350},

@@ -20,8 +20,6 @@
         {"image": "blue_potion", "x": 100, "y": 403, "name": "lower-gravity"},
         {"image": "green_potion", "x": 650, "y": 275, "name": "hop"}
     ],
-    "doors": [
-        {"image": "door_left", "x": 750, "y": 197}
-    ],
+    "door": {"image": "door_left", "x": 750, "y": 197},
     "sword": {}
 }

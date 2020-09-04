@@ -13,7 +13,6 @@ var GeneratedLevelScene = new Phaser.Class({
     {
         // Static Images 
         this.load.image('village_background', 'assets/village_background.png');
-        this.load.image('ground', 'assets/grass_platform_50x1.png');
         this.load.image('dirt_block', 'assets/dirt_block.png');
         this.load.image('grass_block', 'assets/grass_block.png');
         this.load.image('emerald', 'assets/emerald.png');
@@ -32,7 +31,6 @@ var GeneratedLevelScene = new Phaser.Class({
         let data = convertMapToCoords(m);
         let platformData = data.platforms;
         let coinData = data.coins;
-        let doorData = data.doors;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0);
 
@@ -78,13 +76,12 @@ var GeneratedLevelScene = new Phaser.Class({
             cc.name = coin.image;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collision

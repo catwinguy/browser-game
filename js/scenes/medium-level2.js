@@ -46,7 +46,6 @@ var MediumLevelScene2 = new Phaser.Class({
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
-        let doorData = data.doors;
         let zombie1 = data.zombie;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0) 
@@ -71,7 +70,6 @@ var MediumLevelScene2 = new Phaser.Class({
             swords.create(data.sword.x, data.sword.y, data.sword.image);
         };
 
-        
         // Durability
         let sword1 = this.add.image(data.durability[0].x, data.durability[0].y, data.durability[0].image).setScale(0.1);
         let sword2 = this.add.image(data.durability[1].x, data.durability[1].y, data.durability[1].image).setScale(0.1);
@@ -143,13 +141,12 @@ var MediumLevelScene2 = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collisions
