@@ -234,7 +234,7 @@ app.post("/infinite-highscore", function (req, res) {
         !req.body.hasOwnProperty("level")) {
         res.status(500).json({ "error": "Invalid request." }).send();
     }
-    else if (!req.session.hasOwnProperty("user")) {
+    else if (!req.session.hasOwnProperty("user") || req.session.user === null) {
         res.status(401).json({ "error": "No user logged in." }).send();
     }
     else {
@@ -267,7 +267,7 @@ app.post("/story-highscore", function (req, res) {
     {
         res.status(500).json({"error": "Invalid request."}).send();
     }
-    else if (!req.session.hasOwnProperty("user")) {
+    else if (!req.session.hasOwnProperty("user") || req.session.user === null) {
         res.status(401).json({ "error": "No user logged in." }).send();
     }
     else {
