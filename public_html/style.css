@@ -61,3 +61,14 @@ footer {
 p {
     color: white;
 }
+
+a:link, a:visited {
+    background-color: #6F3326;
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+  }
+  
+  a:hover, a:active {
+    background-color: #58281E;
+  }

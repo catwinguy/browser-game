@@ -217,12 +217,12 @@ app.post("/infinite-highscore", function (req, res) {
         !req.body.hasOwnProperty("level")) {
         res.status(500).json({ "error": "Invalid request." }).send();
     }
+    else if (!req.session.hasOwnProperty("user")) {
+        res.status(401).json({ "error": "No user logged in." }).send();
+    }
     else {
         let score = req.body.score;
         let level = req.body.level;
-        if (req.session.user === undefined) {
-            req.session.user = "amanda";
-        }
         pool.query(
             "SELECT infinite_high_score FROM users WHERE username = $1",
             [req.session.user]
