@@ -163,7 +163,7 @@ var MediumLevelScene = new Phaser.Class({
 
     update: function()
     {
-        //timer
+        //timer 
         if (pElapsed > 0) {
             this.start += pElapsed;
             pElapsed = 0;
