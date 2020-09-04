@@ -12,5 +12,15 @@
     "button2": {
         "image": "infinite_button", 
         "x": 400, 
-        "y": 500}
+        "y": 500},
+    "girlFace" : {
+        "image": "girl_face",
+        "x": 400,
+        "y": 385
+    },
+    "guyFace" : {
+        "image": "guy_face",
+        "x": 400,
+        "y": 385
+    }
 }
