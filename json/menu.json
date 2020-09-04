@@ -7,21 +7,21 @@
     "button1": {
         "image": "story_button", 
         "x": 400, 
-        "y": 250
+        "y": 340
     },
     "button2": {
         "image": "infinite_button", 
         "x": 400, 
-        "y": 350
+        "y": 385
     },
     "girlFace" : {
         "image": "girl_face",
         "x": 400,
-        "y": 450
+        "y": 260
     },
     "guyFace" : {
         "image": "guy_face",
         "x": 400,
-        "y": 450
+        "y": 260
     }
 }
