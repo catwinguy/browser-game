@@ -13,7 +13,8 @@ var MainMenu = new Phaser.Class({
     preload: function ()
     {
         this.load.json('menu', 'json/menu.json')
-        this.load.image('menu_background', 'assets/minecraftMenuBackground.jpg');
+        //this.load.image('menu_background', 'assets/minecraftMenuBackground.jpg');
+        this.load.image('menu_background', 'assets/ForestBackground.jpg');
         this.load.image('story_button', 'assets/StoryModeButton.png');
         this.load.image('infinite_button', 'assets/InfiniteMode.png');
         this.load.image('girl_face', 'assets/girl_face.png');
@@ -27,8 +28,8 @@ var MainMenu = new Phaser.Class({
         this.add.image(data.background.x, data.background.y, data.background.image);
         let storyButton = this.add.image(data.button1.x, data.button1.y, data.button1.image);
         let infiniteButton = this.add.image(data.button2.x, data.button2.y, data.button2.image);
-        let girlButton = this.add.image(data.girlFace.x, data.girlFace.y, data.girlFace.image);
-        let guyButton = this.add.image(data.guyFace.x, data.guyFace.y, data.guyFace.image);
+        let girlButton = this.add.image(data.girlFace.x, data.girlFace.y, data.girlFace.image).setScale(1.5);
+        let guyButton = this.add.image(data.guyFace.x, data.guyFace.y, data.guyFace.image).setScale(1.5);
 
         score = 0;
         currentLevel = null;
