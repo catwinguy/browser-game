@@ -203,7 +203,7 @@ var MediumLevelScene2 = new Phaser.Class({
         this.anims.create({
             key: 'zombie_stand',
             frames: [ { key: 'zombie', frame: 4 } ],
-            frameRate: 15
+            frameRate: 20
         });
         this.anims.create({
             key: 'zombie_right',

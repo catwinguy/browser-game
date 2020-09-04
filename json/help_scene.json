@@ -1,0 +1,78 @@
+{
+    "background": {
+        "image": "background", 
+        "x": 400, 
+        "y" : 300
+    },
+    "return_button": {
+        "image": "return_button", 
+        "x": 50,
+        "y": 40
+    },
+    "green_potion" : {
+        "image": "green_potion",
+        "x": 125,
+        "y": 190
+    },
+    "blue_potion" : {
+        "image": "blue_potion",
+        "x": 125,
+        "y": 240
+    },
+    "purple_potion" : {
+        "image": "purple_potion",
+        "x": 125,
+        "y": 290
+    },
+    "emerald": {
+        "image": "emerald",
+        "x": 125,
+        "y": 395
+    },
+    "diamond" : {
+        "image": "diamond",
+        "x": 125,
+        "y": 445
+    },
+    "sword" : {
+        "image": "sword",
+        "x": 650,
+        "y": 305
+    },
+    "door" : {
+        "image": "door",
+        "x": 567,
+        "y": 175
+    },
+    "arrows" : {
+        "image": "arrowkeys",
+        "x": 567,
+        "y": 465
+    },
+    "redWarning" : {
+        "image": "redWarning",
+        "x": 475,
+        "y": 305
+    },
+    "zombie" : {
+        "image" : "zombie",
+        "x": 475,
+        "y": 305
+    },
+    "text" : [
+        {"content" : "Survival Guide", "x" : 260, "y" : 75, "color" : "#FFF", "size" : "50px"},
+        {"content" : "Potions", "x" : 115, "y" : 137, "color" : "#FFF", "size" : "28px"},
+        {"content" : "One Time Jump Boost", "x" : 150, "y" : 177, "color" : "#FFF", "size" : "24px"},
+        {"content" : "Increase Jump Height", "x" : 150, "y" : 227, "color" : "#FFF", "size" : "24px"},
+        {"content" : "Lower Jump Height", "x" : 150, "y" : 277, "color" : "#FFF", "size" : "24px"},
+        {"content" : "Jewels", "x" : 115, "y" : 342, "color" : "#FFF", "size" : "28px"},
+        {"content" : "Emerald - 0.5 Second", "x" : 150, "y" : 382, "color" : "#FFF", "size" : "24px"},
+        {"content" : "Diamond - 1 Second", "x" : 150, "y" : 432, "color" : "#FFF", "size" : "24px"},
+        {"content" : "Goal: Reach the Door", "x" : 450, "y" : 212, "color" : "#000", "size" : "28px"},
+        {"content" : "Avoid Zombies", "x" : 410, "y" : 360, "color" : "#FFF", "size" : "24px"},
+        {"content" : "or", "x" : 557, "y" : 287, "color" : "#FFF", "size" : "30px"},
+        {"content" : "Fight Zombies", "x" : 585, "y" : 360, "color" : "#FFF", "size" : "24px"},
+        {"content" : "(5 Durability)", "x" : 595, "y" : 335, "color" : "#FFF", "size" : "18px"},
+        {"content" : "Use Arrow Keys to Move and Jump", "x" : 425, "y" : 520, "color" : "#FFF", "size" : "24px"}
+    ]
+}

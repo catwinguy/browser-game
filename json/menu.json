@@ -14,6 +14,11 @@
         "x": 400, 
         "y": 385
     },
+    "button3" : {
+        "image": "help_button", 
+        "x": 400, 
+        "y": 430
+    },
     "girlFace" : {
         "image": "girl_face",
         "x": 400,

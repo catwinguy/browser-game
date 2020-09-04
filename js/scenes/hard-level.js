@@ -174,8 +174,6 @@ var HardLevelScene = new Phaser.Class({
                 target: 'hardlevelscene2',
                 duration: 1000
             });
-            // player.setVelocityX(0);
-            // player.setVelocityY(0);
         }
 
         this.physics.add.overlap(player, coins, collectCoin, null, this);
@@ -193,7 +191,7 @@ var HardLevelScene = new Phaser.Class({
         this.anims.create({
             key: 'zombie_stand',
             frames: [ { key: 'zombie', frame: 4 } ],
-            frameRate: 15
+            frameRate: 20
         });
         this.anims.create({
             key: 'zombie_right',
