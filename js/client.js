@@ -41,7 +41,6 @@ function updateStoryTable() {
                     continue;
                 }
                 let currentUser = users[i];
-                console.log(currentUser);
 
                 let newRow = document.createElement("tr");
                 let rank = document.createElement("td");
@@ -82,7 +81,6 @@ function updateInfiniteTable() {
                     continue;
                 }
                 let currentUser = users[i];
-                console.log(currentUser);
 
                 let newRow = document.createElement("tr");
                 let rank = document.createElement("td");
