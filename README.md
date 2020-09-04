@@ -46,7 +46,96 @@ Phil H.
     minecraftgame(# );
     ```
 
-3. Create an ```env.json``` file with the credentials of your PostgreSQL database. You env.json file should look like the following:
+3. (Optional) Run ```./make-users``` in Terminal to add our four group members to the database. This is not a necessary step, but if you would like to test behavior when multiple users exist in the database, feel free to use this. Also, if you do not have bash on your device, just run the code manually below.
+
+    ```
+    psql --u postgres -d minecraftgame -c "INSERT INTO users (
+        username,
+        hashed_password,
+        level1_fastest_run,
+        level2_fastest_run,
+        level3_fastest_run,
+        level4_fastest_run,
+        level5_fastest_run,
+        story_high_score,
+        infinite_high_score)
+        VALUES (
+            'phil',
+            'philshashedpassword',
+            10.124,
+            11.246,
+            24.631,
+            32.443,
+            30.774,
+            109.218,
+            4
+    );
+    INSERT INTO users (
+        username,
+        hashed_password,
+        level1_fastest_run,
+        level2_fastest_run,
+        level3_fastest_run,
+        level4_fastest_run,
+        level5_fastest_run,
+        story_high_score,
+        infinite_high_score)
+        VALUES (
+            'amanda',
+            'amandashashedpassword',
+            9.124,
+            11.246,
+            24.631,
+            32.440,
+            25.774,
+            94.215,
+            5
+    );
+    INSERT INTO users (
+        username,
+        hashed_password,
+        level1_fastest_run,
+        level2_fastest_run,
+        level3_fastest_run,
+        level4_fastest_run,
+        level5_fastest_run,
+        story_high_score,
+        infinite_high_score)
+        VALUES (
+            'jess',
+            'jessshashedpassword',
+            8.124,
+            10.246,
+            24.631,
+            28.443,
+            30.574,
+            102.018,
+            2
+    );
+    INSERT INTO users (
+        username,
+        hashed_password,
+        level1_fastest_run,
+        level2_fastest_run,
+        level3_fastest_run,
+        level4_fastest_run,
+        level5_fastest_run,
+        story_high_score,
+        infinite_high_score)
+        VALUES (
+            'cat',
+            'catshashedpassword',
+            7.124,
+            10.246,
+            20.621,
+            32.443,
+            28.774,
+            98.208,
+            10
+    );"
+    ```
+
+4. Create an ```env.json``` file with the credentials of your PostgreSQL database. You env.json file should look like the following:
     ```
     {
         "user": "postgres",
@@ -57,13 +146,13 @@ Phil H.
     }
     ```
 
-4. Create an account at the Register page.
+5. Create an account at the Register page.
 
-5. Type ```node server.js``` into the terminal to run the server.
+6. Type ```node server.js``` into the terminal to run the server.
 
-6. Navigate to ```http://localhost:3000``` on your preferred browser.
+7. Navigate to ```http://localhost:3000``` on your preferred browser.
 
-7. Enjoy the game!
+8. Enjoy the game!
 
 <!-- ## Schedule
 Week 7 (Tuesday, 8/4)
