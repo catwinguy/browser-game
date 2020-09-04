@@ -20,11 +20,8 @@ var GeneratedLevelScene = new Phaser.Class({
         this.load.image('diamond', 'assets/diamond.png');
 
         // Dynamic Objects 
-        this.load.spritesheet('zombie', 'assets/zombie.png', { frameWidth: 16, frameHeight: 32 })
         this.load.spritesheet('girl', 'assets/girl.png', {frameWidth: 16, frameHeight: 32})
-        this.load.spritesheet('girl_sword', 'assets/girl_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('guy', 'assets/guy.png', {frameWidth: 16, frameHeight: 32})
-        this.load.spritesheet('guy_sword', 'assets/guy_sword.png', {frameWidth: 32, frameHeight: 32})
         this.load.spritesheet('door_left', 'assets/door_left.png', {frameWidth: 16, frameHeight: 32})
     },
 
@@ -36,7 +33,6 @@ var GeneratedLevelScene = new Phaser.Class({
         let groundData = data.ground;
         let platformData = data.platforms;
         let coinData = data.coins;
-        let powerupData = data.powerups;
         let doorData = data.doors;
 
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0);
@@ -46,12 +42,9 @@ var GeneratedLevelScene = new Phaser.Class({
         this.endTime = this.start + infiniteTime;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
-        // Static groups
         let platforms = this.physics.add.staticGroup();
         let coins = this.physics.add.group();
-        let powerups = this.physics.add.staticGroup();
         let doors = this.physics.add.group();
-        let swords = this.physics.add.staticGroup();
 
         // ground and platforms are separate for now but we can combine them if not needed 
         groundData.forEach(function(ground){
@@ -61,13 +54,8 @@ var GeneratedLevelScene = new Phaser.Class({
             platforms.create(platform.x, platform.y, platform.image);
         })
 
-        if (data.sword.image !== undefined){
-            swords.create(data.sword.x, data.sword.y, data.sword.image);
-        };
-
         player = this.physics.add.sprite(data.playerStart.x, data.playerStart.y, playerData.name);
         player.body.setGravityY(200);
-        player.hasSword = false;
 
         this.anims.create({
             key: 'left',
@@ -89,37 +77,10 @@ var GeneratedLevelScene = new Phaser.Class({
             repeat: -1
         });
 
-        // with sword:
-
-        this.anims.create({
-            key: 'left_sword',
-            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 0, end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'turn_sword',
-            frames: [ { key: playerData.name + "_sword", frame: 4 } ],
-            frameRate: 20
-        });
-
-        this.anims.create({
-            key: 'right_sword',
-            frames: this.anims.generateFrameNumbers(playerData.name + "_sword", { start: 5, end: 8 }),
-            frameRate: 10,
-            repeat: -1
-        });
-
         coinData.forEach(function(coin){
             let cc = coins.create(coin.x, coin.y, coin.image);
             cc.setBounceY(Phaser.Math.FloatBetween(0.2, 0.6));
             cc.name = coin.image;
-        });
-
-        powerupData.forEach(function(powerup){
-            let powerupChild = powerups.create(powerup.x, powerup.y, powerup.image);
-            powerupChild.name = powerup.name;
         });
 
         // currently only works for one door
@@ -142,9 +103,7 @@ var GeneratedLevelScene = new Phaser.Class({
         }, this);
         this.physics.add.collider(player, platforms);  // Collider between two game objects
         this.physics.add.collider(coins, platforms);  // make coins land on the ground
-        this.physics.add.collider(powerups, platforms);
         this.physics.add.collider(doors, platforms);
-        this.physics.add.collider(swords, platforms);
 
         function enterDoor(player, door) {
             let time = new Date();
@@ -174,9 +133,7 @@ var GeneratedLevelScene = new Phaser.Class({
         }
 
         this.physics.add.overlap(player, coins, this.updateScore, null, this);
-        this.physics.add.overlap(player, powerups, collectPowerup, null, this);
         this.physics.add.overlap(player, doors, enterDoor, null, this);
-        this.physics.add.overlap(player, swords, collectSword, null, this);
 
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -249,29 +206,15 @@ var GeneratedLevelScene = new Phaser.Class({
             // Move
             if (cursors.left.isDown) {
                 player.setVelocityX(-160);
-                if (player.hasSword) {
-                    player.anims.play('left_sword', true);
-                } else {
-                    player.anims.play('left', true);
-                }
+                player.anims.play('left', true);
             }
             else if (cursors.right.isDown) {
                 player.setVelocityX(160);
-                if (player.hasSword) {
-                    player.anims.play('right_sword', true);
-                } else {
-                    player.anims.play('right', true);
-                }
-
+                player.anims.play('right', true);
             }
             else {
                 player.setVelocityX(0);
-                if (player.hasSword) {
-                    player.anims.play('turn_sword');
-                } else {
-                    player.anims.play('turn');
-                }
-
+                player.anims.play('turn');
             }
 
             // Jump
