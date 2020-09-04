@@ -200,79 +200,72 @@ var HardLevelScene2 = new Phaser.Class({
         this.zombie1 = this.physics.add.sprite(zombies[0].x, zombies[0].y, 'zombie');
         this.zombie1.health = zombieData.health;
         this.zombie1.attack = zombieData.attack;
+        this.zombie1.direction = 'forward';  // Starting zombie move direction
         this.zombie1.body.setGravityY(1000);
-        this.zombie1.body.setBounce(0.1, 0.1);
+        this.zombie1.body.setBounce(0, 0.1);
 
         // Zombie 2
         this.zombie2 = this.physics.add.sprite(zombies[1].x, zombies[1].y, 'zombie');
         this.zombie2.health = zombieData.health;
         this.zombie2.attack = zombieData.attack;
+        this.zombie2.direction = 'forward';  // Starting zombie move direction
         this.zombie2.body.setGravityY(1000);
-        this.zombie2.body.setBounce(0.1, 0.1);
+        this.zombie2.body.setBounce(0, 0.1);
 
         // Zombie 3
         this.zombie3 = this.physics.add.sprite(zombies[2].x, zombies[2].y, 'zombie');
         this.zombie3.health = zombieData.health;
         this.zombie3.attack = zombieData.attack;
+        this.zombie3.direction = 'backward';  // Starting zombie move direction
         this.zombie3.body.setGravityY(1000);
-        this.zombie3.body.setBounce(0.1, 0.1);
+        this.zombie3.body.setBounce(0, 0.1);
 
         // Zombie 4
         this.zombie4 = this.physics.add.sprite(zombies[3].x, zombies[3].y, 'zombie');
         this.zombie4.health = zombieData.health;
         this.zombie4.attack = zombieData.attack;
+        this.zombie4.direction = 'backward';  // Starting zombie move direction
         this.zombie4.body.setGravityY(1000);
-        this.zombie4.body.setBounce(0.1, 0.1);
+        this.zombie4.body.setBounce(0, 0.1);
 
         // Zombie 5
         this.zombie5 = this.physics.add.sprite(zombies[4].x, zombies[4].y, 'zombie');
         this.zombie5.health = zombieData.health;
         this.zombie5.attack = zombieData.attack;
+        this.zombie5.direction = 'forward';  // Starting zombie move direction
         this.zombie5.body.setGravityY(1000);
-        this.zombie5.body.setBounce(0.1, 0.1);
+        this.zombie5.body.setBounce(0, 0.1);
 
         // Zombie 6
         this.zombie6 = this.physics.add.sprite(zombies[5].x, zombies[5].y, 'zombie');
         this.zombie6.health = zombieData.health;
         this.zombie6.attack = zombieData.attack;
+        this.zombie6.direction = 'backward';  // Starting zombie move direction
         this.zombie6.body.setGravityY(1000);
-        this.zombie6.body.setBounce(0.1, 0.1);
+        this.zombie6.body.setBounce(0, 0.1);
 
         // Zombie 7
         this.zombie7 = this.physics.add.sprite(zombies[6].x, zombies[6].y, 'zombie');
         this.zombie7.health = zombieData.health;
         this.zombie7.attack = zombieData.attack;
-        this.zombie7.body.setGravityY(1000);
-        this.zombie7.body.setBounce(0.1, 0.1);
-
-        this.physics.add.collider(this.zombie1, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie1, player);  // make coins land on the ground
-        this.zombie1.body.collideWorldBounds = true;
-        this.zombie1.direction = 'forward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie2, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie2, player);  // make coins land on the ground
-        this.zombie2.body.collideWorldBounds = true;
-        this.zombie2.direction = 'forward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie3, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie3, player);  // make coins land on the ground
-        this.zombie3.body.collideWorldBounds = true;
-        this.zombie3.direction = 'backward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie4, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie4, player);  // make coins land on the ground
-        this.zombie4.body.collideWorldBounds = true;
-        this.zombie4.direction = 'backward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie5, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie5, player);  // make coins land on the ground
-        this.zombie5.body.collideWorldBounds = true;
-        this.zombie5.direction = 'forward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie6, platforms);  // Collider between two game objects
-        this.physics.add.collider(this.zombie6, player);  // make coins land on the ground
-        this.zombie6.body.collideWorldBounds = true;
-        this.zombie6.direction = 'backward';  // Starting zombie move direction
-        this.physics.add.collider(this.zombie7, platforms);  // Collider  between two game objects
-        this.physics.add.collider(this.zombie7, player);  // make coins land on the ground
-        this.zombie7.body.collideWorldBounds = true;
         this.zombie7.direction = 'forward';  // Starting zombie move direction
+        this.zombie7.body.setGravityY(1000);
+        this.zombie7.body.setBounce(0, 0.1);
+
+        this.physics.add.collider(this.zombie1, platforms);
+        this.zombie1.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie2, platforms);
+        this.zombie2.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie3, platforms);
+        this.zombie3.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie4, platforms);
+        this.zombie4.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie5, platforms);
+        this.zombie5.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie6, platforms);
+        this.zombie6.body.collideWorldBounds = true;
+        this.physics.add.collider(this.zombie7, platforms);
+        this.zombie7.body.collideWorldBounds = true;
 
         this.physics.add.overlap(player, this.zombie1, fight, null, this);
         this.physics.add.overlap(player, this.zombie2, fight, null, this);

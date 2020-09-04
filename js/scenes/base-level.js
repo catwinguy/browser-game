@@ -39,6 +39,7 @@ function collectSword(player, sword){
     sword.disableBody(true, true);
     player.hasSword = true;
     player.attack = 1;
+    player.swordDurability = 5;
 }
 
 
@@ -75,9 +76,15 @@ function fight (player, zombie) {
     {
         zombie.disableBody(true, true);
     }
-    console.log(zombie.health);
-    console.log(player.health);
-    console.log(player.hasSword);
-    zombie.body.velocity.x *= -1.0001;
-    player.body.velocity.x *= -1.0001;
+
+    player.swordDurability--;
+
+    if (!player.swordDurability)
+    {
+        player.hasSword = false;
+    }
+    
+    console.log("Zombie Health: " + zombie.health);
+    console.log("Player Health: " + player.health);
+    console.log("Sword: " + player.hasSword);
 }
