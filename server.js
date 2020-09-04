@@ -246,10 +246,12 @@ app.post("/infinite-highscore", function (req, res) {
 
 app.post("/story-highscore", function (req, res) {
     if (!req.body.hasOwnProperty("score") ||
-        !req.body.hasOwnProperty("level") ||
-        req.session.user === undefined)
+        !req.body.hasOwnProperty("level"))
     {
         res.status(500).json({"error": "Invalid request."}).send();
+    }
+    else if (!req.session.hasOwnProperty("user")) {
+        res.status(401).json({ "error": "No user logged in." }).send();
     }
     else {
         let score = req.body.score;
