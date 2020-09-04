@@ -82,8 +82,9 @@ function fight (player, zombie) {
     if (!player.swordDurability)
     {
         player.hasSword = false;
+        player.attack =  0;
     }
-    
+
     console.log("Zombie Health: " + zombie.health);
     console.log("Player Health: " + player.health);
     console.log("Sword: " + player.hasSword);

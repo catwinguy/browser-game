@@ -422,7 +422,7 @@ var HardLevelScene = new Phaser.Class({
         }
 
         // Player Death
-        if (playerData.health == 0)
+        if (player.health == 0)
         {
             this.scene.restart();
         }
