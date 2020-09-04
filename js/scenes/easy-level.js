@@ -141,11 +141,11 @@ var EasyLevelScene = new Phaser.Class({
         }, this)
 
         this.events.on('pause', function () {
-            console.log('Easy level paused');
+            console.log('Stage 1 paused');
         })
 
         this.events.on('resume', function (flag) {
-            console.log('Easy level resumed');
+            console.log('Stage 1 resumed');
             // Fixes the issue with cursor input seeing it be saved as isDown when it is not
             cursors.up.isDown = false;
             cursors.left.isDown = false;
