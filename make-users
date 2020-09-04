@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+psql --u postgres -d minecraftgame -c "INSERT INTO users (
+    username,
+    hashed_password,
+    level1_fastest_run,
+    level2_fastest_run,
+    level3_fastest_run,
+    level4_fastest_run,
+    level5_fastest_run,
+    story_high_score,
+    infinite_high_score)
+    VALUES (
+        'phil',
+        'philshashedpassword',
+        10.124,
+        11.246,
+        24.631,
+        32.443,
+        30.774,
+        109.218,
+        4
+);
+INSERT INTO users (
+    username,
+    hashed_password,
+    level1_fastest_run,
+    level2_fastest_run,
+    level3_fastest_run,
+    level4_fastest_run,
+    level5_fastest_run,
+    story_high_score,
+    infinite_high_score)
+    VALUES (
+        'amanda',
+        'amandashashedpassword',
+        9.124,
+        11.246,
+        24.631,
+        32.440,
+        25.774,
+        94.215,
+        5
+);
+INSERT INTO users (
+    username,
+    hashed_password,
+    level1_fastest_run,
+    level2_fastest_run,
+    level3_fastest_run,
+    level4_fastest_run,
+    level5_fastest_run,
+    story_high_score,
+    infinite_high_score)
+    VALUES (
+        'jess',
+        'jessshashedpassword',
+        8.124,
+        10.246,
+        24.631,
+        28.443,
+        30.574,
+        102.018,
+        2
+);
+INSERT INTO users (
+    username,
+    hashed_password,
+    level1_fastest_run,
+    level2_fastest_run,
+    level3_fastest_run,
+    level4_fastest_run,
+    level5_fastest_run,
+    story_high_score,
+    infinite_high_score)
+    VALUES (
+        'cat',
+        'catshashedpassword',
+        7.124,
+        10.246,
+        20.621,
+        32.443,
+        28.774,
+        98.208,
+        10
+);"

@@ -150,9 +150,9 @@ app.post("/auth", function(req, res) {
 });
 
 function updateScore(score, level, user, res) {
-    // if (level !== "infinite_high_score") {
-    //     score = parseFloat(score.toFixed(3));
-    // }
+    if (level !== "infinite_high_score") {
+        score = parseFloat(score.toFixed(3));
+    }
     switch(level) {
         case "level1_fastest_run":
             pool.query(
