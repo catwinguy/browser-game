@@ -153,9 +153,7 @@
         {"image": "green_potion", "x": 245, "y": 320, "name": "hop"},
         {"image": "green_potion", "x": 20, "y": 450, "name": "hop"}
     ],
-    "doors": [
-        {"image": "door_left", "x": 400, "y": 112}
-    ],
+    "door": {"image": "door_left", "x": 400, "y": 112},
     "zombie":  {"image": "zombie", "x": 100, "y": 360},
     "sword": {"image": "sword", "x": 70, "y": 525},
     "durability": [

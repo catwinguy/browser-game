@@ -37,10 +37,8 @@ var EasyLevelScene = new Phaser.Class({
         let platformData = data.platforms;
         let coinData = data.coins;
         let powerupData = data.powerups;
-        let doorData = data.doors;
 
         this.add.image(0,0,data.backgroundImage).setOrigin(0,0)
-        // console.log("Onto the next scene!");
 
         // timer 
         this.start = getCurrentTime();
@@ -90,13 +88,12 @@ var EasyLevelScene = new Phaser.Class({
             powerupChild.name = powerup.name;
         });
 
-        // currently only works for one door
-        let door = this.physics.add.sprite(doorData[0].x, doorData[0].y, doorData[0].image);
+        let door = this.physics.add.sprite(data.door.x, data.door.y, data.door.image);
         doors.add(door);
 
         this.anims.create({
             key: "open",
-            frames: this.anims.generateFrameNumbers(doorData[0].image, {start: 1, end: 1})
+            frames: this.anims.generateFrameNumbers(data.door.image, {start: 1, end: 1})
         })
 
         // Collision

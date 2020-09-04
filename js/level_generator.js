@@ -361,7 +361,7 @@ function convertMapToCoords(myMap){
         platforms: [],
         playerStart: {},
         coins: [],
-        doors: []
+        door: {}
     };
 
     let x;
@@ -387,7 +387,9 @@ function convertMapToCoords(myMap){
                     break;
                 case DOOR:
                     if (myMap[i-1][j] == DOOR){
-                        json["doors"].push({"image": "door_left", "x": x, "y": y-8});
+                        json["door"]["image"] = "door_left";
+                        json["door"]["x"] = x;
+                        json["door"]["y"] = y-8;
                     }
                     break;
                 case PLAYER_START:

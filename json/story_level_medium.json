@@ -28,8 +28,6 @@
         {"image": "purple_potion", "x": 350, "y": 280, "name": "raise-gravity"},
         {"image": "purple_potion", "x": 650, "y": 510, "name": "raise-gravity"}
     ],
-    "doors": [
-        {"image": "door_left", "x": 750, "y": 75}
-    ],
+    "door": {"image": "door_left", "x": 750, "y": 75},
     "sword": {}
 }
