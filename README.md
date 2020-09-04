@@ -1,10 +1,14 @@
 # Minecraft Adventures Lite
 
-CS375 Final Project: Browser Game
+CS375 Final Project: 2D Platformer Browser Game
 
 Drexel University, Summer 2019-2020
 
-Our project will be a 2D multiplayer platformer game (exact game type is still up for debate) that allows users to make accounts to keep track of their game data. Our intended audience ranges from kids to young adolescents.
+Our project will be a quick platformer game that allows users to make accounts to keep track of their game data. Our intended audience ranges from kids to young adolescents. There are two game modes: (1) Story mode and (2) Infinite mode.
+
+**Story Mode**: Made up of intentionally set-up levels for the player to complete. In this mode, the player will have to collect jewels and avoid zombies from spelling your doom. Grab a sword to have a fighting chance against the zombie, but be warned that a sword can break. Once the player completes all five stages, his or her score will get added to the leaderboard.
+
+**Infinite Mode**: Made up of randomly generate levels created by our custom algorithm. In this mode, the player will test their perseverence as they try to pass as many levels as they can without dying. Each level will have a time limit to finish the map while all collected jewels will add additional time. How long can you last and how many levels will you conquer?
 
 ### __Team Covid Coders__
 Amanda W.
@@ -15,27 +19,53 @@ Jessica W.
 
 Phil H. 
 
-## Running the Program
+## Running the Program After Installing Files
 
 1. Navigate to the program's directory then run ```npm install``` in the terminal to install the Node.js dependencies.
 
-2. Run ```./database``` in Terminal to create a database for users
+2. Run ```./database``` in Terminal to create a database for users or manually create it using PostgreSQL. Note: If you don't have PostgreSQL installed on your device, please install it.
 
-3. Type ```node server.js``` into the terminal to run the server.
+    ```
+    >psql -U postgres
+    >Password for user postgres: <Enter_Your_Password_Here>
 
-4. Navigate to ```http://localhost:3000``` on your preferred browser.
+    postgres=# CREATE DATABASE minecraftgame;
 
-Now, you can enjoy the game!
+    postgres=# \c minecraftgame;
 
-## Dependencies
+    minecraftgame=# CREATE TABLE users (
+    minecraftgame(#     username VARCHAR(20),
+    minecraftgame(#     hashed_password CHAR(60),
+    minecraftgame(#     level1_fastest_run NUMERIC,
+    minecraftgame(#     level2_fastest_run NUMERIC,
+    minecraftgame(#     level3_fastest_run NUMERIC,
+    minecraftgame(#     level4_fastest_run NUMERIC,
+    minecraftgame(#     level5_fastest_run NUMERIC,
+    minecraftgame(#     story_high_score NUMERIC,
+    minecraftgame(#     infinite_high_score NUMERIC
+    minecraftgame(# );
+    ```
 
-+ bcrypt: 5.0.0
-+ express: 4.17.1
-+ express-session: 1.17.1
-+ pg: 8.3.2
-+ phaser: 3.24.1
+3. Create an ```env.json``` file with the credentials of your PostgreSQL database. You env.json file should look like the following:
+    ```
+    {
+        "user": "postgres",
+        "host": "localhost",
+        "database": "minecraftgame",
+        "password": "<your_password>",
+        "port": 5432
+    }
+    ```
 
-## Schedule
+4. Create an account at the Register page.
+
+5. Type ```node server.js``` into the terminal to run the server.
+
+6. Navigate to ```http://localhost:3000``` on your preferred browser.
+
+7. Enjoy the game!
+
+<!-- ## Schedule
 Week 7 (Tuesday, 8/4)
 + Going through the tutorials/Learning the resources
 + Flesh out the specifics of the gameplay
@@ -63,4 +93,4 @@ Hard Deadline (Thursday of that week)
 + Give a heads up about having the Friday meeting during Thursday class-time
 
 ## Sync-Ups
-+ Tuesdays and Thursdays @ 11AM
++ Tuesdays and Thursdays @ 11AM -->
