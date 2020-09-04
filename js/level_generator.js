@@ -362,9 +362,7 @@ function convertMapToCoords(myMap){
         platforms: [],
         playerStart: {},
         coins: [],
-        powerups: [],
-        doors: [],
-        sword: {}    
+        doors: []
     };
 
     let x;
