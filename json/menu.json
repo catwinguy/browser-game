@@ -2,25 +2,26 @@
     "background": {
         "image": "menu_background", 
         "x": 400, 
-        "y" : 300
+        "y" : 100
     },
     "button1": {
         "image": "story_button", 
         "x": 400, 
-        "y": 450
+        "y": 250
     },
     "button2": {
         "image": "infinite_button", 
         "x": 400, 
-        "y": 500},
+        "y": 350
+    },
     "girlFace" : {
         "image": "girl_face",
         "x": 400,
-        "y": 385
+        "y": 450
     },
     "guyFace" : {
         "image": "guy_face",
         "x": 400,
-        "y": 385
+        "y": 450
     }
 }

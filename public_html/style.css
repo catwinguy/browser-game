@@ -2,6 +2,9 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-image: url('../assets/MinecraftDirtBackground.jpg');
+    height: 100%;
+    background-size: cover;
 }
 
 h1 {
@@ -9,8 +12,14 @@ h1 {
     margin-bottom: 0px;
 }
 
-h4 {
+h2 {
     text-align: center;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    color: white;
 }
 
 div {
@@ -20,9 +29,22 @@ div {
     margin: auto;
 }
 
+#button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+}
+
+button {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 table {
     border-collapse: collapse;
     text-align: center;
+    background-color: white;
 }
 
 th, td {
@@ -34,4 +56,8 @@ footer {
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     text-align: center;
+}
+
+p {
+    color: white;
 }
