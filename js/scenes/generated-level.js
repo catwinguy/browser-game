@@ -172,7 +172,7 @@ var GeneratedLevelScene = new Phaser.Class({
     {
         //timer
         if (pElapsed > 0) {
-            this.start += pElapsed;
+            this.endTime += pElapsed;
             pElapsed = 0;
         }
 
