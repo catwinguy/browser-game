@@ -296,9 +296,11 @@ var MediumLevelScene2 = new Phaser.Class({
         {
             return;
         }
-
-        // Zombie Movement
-        this.moveZombie(this.zombie, 1, 90, 185);
+        else
+        {
+            // Zombie Movement
+            this.moveZombie(this.zombie, 1, 90, 185);
+        }
         
         // Move
         if (cursors.left.isDown)
