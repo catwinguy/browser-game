@@ -38,7 +38,7 @@ var GeneratedLevelScene = new Phaser.Class({
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0);
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         this.endTime = this.start + infiniteTime;
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
@@ -106,8 +106,7 @@ var GeneratedLevelScene = new Phaser.Class({
         this.physics.add.collider(doors, platforms);
 
         function enterDoor(player, door) {
-            let time = new Date();
-            generatedTime = (time.getTime() - this.start) / 1000;
+            generatedTime = (getCurrentTime() - this.start) / 1000;
             infiniteScore++;
             let postData = {
                 score: infiniteScore,
@@ -160,14 +159,6 @@ var GeneratedLevelScene = new Phaser.Class({
         })
     },
 
-    getTime() {
-        //make a new date object
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     updateScore(player, coin){
         coin.disableBody(true, true);
         switch(coin.name){
@@ -184,7 +175,6 @@ var GeneratedLevelScene = new Phaser.Class({
 
     update: function()
     {
-
         //timer
         if (pElapsed > 0) {
             this.start += pElapsed;

@@ -98,3 +98,11 @@ function fight (player, zombie) {
     console.log("Player Health: " + player.health);
     console.log("Sword: " + player.hasSword);
 }
+
+function getCurrentTime() {
+    //make a new date object
+    let d = new Date();
+
+    //return the number of milliseconds since 1 January 1970 00:00:00. 
+    return d.getTime();
+}

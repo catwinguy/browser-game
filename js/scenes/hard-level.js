@@ -52,7 +52,7 @@ var HardLevelScene = new Phaser.Class({
         console.log("Onto the next scene!");
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -172,8 +172,7 @@ var HardLevelScene = new Phaser.Class({
 
         function enterDoor (player, door) {
             // console.log('You unlocked the 2nd Hard Stage!') 
-            let time = new Date();
-            hardTime = (time.getTime() - this.start) / 1000;
+            hardTime = (getCurrentTime() - this.start) / 1000;
             door.anims.play("open");
             hardScore = hardTime - score;
             score = 0;
@@ -368,14 +367,6 @@ var HardLevelScene = new Phaser.Class({
         }
     },
 
-    getTime() {
-        //make a new date object
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     update: function()
     {
         //timer
@@ -383,8 +374,7 @@ var HardLevelScene = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start) / 1000;
+        let elapsed = (getCurrentTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
 
         if (currentLevel !== 'hardlevelscene')

@@ -25,5 +25,5 @@
     "doors": [
         {"image": "door_left", "x": 750, "y": 197}
     ],
-    "sword": {"image": "sword", "x": 500, "y": 550}
+    "sword": {}
 }

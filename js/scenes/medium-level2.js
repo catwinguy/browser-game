@@ -53,7 +53,7 @@ var MediumLevelScene2 = new Phaser.Class({
         this.add.image(0, 0, data.backgroundImage).setOrigin(0, 0) 
 
         // timer 
-        this.start = this.getTime();
+        this.start = getCurrentTime();
         text = this.add.text(32, 32, 'time: 0ms', { font: '20px Arial' });
 
         // Static groups
@@ -175,8 +175,7 @@ var MediumLevelScene2 = new Phaser.Class({
 
         function enterDoor (player, door) {
             console.log('You unlocked the Hard Stage!');
-            let time = new Date();
-            mediumTime2 = (time.getTime() - this.start) / 1000;
+            mediumTime2 = (getCurrentTime() - this.start) / 1000;
             door.anims.play("open");
             mediumScore2 = mediumTime2 - score;
             score = 0;
@@ -291,14 +290,6 @@ var MediumLevelScene2 = new Phaser.Class({
         }
     },
 
-    getTime() {
-        //make a new date object 
-        let d = new Date();
-
-        //return the number of milliseconds since 1 January 1970 00:00:00. 
-        return d.getTime();
-    },
-
     update: function()
     {
         //timer
@@ -306,8 +297,7 @@ var MediumLevelScene2 = new Phaser.Class({
             this.start += pElapsed;
             pElapsed = 0;
         }
-        let time = new Date();
-        let elapsed = (time.getTime() - this.start) / 1000;
+        let elapsed = (getCurrentTime() - this.start) / 1000;
         text.setText(elapsed.toString() + ' s');
         
         if (currentLevel !== 'mediumlevelscene2')
