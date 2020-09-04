@@ -256,6 +256,12 @@ var MediumLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        // Restart
+        if (restartFlag) {
+            this.scene.restart();
+            restartFlag = false;
+        }
+
         // Player Death
         if (playerData.health == 0)
         {

@@ -1,5 +1,3 @@
-// const { NONE } = require("phaser");
-
 let config = {
     type: Phaser.AUTO,
     width: 800,
@@ -35,6 +33,7 @@ let zombieData = {
     attack : 1
 };
 
+// Constants
 let score = 0;
 let easyTime;
 let easyScore;
@@ -51,9 +50,10 @@ let infiniteScore = 0;
 let storyTime = 0;
 let currentLevel = null;
 let returnMenu = false;
+let restartFlag = false;
 let text;
 let startPause;
 let pElapsed;
 let pTime;
 let doorEnabled;
-let infiniteTime = 20000; // milliseconds
+let infiniteTime = 10000; // milliseconds

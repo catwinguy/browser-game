@@ -435,6 +435,12 @@ var HardLevelScene = new Phaser.Class({
             player.setVelocityY(-330);
         }
 
+        // Restart
+        if (restartFlag) {
+            this.scene.restart();
+            restartFlag = false;
+        }
+
         // Player Death
         if (player.health == 0)
         {
